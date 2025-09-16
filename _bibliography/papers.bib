@@ -98,16 +98,45 @@ preview = {kovacs2025105668.png}
       primaryClass={math.NA},
       url={https://arxiv.org/abs/2504.03393}, 
       doi={https://doi.org/10.48550/arXiv.2504.03393},
+      abstract={Bayesian inverse problems are an important application for probabilistic solvers of partial differential equations: when fully resolving numerical error is computationally infeasible, probabilistic solvers can be used to consistently model the error and propagate it to the posterior. In this work, the performance of the random mesh finite element method (RM-FEM) is investigated in a Bayesian inverse setting. We show how interpolation error negatively affects the RM-FEM posterior, and how these negative effects can be diminished. In scenarios where FEM is biased for a quantity of interest, we find that RM-FEM struggles to accurately model this bias.},
       preview={poot2025effectsinterpolationerrorbias.png}
 }
 
-@misc{ghane2025multiscaleanalysiswovencomposites,
+@article{ghane2025multiscaleanalysiswovencomposites,
       title={Multiscale Analysis of Woven Composites Using Hierarchical Physically Recurrent Neural Networks}, 
-      author={Ehsan Ghane and Marina A. Maia and Iuri B. C. M. Rocha and Martin Fagerström and Mohsen Mirakhalaf},
+      author={E. Ghane and M.A. Maia and I.B.C.M. Rocha and M. Fagerström and M. Mirkhalaf},
       year={2025},
       journal={arXiv:2503.04901},
       primaryClass={physics.comp-ph},
       url={https://arxiv.org/abs/2503.04901}, 
       doi={https://doi.org/10.48550/arXiv.2503.04901},
+      abstract={Multiscale homogenization of woven composites requires detailed micromechanical evaluations, leading to high computational costs. Data-driven surrogate models based on neural networks address this challenge but often suffer from big data requirements, limited interpretability, and poor extrapolation capabilities. This study introduces a Hierarchical Physically Recurrent Neural Network (HPRNN) employing two levels of surrogate modeling. First, Physically Recurrent Neural Networks (PRNNs) are trained to capture the nonlinear elasto-plastic behavior of warp and weft yarns using micromechanical data. In a second scale transition, a physics-encoded meso-to-macroscale model integrates these yarn surrogates with the matrix constitutive model, embedding physical properties directly into the latent space. Adopting HPRNNs for both scale transitions can avoid nonphysical behavior often observed in predictions from pure data-driven recurrent neural networks and transformer networks. This results in better generalization under complex cyclic loading conditions. The framework offers a computationally efficient and explainable solution for multiscale modeling of woven composites.},
       preview={ghane2025multiscaleanalysiswovencomposites.png}
+}
+
+@article{maia2025surrogatebasedmultiscaleanalysisexperiments,
+      title={Surrogate-based multiscale analysis of experiments on thermoplastic composites under off-axis loading}, 
+      author={M.A. Maia and I.B.C.M. Rocha and D. Kovačević and F.P. {van der Meer}},
+      year={2025},
+      journal={arXiv:2501.10193},
+      primaryClass={math.NA},
+      url={https://arxiv.org/abs/2501.10193}, 
+      doi={https://doi.org/10.48550/arXiv.2501.10193},
+      abstract={In this paper, we present a surrogate-based multiscale approach to model constant strain-rate and creep experiments on unidirectional thermoplastic composites under off-axis loading. In previous contributions, these experiments were modeled through a single-scale micromechanical simulation under the assumption of macroscopic homogeneity. Although efficient and accurate in many scenarios, simulations with low-off axis angles showed significant discrepancies with the experiments. It was hypothesized that the mismatch was caused by macroscopic inhomogeneity, which would require a multiscale approach to capture it. However, full-field multiscale simulations remain computationally prohibitive. To address this issue, we replace the micromodel with a Physically Recurrent Neural Network (PRNN), a surrogate model that combines data-driven components with embedded constitutive models to capture history-dependent behavior naturally. The explainability of the latent space of this network is also explored in a transfer learning strategy that requires no re-training. With the surrogate-based simulations, we confirm the hypothesis raised on the inhomogeneity of the macroscopic strain field and gain insights into the influence of adjustment of the experimental setup with oblique end-tabs. Results from the surrogate-based multiscale approach show better agreement with experiments than the single-scale micromechanical approach over a wide range of settings, although with limited accuracy on the creep experiments, where macroscopic test effects were implicitly taken into account in the material properties calibration.},
+      preview={maia2025surrogatebasedmultiscaleanalysisexperiments.png}
+}
+
+@article{KOVACEVIC2024105904,
+title = {Unifying creep and fatigue modeling of composites: A time-homogenized micromechanical framework with viscoplasticity and cohesive damage},
+journal = {Journal of the Mechanics and Physics of Solids},
+volume = {193},
+pages = {105904},
+year = {2024},
+issn = {0022-5096},
+doi = {https://doi.org/10.1016/j.jmps.2024.105904},
+url = {https://www.sciencedirect.com/science/article/pii/S0022509624003703},
+author = {D. Kovačević and P. Hofman and I.B.C.M. Rocha and F.P. {van der Meer}},
+keywords = {Fatigue, Creep, Time homogenization, Off-axis loading, Thermoplastic composites},
+abstract = {A micromechanical model for simulating failure of unidirectional composites under cyclic loading has been developed and tested. To efficiently pass through the loading signal, a two-scale temporal framework with adaptive stepping is proposed, with a varying step size between macro time steps, and a fixed number of equally spaced micro time steps in between. With the focus on matrix dominated failure under off-axis loading, viscoplasticity and microcracking are included in the model for the polymer matrix, while carbon fibers are modeled as elastic. For a proper representation of viscous deformation in the matrix under cyclic loading, a two-scale version of the Eindhoven Glassy Polymer constitutive model is formulated, that is based on time homogenization with an effective time increment. The failure state of the representative volume element is reached by the initiation and damaging of cohesive microcracks. Cyclic and static degradation are represented by using Dávila’s fatigue damage function, which is built on top of Turon’s quasi-static cohesive model. The model results are compared with available experimental data on unidirectional carbon/PEEK composites tested at different stress levels, load ratios, frequencies and off-axis angles. Plasticity controlled and crack growth controlled failure mechanisms, characteristic of the long-term response of polymeric composites, are captured by the model, as well as their distinct frequency dependence. As a limit case, the model is able to reproduce the time to failure in creep loading, where the heterogeneous microstructure and viscoplastic flow of the matrix trigger the evolution of quasi-static damage. However, for the studied material system, the present model does not accurately reproduce the load ratio dependence and the off-axis angle dependence of the crack growth controlled failure mechanism.},
+preview={kovacevic2024105904.png}
 }

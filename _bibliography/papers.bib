@@ -154,6 +154,7 @@ preview={kovacevic2024105904.png}
       journal={arXiv:2411.13361},
       primaryClass={physics.comp-ph},
       url={https://arxiv.org/abs/2411.13361}, 
+      doi={https://doi.org/10.48550/arXiv.2411.13361},
       abstract={Recent advancements in Markov chain Monte Carlo (MCMC) sampling and surrogate modelling have significantly enhanced the feasibility of Bayesian analysis across engineering fields. However, the selection and integration of surrogate models and cutting-edge MCMC algorithms, often depend on ad-hoc decisions. A systematic assessment of their combined influence on analytical accuracy and efficiency is notably lacking. The present work offers a comprehensive comparative study, employing a scalable case study in computational mechanics focused on the inference of spatially varying material parameters, that sheds light on the impact of methodological choices for surrogate modelling and sampling. We show that a priori training of the surrogate model introduces large errors in the posterior estimation even in low to moderate dimensions. We introduce a simple active learning strategy based on the path of the MCMC algorithm that is superior to all a priori trained models, and determine its training data requirements. We demonstrate that the choice of the MCMC algorithm has only a small influence on the amount of training data but no significant influence on the accuracy of the resulting surrogate model. Further, we show that the accuracy of the posterior estimation largely depends on the surrogate model, but not even a tailored surrogate guarantees convergence of the this http URL, we identify the forward model as the bottleneck in the inference process, not the MCMC algorithm. While related works focus on employing advanced MCMC algorithms, we demonstrate that the training data requirements render the surrogate modelling approach infeasible before the benefits of these gradient-based MCMC algorithms on cheap models can be reaped.},
       preview={riccius2024integrationactivelearningmcmc.png}
 }
@@ -173,4 +174,36 @@ keywords = {Neural networks, Heterogeneous materials, Rate-dependency, Path-depe
 abstract = {In this work, a hybrid physics-based data-driven surrogate model for the microscale analysis of heterogeneous material is investigated. The proposed model benefits from the physics-based knowledge contained in the constitutive models used in the full-order micromodel by embedding the material models in a neural network. Following previous developments, this paper extends the applicability of the physically recurrent neural network (PRNN) by introducing an architecture suitable for rate-dependent materials in a finite strain framework. In this model, the homogenized deformation gradient of the micromodel is encoded into a set of deformation gradients serving as input to the embedded constitutive models. These constitutive models compute stresses, which are combined in a decoder to predict the homogenized stress, such that the internal variables of the history-dependent constitutive models naturally provide physics-based memory for the network. To demonstrate the capabilities of the surrogate model, we consider a unidirectional composite micromodel with transversely isotropic elastic fibers and elasto-viscoplastic matrix material. The extrapolation properties of the surrogate model trained to replace such micromodel are tested on loading scenarios unseen during training, ranging from different strain-rates to cyclic loading and relaxation. Speed-ups of three orders of magnitude with respect to the runtime of the original micromodel are obtained.},
 selected={true},
 preview={egp_prnn.gif}
+}
+
+@article{pootBayesianApproachModeling2024,
+  title = {A {{Bayesian}} Approach to Modeling Finite Element Discretization Error},
+  author = {A. Poot and P. Kerfriden and I.B.C.M. Rocha and F.P. {van der Meer}},
+  year = {2024},
+  month = aug,
+  journal = {Statistics and Computing},
+  volume = {34},
+  number = {5},
+  pages = {167},
+  issn = {1573-1375},
+  doi = {10.1007/s11222-024-10463-z},
+  abstract = {In this work, the uncertainty associated with the finite element discretization error is modeled following the Bayesian paradigm. First, a continuous formulation is derived, where a Gaussian process prior over the solution space is updated based on observations from a finite element discretization. To avoid the computation of intractable integrals, a second, finer, discretization is introduced that is assumed sufficiently dense to represent the true solution field. A prior distribution is assumed over the fine discretization, which is then updated based on observations from the coarse discretization. This yields a posterior distribution with a mean that serves as an estimate of the solution, and a covariance that models the uncertainty associated with this estimate. Two particular choices of prior are investigated: a prior defined implicitly by assigning a white noise distribution to the right-hand side term, and a prior whose covariance function is equal to the Green's function of the partial differential equation. The former yields a posterior distribution with a mean close to the reference solution, but a covariance that contains little information regarding the finite element discretization error. The latter, on the other hand, yields posterior distribution with a mean equal to the coarse finite element solution, and a covariance with a close connection to the discretization error. For both choices of prior a contradiction arises, since the discretization error depends on the right-hand side term, but the posterior covariance does not. We demonstrate how, by rescaling the eigenvalues of the posterior covariance, this independence can be avoided.},
+  bibtex_show={true},
+  preview={pootBayesianApproachModeling2024.png}
+}
+
+@article{STORM2024117001,
+title = {A microstructure-based graph neural network for accelerating multiscale simulations},
+journal = {Computer Methods in Applied Mechanics and Engineering},
+volume = {427},
+pages = {117001},
+year = {2024},
+issn = {0045-7825},
+doi = {https://doi.org/10.1016/j.cma.2024.117001},
+url = {https://www.sciencedirect.com/science/article/pii/S0045782524002573},
+author = {J. Storm and I.B.C.M. Rocha and F.P. {van der Meer}},
+keywords = {Multiscale, Surrogate modeling, Graph neural network (GNN), Elasto-plasticity},
+abstract = {Simulating the mechanical response of advanced materials can be done more accurately using concurrent multiscale models than with single-scale simulations. However, the computational costs stand in the way of the practical application of this approach. The costs originate from microscale Finite Element (FE) models that must be solved at every macroscopic integration point. A plethora of surrogate modeling strategies attempt to alleviate this cost by learning to predict macroscopic stresses from macroscopic strains, completely replacing the microscale models. In this work, we introduce an alternative surrogate modeling strategy that allows for keeping the multiscale nature of the problem, allowing it to be used interchangeably with an FE solver for any time step. Our surrogate provides all microscopic quantities, which are then homogenized to obtain macroscopic quantities of interest. We achieve this for an elasto-plastic material by predicting full-field microscopic strains using a graph neural network (GNN) while retaining the microscopic constitutive material model to obtain the stresses. This hybrid data-physics graph-based approach avoids the high dimensionality originating from predicting full-field responses while allowing non-locality to arise. In addition, this approach introduces beneficial inductive bias to the model by encoding microscopic geometrical features. By training the GNN on a variety of meshes, it learns to generalize to unseen meshes, allowing a single model to be used for a range of microstructures. The embedded microscopic constitutive model in the GNN implicitly tracks history-dependent variables and leads to improved accuracy. While the microscopic stresses are fully dependent on the microscopic strains, we found it crucial to include both microscopic strains and stresses in the loss function. We demonstrate for several challenging scenarios that the surrogate can predict complex macroscopic stress–strain paths. As the computation time of our method scales favorably with the number of elements in the microstructure compared to the FE method, our method can significantly accelerate FE2 simulations.}
+bibtex_show={true},
+preview={storm2024117001.png}
 }

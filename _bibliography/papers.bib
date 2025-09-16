@@ -32,7 +32,6 @@ url = {https://www.sciencedirect.com/science/article/pii/S0141029625006054},
 author = {Andrés Martínez and Arthur Slobbe and Árpád Rózsás and Iuri Rocha and Frans {van der Meer}},
 keywords = {Structural Health Monitoring, Bayesian system identification, Variational Bayesian Monte Carlo, Distributed fibre optic sensing, Spatial correlation, Bayesian model selection},
 abstract = {Bayesian system identification is increasingly used in Structural Health Monitoring (SHM) to infer unobservable parameters of a structure from sensor data. The use of spatially dense measurements, such as those from distributed fibre optic sensors, can further enhance the results of Bayesian system identification due to the large volume of data. However, this combination faces two major challenges: the computational cost of inference and the correlation structure of closely spaced data points. To overcome these difficulties, we propose a methodology that combines the recently-developed Variational Bayes Monte Carlo (VBMC) method with Gaussian process modelling of model discrepancy, and extend VBMC to enable posterior predictive calculations without additional model evaluations. We demonstrate the effectiveness of the proposed methodology on a reinforced concrete slab bridge instrumented with distributed fibre optic strain sensors and analysed using a finite element model. The main outcome is that VBMC requires fewer than 200 finite element model evaluations while producing accurate estimates, whereas a conventional MCMC method requires thousands. The application of the proposed framework provides two additional novel insights: accounting for spatial correlations improves model performance and higher measurement resolution leads to more precise parameter estimates, though with limited impact on predictive accuracy. This study advances the practical implementation of Bayesian system identification in SHM by providing both the computational efficiency and statistical framework needed for modern sensing technologies.},
-preview = {martinez2025120214.png}
 }
 
 @article{KOVACS2025105668,
@@ -48,16 +47,15 @@ url = {https://www.sciencedirect.com/science/article/pii/S0997753825001020},
 author = {N. Kovács and M.A. Maia and I.B.C.M. Rocha and C. Furtado and P.P. Camanho and F.P. {van der Meer}},
 keywords = {Multiscale modeling, Machine learning, Composite materials},
 abstract = {In this work, we extend a recent surrogate modeling approach, the Physically Recurrent Neural Network (PRNN), to include the effect of debonding at the fiber–matrix interface of composite materials. The core idea of the PRNN is to implement the exact material models from the micromodel into one of the layers of the network to capture path-dependent behavior implicitly. For the case of debonding, additional material points with a cohesive zone model are integrated within the network, along with the bulk points associated to the fibers and/or matrix. The limitations of the existing architecture are discussed and taken into account for the development of novel architectures that better represent the stress homogenization procedure. In the proposed layout, the history variables of cohesive points act as extra latent features that help determine the local strains of bulk points. Different architectures are evaluated starting with small training datasets. To maximize the predictive accuracy and extrapolation capabilities of the network, various configurations of bulk and cohesive points are explored, along with different training dataset types and sizes.},
-preview = {kovacs2025105668.png}
 }
 
-@misc{poot2025bayesianfiniteelementmethod,
+@article{poot2025bayesianfiniteelementmethod,
   bibtex_show = {true},
       title={The Bayesian Finite Element Method in Inverse Problems: a Critical Comparison between Probabilistic Models for Discretization Error}, 
       author={Anne Poot and Iuri Rocha and Pierre Kerfriden and Frans van der Meeer},
       year={2025},
-      eprint={2506.02815},
-      archivePrefix={arXiv},
+      volume={2506.02815},
+      journal={arXiv},
       primaryClass={math.NA},
       url={https://arxiv.org/abs/2506.02815}, 
       preview = {bfem.gif}
@@ -72,7 +70,6 @@ preview = {kovacs2025105668.png}
       archivePrefix={arXiv},
       primaryClass={math.NA},
       url={https://arxiv.org/abs/2504.16713}, 
-      preview = {storm2025mixingdatadrivenphysicsbasedconstitutive.png}
 }
 
 @misc{kovacs2025uncertaintyquantificationmultiscalemodeling,
@@ -84,5 +81,4 @@ preview = {kovacs2025105668.png}
       archivePrefix={arXiv},
       primaryClass={cond-mat.dis-nn},
       url={https://arxiv.org/abs/2504.11625}, 
-      preview = {kovacs2025uncertaintyquantificationmultiscalemodeling.png}
 }

@@ -203,7 +203,57 @@ doi = {https://doi.org/10.1016/j.cma.2024.117001},
 url = {https://www.sciencedirect.com/science/article/pii/S0045782524002573},
 author = {J. Storm and I.B.C.M. Rocha and F.P. {van der Meer}},
 keywords = {Multiscale, Surrogate modeling, Graph neural network (GNN), Elasto-plasticity},
-abstract = {Simulating the mechanical response of advanced materials can be done more accurately using concurrent multiscale models than with single-scale simulations. However, the computational costs stand in the way of the practical application of this approach. The costs originate from microscale Finite Element (FE) models that must be solved at every macroscopic integration point. A plethora of surrogate modeling strategies attempt to alleviate this cost by learning to predict macroscopic stresses from macroscopic strains, completely replacing the microscale models. In this work, we introduce an alternative surrogate modeling strategy that allows for keeping the multiscale nature of the problem, allowing it to be used interchangeably with an FE solver for any time step. Our surrogate provides all microscopic quantities, which are then homogenized to obtain macroscopic quantities of interest. We achieve this for an elasto-plastic material by predicting full-field microscopic strains using a graph neural network (GNN) while retaining the microscopic constitutive material model to obtain the stresses. This hybrid data-physics graph-based approach avoids the high dimensionality originating from predicting full-field responses while allowing non-locality to arise. In addition, this approach introduces beneficial inductive bias to the model by encoding microscopic geometrical features. By training the GNN on a variety of meshes, it learns to generalize to unseen meshes, allowing a single model to be used for a range of microstructures. The embedded microscopic constitutive model in the GNN implicitly tracks history-dependent variables and leads to improved accuracy. While the microscopic stresses are fully dependent on the microscopic strains, we found it crucial to include both microscopic strains and stresses in the loss function. We demonstrate for several challenging scenarios that the surrogate can predict complex macroscopic stress–strain paths. As the computation time of our method scales favorably with the number of elements in the microstructure compared to the FE method, our method can significantly accelerate FE2 simulations.}
+abstract = {Simulating the mechanical response of advanced materials can be done more accurately using concurrent multiscale models than with single-scale simulations. However, the computational costs stand in the way of the practical application of this approach. The costs originate from microscale Finite Element (FE) models that must be solved at every macroscopic integration point. A plethora of surrogate modeling strategies attempt to alleviate this cost by learning to predict macroscopic stresses from macroscopic strains, completely replacing the microscale models. In this work, we introduce an alternative surrogate modeling strategy that allows for keeping the multiscale nature of the problem, allowing it to be used interchangeably with an FE solver for any time step. Our surrogate provides all microscopic quantities, which are then homogenized to obtain macroscopic quantities of interest. We achieve this for an elasto-plastic material by predicting full-field microscopic strains using a graph neural network (GNN) while retaining the microscopic constitutive material model to obtain the stresses. This hybrid data-physics graph-based approach avoids the high dimensionality originating from predicting full-field responses while allowing non-locality to arise. In addition, this approach introduces beneficial inductive bias to the model by encoding microscopic geometrical features. By training the GNN on a variety of meshes, it learns to generalize to unseen meshes, allowing a single model to be used for a range of microstructures. The embedded microscopic constitutive model in the GNN implicitly tracks history-dependent variables and leads to improved accuracy. While the microscopic stresses are fully dependent on the microscopic strains, we found it crucial to include both microscopic strains and stresses in the loss function. We demonstrate for several challenging scenarios that the surrogate can predict complex macroscopic stress–strain paths. As the computation time of our method scales favorably with the number of elements in the microstructure compared to the FE method, our method can significantly accelerate FE2 simulations.},
 bibtex_show={true},
 preview={storm2024117001.png}
 }
+
+@article{MIRKHALAF2024105242,
+title = {Micromechanics-based deep-learning for composites: Challenges and future perspectives},
+journal = {European Journal of Mechanics - A/Solids},
+volume = {105},
+pages = {105242},
+year = {2024},
+issn = {0997-7538},
+doi = {https://doi.org/10.1016/j.euromechsol.2024.105242},
+url = {https://www.sciencedirect.com/science/article/pii/S0997753824000226},
+author = {M. Mirkhalaf and I.B.C.M. Rocha},
+keywords = {Micromechanics, Artificial neural networks, Composite materials},
+abstract = {During the last few decades, industries such as aerospace and wind energy (among others) have been remarkably influenced by the introduction of high-performance composites. One challenge, however, for modeling and designing composites is the lack of computational efficiency of accurate high-fidelity models. For design purposes, using conventional optimization approaches typically results in cumbersome procedures due to huge dimensions of the design space and high computational expense of full-field simulations. In recent years, deep learning techniques have been found to be promising methods to increase the efficiency and robustness of a variety of algorithms in multi-scale modeling and design of composites. In this perspective paper, a short overview of the recent developments in micromechanics-based machine learning for composites is given. More importantly, existing challenges for further model enhancements and future perspectives of the field development are elaborated.},
+bibtex_show={true},
+preview={mirkhalaf2024105242.png}
+}
+
+@article{ROCHA2023104707,
+title = {Machine learning of evolving physics-based material models for multiscale solid mechanics},
+journal = {Mechanics of Materials},
+volume = {184},
+pages = {104707},
+year = {2023},
+issn = {0167-6636},
+doi = {https://doi.org/10.1016/j.mechmat.2023.104707},
+url = {https://www.sciencedirect.com/science/article/pii/S0167663623001539},
+author = {I.B.C.M. Rocha and P. Kerfriden and F.P. {van der Meer}},
+keywords = {Concurrent multiscale (FE) modeling, Surrogate modeling, Hybrid learning},
+abstract = {In this work we present a hybrid physics-based and data-driven learning approach to construct surrogate models for concurrent multiscale simulations of complex material behavior. We start from robust but inflexible physics-based constitutive models and increase their expressivity by allowing a subset of their material parameters to change in time according to an evolution operator learned from data. This leads to a flexible hybrid model combining a data-driven encoder and a physics-based decoder. Apart from introducing physics-motivated bias to the resulting surrogate, the internal variables of the decoder act as a memory mechanism that allows path dependency to arise naturally. We demonstrate the capabilities of the approach by combining an FNN encoder with several plasticity decoders and training the model to reproduce the macroscopic behavior of fiber-reinforced composites. The hybrid models are able to provide reasonable predictions of unloading/reloading behavior while being trained exclusively on monotonic data. Furthermore, in contrast to traditional surrogates mapping strains to stresses, the specific architecture of the hybrid model allows for lossless dimensionality reduction and straightforward enforcement of frame invariance by using strain invariants as the feature space of the encoder.},
+bibtex_show={true},
+preview={rocha2023104707.png}
+}
+
+@article{barrosoBIOSObjectorientedFramework2022,
+  title = {{{BIOS}}: An Object-Oriented Framework for {{Surrogate-Based Optimization}} Using Bio-Inspired Algorithms},
+  shorttitle = {{{BIOS}}},
+  author = {E.S. Barroso and L.G. Ribeiro and M.A. Maia and I.B.C.M. Rocha and E. Parente and A.M.C. {Melo}},
+  year = {2022},
+  month = jul,
+  journal = {Structural and Multidisciplinary Optimization},
+  volume = {65},
+  number = {7},
+  pages = {203},
+  issn = {1615-1488},
+  doi = {10.1007/s00158-022-03302-0},
+  abstract = {This paper presents BIOS (acronym for Biologically Inspired Optimization System), an object-oriented framework written in C++, aimed at heuristic optimization with a focus on Surrogate-Based Optimization (SBO) and structural problems. The use of SBO to deal with structural optimization has grown considerably in recent years due to the outstanding gain in efficiency, often with little loss in accuracy. This is especially promising when adaptive sampling techniques are used. However, many issues are yet to be addressed before SBO can be employed reliably in most optimization problems. In that sense, continuous experimentation, testing and comparison are needed, which can be more easily carried out in an existing framework. The architecture is designed to implement conventional nature inspired algorithms and Sequential Approximated Optimization (SAO). The system aims to be efficient, easy to use and extensible. The efficiency and accuracy of the system are assessed on a set of benchmarks, and on the optimization of functionally graded structures. Excellent results are obtained.},
+  bibtex_show={true},
+  preview={barrosoBIOSObjectorientedFramework2022.png}
+}
+

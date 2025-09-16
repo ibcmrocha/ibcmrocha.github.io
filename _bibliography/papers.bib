@@ -257,3 +257,72 @@ preview={rocha2023104707.png}
   preview={barrosoBIOSObjectorientedFramework2022.png}
 }
 
+
+@article{polym14050907,
+AUTHOR = {O. Starkova and A.I. Gagani and C.W. Karl and I.B.C.M. Rocha and J. Burlakovs and A.E. Krauklis},
+TITLE = {Modelling of Environmental Ageing of Polymers and Polymer Composites—Durability Prediction Methods},
+JOURNAL = {Polymers},
+VOLUME = {14},
+YEAR = {2022},
+NUMBER = {5},
+ARTICLE-NUMBER = {907},
+URL = {https://www.mdpi.com/2073-4360/14/5/907},
+PubMedID = {35267730},
+ISSN = {2073-4360},
+ABSTRACT = {Polymers and polymer composites are negatively impacted by environmental ageing, reducing their service lifetimes. The uncertainty of the material interaction with the environment compromises their superior strength and stiffness. Validation of new composite materials and structures often involves lengthy and expensive testing programs. Therefore, modelling is an affordable alternative that can partly replace extensive testing and thus reduce validation costs. Durability prediction models are often subject to conflicting requirements of versatility and minimum experimental efforts required for their validation. Based on physical observations of composite macroproperties, engineering and phenomenological models provide manageable representations of complex mechanistic models. This review offers a systematised overview of the state-of-the-art models and accelerated testing methodologies for predicting the long-term mechanical performance of polymers and polymer composites. Accelerated testing methods for predicting static, creep, and fatig ue lifetime of various polymers and polymer composites under environmental factors’ single or coupled influence are overviewed. Service lifetimes are predicted by means of degradation rate models, superposition principles, and parametrisation techniques. This review is a continuation of the authors’ work on modelling environmental ageing of polymer composites: the first part of the review covered multiscale and modular modelling methods of environmental degradation. The present work is focused on modelling engineering mechanical properties.},
+DOI = {10.3390/polym14050907},
+bibtex_show={true}
+}
+
+
+@article{polym14010216,
+AUTHOR = {A.E. Krauklis and C.W. Karl and I.B.C.M. Rocha and J. Burlakovs and R. Ozola-Davidane and A.I. Gagani and O. Starkova},
+TITLE = {Modelling of Environmental Ageing of Polymers and Polymer Composites—Modular and Multiscale Methods},
+JOURNAL = {Polymers},
+VOLUME = {14},
+YEAR = {2022},
+NUMBER = {1},
+ARTICLE-NUMBER = {216},
+URL = {https://www.mdpi.com/2073-4360/14/1/216},
+PubMedID = {35012240},
+ISSN = {2073-4360},
+ABSTRACT = {Service lifetimes of polymers and polymer composites are impacted by environmental ageing. The validation of new composites and their environmental durability involves costly testing programs, thus calling for more affordable and safe alternatives, and modelling is seen as such an alternative. The state-of-the-art models are systematized in this work. The review offers a comprehensive overview of the modular and multiscale modelling approaches. These approaches provide means to predict the environmental ageing and degradation of polymers and polymer composites. Furthermore, the systematization of methods and models presented herein leads to a deeper and reliable understanding of the physical and chemical principles of environmental ageing. As a result, it provides better confidence in the modelling methods for predicting the environmental durability of polymeric materials and fibre-reinforced composites.},
+DOI = {10.3390/polym14010216},
+bibtex_show={true}
+}
+
+@article{rochaOntheflyConstructionSurrogate2021,
+  title = {On-the-Fly Construction of Surrogate Constitutive Models for Concurrent Multiscale Mechanical Analysis through Probabilistic Machine Learning},
+  author = {I.B.C.M. Rocha and P. Kerfriden and F.P. {van der Meer}},
+  year = {2021},
+  month = jan,
+  journal = {Journal of Computational Physics: X},
+  volume = {9},
+  pages = {100083},
+  issn = {2590-0552},
+  doi = {10.1016/j.jcpx.2020.100083},
+  abstract = {Concurrent multiscale finite element analysis (FE2) is a powerful approach for high-fidelity modeling of materials for which a suitable macroscopic constitutive model is not available. However, the extreme computational effort associated with computing a nested micromodel at every macroscopic integration point makes FE2 prohibitive for most practical applications. Constructing surrogate models able to efficiently compute the microscopic constitutive response is therefore a promising approach in enabling concurrent multiscale modeling. This work presents a reduction framework for adaptively constructing surrogate models for FE2 based on statistical learning. The nested micromodels are replaced by a machine learning surrogate model based on Gaussian Processes (GP). The need for offline data collection is bypassed by training the GP models online based on data coming from a small set of fully-solved anchor micromodels that undergo the same strain history as their associated macroscopic integration points. The Bayesian formalism inherent to GP models provides a natural tool for online uncertainty estimation through which new observations or inclusion of new anchor micromodels are triggered. The surrogate constitutive manifold is constructed with as few micromechanical evaluations as possible by enhancing the GP models with gradient information and the solution scheme is made robust through a greedy data selection approach embedded within the conventional finite element solution loop for nonlinear analysis. The sensitivity to model parameters is studied with a tapered bar example with plasticity and the framework is further demonstrated with the elastoplastic analysis of a plate with multiple cutouts and with a crack growth example for mixed-mode bending. Although not able to handle non-monotonic strain paths in its current form, the framework is found to be a promising approach in reducing the computational cost of FE2, with significant efficiency gains being obtained without resorting to offline training.},
+  bibtex_show={true},
+  preview={rochaOntheflyConstructionSurrogate2021.png}
+}
+
+@article{ROCHA2020103995,
+title = {Micromechanics-based surrogate models for the response of composites: A critical comparison between a classical mesoscale constitutive model, hyper-reduction and neural networks},
+journal = {European Journal of Mechanics - A/Solids},
+volume = {82},
+pages = {103995},
+year = {2020},
+issn = {0997-7538},
+doi = {https://doi.org/10.1016/j.euromechsol.2020.103995},
+url = {https://www.sciencedirect.com/science/article/pii/S0997753820300565},
+author = {I.B.C.M. Rocha and P. Kerfriden and F.P. {van der Meer}},
+keywords = {Laminated composites, Reduced-order modeling, Hyper-reduction, Artificial neural networks},
+abstract = {Although being a popular approach for the modeling of laminated composites, mesoscale constitutive models often struggle to represent material response for arbitrary load cases. A better alternative in terms of accuracy is to use the FE2 technique to upscale microscopic material behavior without loss of generality, but the associated computational effort can be extreme. It is therefore interesting to explore alternative surrogate modeling strategies that maintain as much of the fidelity of FE2 as possible while still being computationally efficient. In this work, three surrogate modeling approaches are compared in terms of accuracy, efficiency and calibration effort: the state-of-the-art mesoscopic plasticity model by Vogler et al. (Vogler et al., 2013), regularized feed-forward neural networks and hyper-reduced-order models obtained by combining the Proper Orthogonal Decomposition (POD) and Empirical Cubature Method (ECM) techniques. Training datasets are obtained from a Representative Volume Element (RVE) model of the composite microstructure with a number of randomly-distributed linear-elastic fibers surrounded by a matrix with pressure-dependent plasticity. The approaches are evaluated with a comprehensive set of numerical tests comprising pure stress cases and three different stress combinations relevant in the design of laminated composites. The models are assessed on their ability to accurately reproduce the training cases as well as on how well they are able to predict unseen stress combinations. Gains in execution time are compared by using the trained surrogates in the FE2 model of an interlaminar shear test.},
+bibtex_show={true},
+preview={rocha2020103995.png}
+}
+
+
+
+
+

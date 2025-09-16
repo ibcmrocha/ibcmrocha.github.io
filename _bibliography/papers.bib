@@ -322,7 +322,33 @@ bibtex_show={true},
 preview={rocha2020103995.png}
 }
 
+@article{rochaAcceleratingCrackGrowth2020,
+  title = {Accelerating Crack Growth Simulations through Adaptive Model Order Reduction},
+  author = {I.B.C.M. Rocha and F.P. {van der Meer} and L.A.T. Moror{\'o} and L.J. Sluys},
+  year = {2020},
+  journal = {International Journal for Numerical Methods in Engineering},
+  volume = {121},
+  number = {10},
+  pages = {2147--2173},
+  issn = {1097-0207},
+  doi = {10.1002/nme.6303},
+  abstract = {Accurate numerical modeling of fracture in solids is a challenging undertaking that often involves the use of computationally demanding modeling frameworks. Model order reduction techniques can be used to alleviate the computational effort associated with these models. However, the traditional offline-online reduction approach is unsuitable for complex fracture phenomena due to their excessively large parameter spaces. In this work, we present a reduction framework for fracture simulations that leaves out the offline training phase and instead adaptively constructs reduced solutions spaces online. We apply the framework to the thick level set (TLS) method, a novel approach for modeling fracture able to model crack initiation, propagation, branching, and merging. The analysis starts with a fully-solved load step, after which two consecutive reduction operations---the proper orthogonal decomposition and the empirical cubature method---are performed. Numerical features specific to the TLS method are used to define an adaptive domain decomposition scheme that allows for three levels of model reduction coexisting on the same finite element mesh. Special solutions are proposed that allow the framework to deal with enriched nodes and a dynamic number of integration points. We demonstrate and assess the performance of the framework with a number of numerical examples.},
+  bibtex_show={true},
+  preview={rochaAcceleratingCrackGrowth2020.gif}
+}
 
-
-
+@article{rochaAdaptiveDomainbasedPOD2020,
+  title = {An Adaptive Domain-Based {{POD}}/{{ECM}} Hyper-Reduced Modeling Framework without Offline Training},
+  author = {I.B.C.M. Rocha and F.P. {van der Meer} and L.J. Sluys},
+  year = {2020},
+  month = jan,
+  journal = {Computer Methods in Applied Mechanics and Engineering},
+  volume = {358},
+  pages = {112650},
+  issn = {0045-7825},
+  doi = {10.1016/j.cma.2019.112650},
+  abstract = {This work presents a reduced-order modeling framework that precludes the need for offline training and adaptively adjusts its lower-order solution space as the analysis progresses. The analysis starts with a fully-solved step and elements are clustered based on their strain response. Elements with the highest strains are solved with a local/global approach in which degrees of freedom from elements undergoing the highest amount of nonlinearity are fully-solved and the rest is approximated by a Proper Orthogonal Decomposition (POD) reduced model with full integration. Elements belonging to the remaining clusters are subjected to a hyper-reduction step using the Empirical Cubature Method (ECM). Online error estimators are used to trigger a retraining process once the reduced solution space becomes inadequate. The performance of the framework is assessed through a series of numerical examples featuring a material model with pressure-dependent plasticity.},
+  bibtex_show={true},
+  preview={rochaAdaptiveDomainbasedPOD2020.png}
+}
 

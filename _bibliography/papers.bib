@@ -15,8 +15,21 @@ author = {M.A. Maia and I.B.C.M. Rocha and P. Kerfriden and F.P. {van der Meer}}
 keywords = {Artificial Neural Networks (ANNs), Multiscale, Heterogeneous materials, Path-dependency},
 abstract = {Driven by the need to accelerate numerical simulations, the use of machine learning techniques is rapidly growing in the field of computational solid mechanics. Their application is especially advantageous in concurrent multiscale finite element analysis (FE2) due to the exceedingly high computational costs often associated with it and the high number of similar micromechanical analyses involved. To tackle the issue, using surrogate models to approximate the microscopic behavior and accelerate the simulations is a promising and increasingly popular strategy. However, several challenges related to their data-driven nature compromise the reliability of surrogate models in material modeling. The alternative explored in this work is to reintroduce some of the physics-based knowledge of classical constitutive modeling into a neural network by employing the actual material models used in the full-order micromodel to introduce non-linearity. Thus, path-dependency arises naturally since every material model in the layer keeps track of its own internal variables. For the numerical examples, a composite Representative Volume Element with elastic fibers and elasto-plastic matrix material is used as the microscopic model. The network is tested in a series of challenging scenarios and its performance is compared to that of a state-of-the-art Recurrent Neural Network (RNN). A remarkable outcome of the novel framework is the ability to naturally predict unloading/reloading behavior without ever seeing it during training, a stark contrast with popular but data-hungry models such as RNNs. Finally, the proposed network is applied to FE2 examples to assess its robustness for application in nonlinear finite element analysis.},
 selected = {true},
-code={https://github.com/kLIMM-Lab/pyprnn},
+code={https://github.com/SLIMM-Lab/pyprnn},
 preview={prnn.png}
 }
 
-
+@article{MARTINEZ2025120214,
+title = {Towards practical Bayesian system identification of engineering structures with spatially dense measurements},
+journal = {Engineering Structures},
+volume = {334},
+pages = {120214},
+year = {2025},
+issn = {0141-0296},
+doi = {https://doi.org/10.1016/j.engstruct.2025.120214},
+url = {https://www.sciencedirect.com/science/article/pii/S0141029625006054},
+author = {Andrés Martínez and Arthur Slobbe and Árpád Rózsás and Iuri Rocha and Frans {van der Meer}},
+keywords = {Structural Health Monitoring, Bayesian system identification, Variational Bayesian Monte Carlo, Distributed fibre optic sensing, Spatial correlation, Bayesian model selection},
+abstract = {Bayesian system identification is increasingly used in Structural Health Monitoring (SHM) to infer unobservable parameters of a structure from sensor data. The use of spatially dense measurements, such as those from distributed fibre optic sensors, can further enhance the results of Bayesian system identification due to the large volume of data. However, this combination faces two major challenges: the computational cost of inference and the correlation structure of closely spaced data points. To overcome these difficulties, we propose a methodology that combines the recently-developed Variational Bayes Monte Carlo (VBMC) method with Gaussian process modelling of model discrepancy, and extend VBMC to enable posterior predictive calculations without additional model evaluations. We demonstrate the effectiveness of the proposed methodology on a reinforced concrete slab bridge instrumented with distributed fibre optic strain sensors and analysed using a finite element model. The main outcome is that VBMC requires fewer than 200 finite element model evaluations while producing accurate estimates, whereas a conventional MCMC method requires thousands. The application of the proposed framework provides two additional novel insights: accounting for spatial correlations improves model performance and higher measurement resolution leads to more precise parameter estimates, though with limited impact on predictive accuracy. This study advances the practical implementation of Bayesian system identification in SHM by providing both the computational efficiency and statistical framework needed for modern sensing technologies.},
+preview = {martinez2025120214.png}
+}

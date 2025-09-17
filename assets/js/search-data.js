@@ -69,7 +69,12 @@ ninja.data = [{
           section: "News",},{id: "news-first-version-of-the-website-online",
           title: 'First version of the website online!',
           description: "",
-          section: "News",},{id: "people-iuri-rocha",
+          section: "News",},{id: "people-anne-poot",
+          title: 'Anne Poot',
+          description: "",
+          section: "People",handler: () => {
+              window.location.href = "/people/anne-poot/";
+            },},{id: "people-iuri-rocha",
           title: 'Iuri Rocha',
           description: "",
           section: "People",handler: () => {
@@ -89,6 +94,16 @@ ninja.data = [{
           description: "",
           section: "People",handler: () => {
               window.location.href = "/people/marina-maia/";
+            },},{id: "people-anne-poot",
+          title: 'Anne Poot',
+          description: "",
+          section: "People",handler: () => {
+              window.location.href = "/people/nora-kovacs/";
+            },},{id: "people-renan-melo",
+          title: 'Renan Melo',
+          description: "",
+          section: "People",handler: () => {
+              window.location.href = "/people/renan-melo/";
             },},{
         id: 'social-email',
         title: 'email',

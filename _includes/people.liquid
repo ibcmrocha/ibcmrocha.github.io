@@ -1,8 +1,12 @@
 {% assign role = person.role | downcase %}
 {% if role contains "leader" %}
   {% assign role_class = "leader" %}
+{% elsif role contains "alumnus" %}
+  {% assign role_class = "alumnus" %}
 {% elsif role contains "phd" %}
   {% assign role_class = "phd" %}
+{% elsif role contains "msc" %}
+  {% assign role_class = "msc" %}
 {% else %}
   {% assign role_class = "" %}
 {% endif %}
@@ -26,13 +30,13 @@
     <!-- Project and promotor -->
     {% if person.project %}
       <p class="mb-2">
-	<strong class="me-1">Project:</strong>{{ person.project }}
+	<strong class="me-1">Project: </strong>{{ person.project }}
       </p>
     {% endif %}
 
     {% if person.promotor %}
       <p class="mb-3">
-	<strong class="me-1">Promotor:</strong>{{ person.promotor }}
+	<strong class="me-1">Promotor: </strong>{{ person.promotor }}
       </p>
     {% endif %}
     

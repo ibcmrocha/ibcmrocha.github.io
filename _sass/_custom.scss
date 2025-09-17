@@ -23,3 +23,12 @@ html[data-theme='dark'] { --role-bg-alpha: 0.08; --role-br-alpha: 0.20; }
   border: 1px solid rgba(var(--dark2-2), var(--role-br-alpha));
 }
 
+.card.msc{
+  background-color: rgba(var(--dark2-3), var(--role-bg-alpha));
+  border: 1px solid rgba(var(--dark2-3), var(--role-br-alpha));
+}
+
+.card.alumnus{
+  background-color: rgba(var(--dark2-8), var(--role-bg-alpha));
+  border: 1px solid rgba(var(--dark2-8), var(--role-br-alpha));
+}

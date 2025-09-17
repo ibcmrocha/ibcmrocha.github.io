@@ -69,7 +69,12 @@ ninja.data = [{
           section: "News",},{id: "news-first-version-of-the-website-online",
           title: 'First version of the website online!',
           description: "",
-          section: "News",},{id: "people-andres-martinez-colan",
+          section: "News",},{id: "people-abhinanda-ravikumar",
+          title: 'Abhinanda Ravikumar',
+          description: "",
+          section: "People",handler: () => {
+              window.location.href = "/people/abhinanda-ravikumar/";
+            },},{id: "people-andres-martinez-colan",
           title: 'Andres Martinez Colan',
           description: "",
           section: "People",handler: () => {
@@ -89,6 +94,11 @@ ninja.data = [{
           description: "",
           section: "People",handler: () => {
               window.location.href = "/people/daan-smolders/";
+            },},{id: "people-georgi-nikolov",
+          title: 'Georgi Nikolov',
+          description: "",
+          section: "People",handler: () => {
+              window.location.href = "/people/georgi-nikolov/";
             },},{id: "people-iuri-rocha",
           title: 'Iuri Rocha',
           description: "",
@@ -99,6 +109,16 @@ ninja.data = [{
           description: "",
           section: "People",handler: () => {
               window.location.href = "/people/jasmijn-msc/";
+            },},{id: "people-jesse-metz",
+          title: 'Jesse Metz',
+          description: "",
+          section: "People",handler: () => {
+              window.location.href = "/people/jesse-metz/";
+            },},{id: "people-joep-storm",
+          title: 'Joep Storm',
+          description: "",
+          section: "People",handler: () => {
+              window.location.href = "/people/joep-storm-msc/";
             },},{id: "people-joep-storm",
           title: 'Joep Storm',
           description: "",
@@ -119,16 +139,36 @@ ninja.data = [{
           description: "",
           section: "People",handler: () => {
               window.location.href = "/people/marina-maia/";
+            },},{id: "people-nora-kovacs",
+          title: 'Nora Kovacs',
+          description: "",
+          section: "People",handler: () => {
+              window.location.href = "/people/nora-kovacs-msc/";
             },},{id: "people-anne-poot",
           title: 'Anne Poot',
           description: "",
           section: "People",handler: () => {
               window.location.href = "/people/nora-kovacs/";
+            },},{id: "people-pascalle-essed",
+          title: 'Pascalle Essed',
+          description: "",
+          section: "People",handler: () => {
+              window.location.href = "/people/pascalle-essed/";
+            },},{id: "people-paul-van-ijzendoorn",
+          title: 'Paul van IJzendoorn',
+          description: "",
+          section: "People",handler: () => {
+              window.location.href = "/people/paul-vanijzendoorn/";
             },},{id: "people-renan-melo",
           title: 'Renan Melo',
           description: "",
           section: "People",handler: () => {
               window.location.href = "/people/renan-melo/";
+            },},{id: "people-rik-hendriks",
+          title: 'Rik Hendriks',
+          description: "",
+          section: "People",handler: () => {
+              window.location.href = "/people/rik-hendriks/";
             },},{id: "people-robbie-van-leeuwen",
           title: 'Robbie van Leeuwen',
           description: "",
@@ -139,6 +179,16 @@ ninja.data = [{
           description: "",
           section: "People",handler: () => {
               window.location.href = "/people/ruben-vangils/";
+            },},{id: "people-taylan-turan",
+          title: 'Taylan Turan',
+          description: "",
+          section: "People",handler: () => {
+              window.location.href = "/people/taylan-turan/";
+            },},{id: "people-uri-peker",
+          title: 'Uri Peker',
+          description: "",
+          section: "People",handler: () => {
+              window.location.href = "/people/uri-peker/";
             },},{
         id: 'social-email',
         title: 'email',

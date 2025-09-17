@@ -3,8 +3,8 @@
   --dark2-1: 27,158,119;  --dark2-2: 217,95,2;   --dark2-3: 117,112,179;
   --dark2-4: 231,41,138;  --dark2-5: 102,166,30;  --dark2-6: 230,171,2;
   --dark2-7: 166,118,29;  --dark2-8: 102,102,102;
-  --role-bg-alpha: 0.10;
-  --role-br-alpha: 0.25;
+  --role-bg-alpha: 0.30;
+  --role-br-alpha: 0.75;
 }
 html[data-theme='dark'] { --role-bg-alpha: 0.08; --role-br-alpha: 0.20; }
 
@@ -16,5 +16,10 @@ html[data-theme='dark'] { --role-bg-alpha: 0.08; --role-br-alpha: 0.20; }
 .card.leader {
   background-color: rgba(var(--dark2-1), var(--role-bg-alpha));
   border: 1px solid rgba(var(--dark2-1), var(--role-br-alpha));
+}
+
+.card.phd{
+  background-color: rgba(var(--dark2-2), var(--role-bg-alpha));
+  border: 1px solid rgba(var(--dark2-2), var(--role-br-alpha));
 }
 

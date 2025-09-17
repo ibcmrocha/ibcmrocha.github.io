@@ -9,22 +9,12 @@
 html[data-theme='dark'] { --role-bg-alpha: 0.08; --role-br-alpha: 0.20; }
 
 /* Set Bootstrap card variables per role */
-.card.role-1 { --bs-card-bg: rgba(var(--dark2-1), var(--role-bg-alpha));
-               --bs-card-border-color: rgba(var(--dark2-1), var(--role-br-alpha)); }
-.card.role-2 { --bs-card-bg: rgba(var(--dark2-2), var(--role-bg-alpha));
-               --bs-card-border-color: rgba(var(--dark2-2), var(--role-br-alpha)); }
-.card.role-3 { --bs-card-bg: rgba(var(--dark2-3), var(--role-bg-alpha));
-               --bs-card-border-color: rgba(var(--dark2-3), var(--role-br-alpha)); }
-.card.role-4 { --bs-card-bg: rgba(var(--dark2-4), var(--role-bg-alpha));
-               --bs-card-border-color: rgba(var(--dark2-4), var(--role-br-alpha)); }
-.card.role-5 { --bs-card-bg: rgba(var(--dark2-5), var(--role-bg-alpha));
-               --bs-card-border-color: rgba(var(--dark2-5), var(--role-br-alpha)); }
-.card.role-6 { --bs-card-bg: rgba(var(--dark2-6), var(--role-bg-alpha));
-               --bs-card-border-color: rgba(var(--dark2-6), var(--role-br-alpha)); }
-.card.role-7 { --bs-card-bg: rgba(var(--dark2-7), var(--role-bg-alpha));
-               --bs-card-border-color: rgba(var(--dark2-7), var(--role-br-alpha)); }
-.card.role-8 { --bs-card-bg: rgba(var(--dark2-8), var(--role-bg-alpha));
-               --bs-card-border-color: rgba(var(--dark2-8), var(--role-br-alpha)); }
 
 /* Optional: make sure the tint shows inside the card edge */
-.card[class*="role-"] { background-clip: padding-box; }
+// .card[class*="role-"] { background-clip: padding-box; }
+
+.card.leader {
+  background-color: rgba(var(--dark2-1), var(--role-bg-alpha));
+  border: 1px solid rgba(var(--dark2-1), var(--role-br-alpha));
+}
+

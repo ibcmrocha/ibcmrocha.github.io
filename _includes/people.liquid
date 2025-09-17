@@ -1,26 +1,13 @@
-{% assign p = include.person %}
-{% assign role = p.role | downcase | default: "" %}
-
-/* Pick a ColorBrewer Dark2 color (as RGB) by role */
-{% assign rgb = "102,102,102" %}  {# default / else #}
+{% assign role = person.role | downcase %}
 {% if role contains "leader" %}
-  {% assign rgb = "27,158,119" %}
+  {% assign role_class = "leader" %}
 {% elsif role contains "phd" %}
-  {% assign rgb = "217,95,2" %}
-{% elsif role contains "postdoc" %}
-  {% assign rgb = "117,112,179" %}
-{% elsif role contains "master" or role contains "msc" %}
-  {% assign rgb = "231,41,138" %}
+  {% assign role_class = "phd" %}
+{% else %}
+  {% assign role_class = "" %}
 {% endif %}
 
-/* Opacities (tweak to taste) */
-{% assign bg_alpha = "0.10" %}
-{% assign br_alpha = "0.25" %}
-
-<div 
-  class="card h-100 hoverable"
-  style="--bs-card-bg: rgba({{ rgb }}, {{ bg_alpha }}); --bs-card-border-color: rgba({{ rgb }}, {{ br_alpha }});"
->
+<div class="card h-100 hoverable {{ role_class }}">
   {% if person.img %}
     <img class="card-img-top" src="{{ person.img | relative_url }}" alt="{{ person.title }}">
   {% endif %}

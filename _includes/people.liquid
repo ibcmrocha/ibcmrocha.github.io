@@ -1,0 +1,42 @@
+<div class="card h-100 shadow-sm">
+  {% if person.img %}
+    <img class="card-img-top" src="{{ person.img | relative_url }}" alt="{{ person.title }}">
+  {% endif %}
+  <div class="card-body">
+    <h5 class="card-title mb-1">{{ person.title }}</h5>
+    {% if person.role %}<p class="text-muted mb-2">{{ person.role }}</p>{% endif %}
+
+    <div class="d-flex flex-wrap gap-3 align-items-center small">
+      {% if person.email %}
+        <a href="mailto:{{ person.email }}" class="text-decoration-none">
+          <i class="fas fa-envelope"></i> Email
+        </a>
+      {% endif %}
+      {% if person.website %}
+        <a href="{{ person.website }}" class="text-decoration-none">
+          <i class="fas fa-globe"></i> Website
+        </a>
+      {% endif %}
+      {% if person.scholar %}
+        <a href="{{ person.scholar }}" class="text-decoration-none">
+          <i class="ai ai-google-scholar"></i> Scholar
+        </a>
+      {% endif %}
+      {% if person.github %}
+        <a href="https://github.com/{{ person.github }}" class="text-decoration-none">
+          <i class="fab fa-github"></i> GitHub
+        </a>
+      {% endif %}
+      {% if person.linkedin %}
+        <a href="https://www.linkedin.com/in/{{ person.linkedin }}" class="text-decoration-none">
+          <i class="fab fa-linkedin"></i> LinkedIn
+        </a>
+      {% endif %}
+      {% if person.twitter %}
+        <a href="https://twitter.com/{{ person.twitter }}" class="text-decoration-none">
+          <i class="fab fa-x-twitter"></i> X
+        </a>
+      {% endif %}
+    </div>
+  </div>
+</div>

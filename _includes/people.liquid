@@ -1,8 +1,10 @@
 {% assign role = person.role | downcase %}
 {% if role contains "leader" %}
   {% assign role_class = "leader" %}
-{% elsif role contains "alumnus" %}
-  {% assign role_class = "alumnus" %}
+{% elsif role contains "alumnus" and role contains "msc" %}
+  {% assign role_class = "alumnus_msc" %}
+{% elsif role contains "alumnus" and role contains "phd" %}
+  {% assign role_class = "alumnus_phd" %}
 {% elsif role contains "phd" %}
   {% assign role_class = "phd" %}
 {% elsif role contains "msc" %}

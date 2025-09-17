@@ -69,7 +69,12 @@ ninja.data = [{
           section: "News",},{id: "news-first-version-of-the-website-online",
           title: 'First version of the website online!',
           description: "",
-          section: "News",},{id: "people-anne-poot",
+          section: "News",},{id: "people-andres-martinez-colan",
+          title: 'Andres Martinez Colan',
+          description: "",
+          section: "People",handler: () => {
+              window.location.href = "/people/andres-martinez/";
+            },},{id: "people-anne-poot",
           title: 'Anne Poot',
           description: "",
           section: "People",handler: () => {
@@ -79,6 +84,11 @@ ninja.data = [{
           description: "",
           section: "People",handler: () => {
               window.location.href = "/people/christiaan-bakker/";
+            },},{id: "people-daan-smolders",
+          title: 'Daan Smolders',
+          description: "",
+          section: "People",handler: () => {
+              window.location.href = "/people/daan-smolders/";
             },},{id: "people-iuri-rocha",
           title: 'Iuri Rocha',
           description: "",
@@ -94,6 +104,11 @@ ninja.data = [{
           description: "",
           section: "People",handler: () => {
               window.location.href = "/people/joep-storm/";
+            },},{id: "people-knut-tjensvoll",
+          title: 'Knut Tjensvoll',
+          description: "",
+          section: "People",handler: () => {
+              window.location.href = "/people/knut-tjensvoll/";
             },},{id: "people-leon-riccius",
           title: 'Leon Riccius',
           description: "",
@@ -114,6 +129,16 @@ ninja.data = [{
           description: "",
           section: "People",handler: () => {
               window.location.href = "/people/renan-melo/";
+            },},{id: "people-robbie-van-leeuwen",
+          title: 'Robbie van Leeuwen',
+          description: "",
+          section: "People",handler: () => {
+              window.location.href = "/people/robbie-vanleeuwen/";
+            },},{id: "people-ruben-van-gils",
+          title: 'Ruben van Gils',
+          description: "",
+          section: "People",handler: () => {
+              window.location.href = "/people/ruben-vangils/";
             },},{
         id: 'social-email',
         title: 'email',

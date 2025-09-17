@@ -1,4 +1,5 @@
-{% assign role = person.role | downcase %}
+{% assign p = include.person %}
+{% assign role = p.role | downcase | default: "" %}
 {% if role contains "leader" %}
   {% assign role_class = "role-1" %}
 {% elsif role contains "phd" %}

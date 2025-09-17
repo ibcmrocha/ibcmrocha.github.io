@@ -74,6 +74,11 @@ ninja.data = [{
           description: "",
           section: "People",handler: () => {
               window.location.href = "/people/iuri-rocha/";
+            },},{id: "people-marina-maia",
+          title: 'Marina Maia',
+          description: "",
+          section: "People",handler: () => {
+              window.location.href = "/people/marina-maia/";
             },},{
         id: 'social-email',
         title: 'email',

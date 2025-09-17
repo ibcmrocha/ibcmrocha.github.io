@@ -79,6 +79,11 @@ ninja.data = [{
           description: "",
           section: "People",handler: () => {
               window.location.href = "/people/iuri-rocha/";
+            },},{id: "people-jasmijn-van-riggelen",
+          title: 'Jasmijn van Riggelen',
+          description: "",
+          section: "People",handler: () => {
+              window.location.href = "/people/jasmijn-msc/";
             },},{id: "people-joep-storm",
           title: 'Joep Storm',
           description: "",

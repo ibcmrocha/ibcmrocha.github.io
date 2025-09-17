@@ -181,6 +181,11 @@ ul.task-list input[type="checkbox"] {
   .card-body {
     padding: 1.25rem 1.25rem 1.25rem 1.25rem;
   }
+
+  .card-img-top {
+    object-fit: cover;
+    height:220px;
+  }
 }
 
 // Citation

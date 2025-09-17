@@ -2,41 +2,68 @@
   {% if person.img %}
     <img class="card-img-top" src="{{ person.img | relative_url }}" alt="{{ person.title }}">
   {% endif %}
-  <div class="card-body">
-    <h5 class="card-title mb-1">{{ person.title }}</h5>
-    {% if person.role %}<p class="text-muted mb-2">{{ person.role }}</p>{% endif %}
 
-    <div class="d-flex flex-wrap gap-3 align-items-center small">
-      {% if person.email %}
-        <a href="mailto:{{ person.email }}" class="text-decoration-none">
-          <i class="fas fa-envelope"></i> Email
-        </a>
-      {% endif %}
-      {% if person.website %}
-        <a href="{{ person.website }}" class="text-decoration-none">
-          <i class="fas fa-globe"></i> Website
-        </a>
-      {% endif %}
-      {% if person.scholar %}
-        <a href="{{ person.scholar }}" class="text-decoration-none">
-          <i class="ai ai-google-scholar"></i> Scholar
-        </a>
-      {% endif %}
-      {% if person.github %}
-        <a href="https://github.com/{{ person.github }}" class="text-decoration-none">
-          <i class="fab fa-github"></i> GitHub
-        </a>
-      {% endif %}
-      {% if person.linkedin %}
-        <a href="https://www.linkedin.com/in/{{ person.linkedin }}" class="text-decoration-none">
-          <i class="fab fa-linkedin"></i> LinkedIn
-        </a>
-      {% endif %}
-      {% if person.twitter %}
-        <a href="https://twitter.com/{{ person.twitter }}" class="text-decoration-none">
-          <i class="fab fa-x-twitter"></i> X
-        </a>
-      {% endif %}
+  <!-- Make the body a vertical stack so links can sit at the very bottom -->
+  <div class="card-body d-flex flex-column">
+
+    <!-- Name -->
+    <h5 class="card-title mb-1">{{ person.title }}</h5>
+
+    <!-- Role -->
+    {% if person.role %}
+      <p class="text-muted mb-3">{{ person.role }}</p>
+    {% endif %}
+
+    <!-- Project (one-liner) -->
+    {% if person.project %}
+      <div class="mb-2">
+        <div class="fw-semibold mb-1">Project</div>
+        <p class="mb-3">{{ person.project }}</p>
+      </div>
+    {% endif %}
+
+    <!-- Promotor -->
+    {% if person.promotor %}
+      <div>
+        <div class="fw-semibold mb-1">Promotor</div>
+        <p class="mb-3">{{ person.promotor }}</p>
+      </div>
+    {% endif %}
+
+    <!-- Links at the very bottom -->
+    <div class="mt-auto pt-3 border-top">
+      <div class="d-flex flex-column gap-2 small">
+        {% if person.email %}
+          <a class="d-block text-decoration-none" href="mailto:{{ person.email }}">
+            <i class="fas fa-envelope"></i> Email
+          </a>
+        {% endif %}
+        {% if person.website %}
+          <a class="d-block text-decoration-none" href="{{ person.website }}">
+            <i class="fas fa-globe"></i> Website
+          </a>
+        {% endif %}
+        {% if person.scholar %}
+          <a class="d-block text-decoration-none" href="{{ person.scholar }}">
+            <i class="ai ai-google-scholar"></i> Scholar
+          </a>
+        {% endif %}
+        {% if person.github %}
+          <a class="d-block text-decoration-none" href="https://github.com/{{ person.github }}">
+            <i class="fab fa-github"></i> GitHub
+          </a>
+        {% endif %}
+        {% if person.linkedin %}
+          <a class="d-block text-decoration-none" href="https://www.linkedin.com/in/{{ person.linkedin }}">
+            <i class="fab fa-linkedin"></i> LinkedIn
+          </a>
+        {% endif %}
+        {% if person.twitter %}
+          <a class="d-block text-decoration-none" href="https://twitter.com/{{ person.twitter }}">
+            <i class="fab fa-x-twitter"></i> X
+          </a>
+        {% endif %}
+      </div>
     </div>
   </div>
 </div>

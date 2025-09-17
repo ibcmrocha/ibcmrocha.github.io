@@ -56,16 +56,11 @@ ninja.data = [{
           description: "",
           section: "Books",handler: () => {
               window.location.href = "/books/the_godfather.html";
-            },},{id: "news-a-simple-inline-announcement",
-          title: 'A simple inline announcement.',
+            },},{id: "news-started-a-two-month-visit-to-the-complex-materials-group-at-eth-zurich",
+          title: 'Started a two-month visit to the Complex Materials group at ETH Zurich.',
           description: "",
-          section: "News",},{id: "news-a-long-announcement-with-details",
-          title: 'A long announcement with details',
-          description: "",
-          section: "News",handler: () => {
-              window.location.href = "/news/announcement_2.html";
-            },},{id: "news-a-simple-inline-announcement-with-markdown-emoji-sparkles-smile",
-          title: 'A simple inline announcement with Markdown emoji! :sparkles: :smile:',
+          section: "News",},{id: "news-first-version-of-the-website-online",
+          title: 'First version of the website online!',
           description: "",
           section: "News",},{
         id: 'social-email',

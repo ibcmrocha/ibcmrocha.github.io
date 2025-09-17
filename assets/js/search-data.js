@@ -74,6 +74,16 @@ ninja.data = [{
           description: "",
           section: "People",handler: () => {
               window.location.href = "/people/iuri-rocha/";
+            },},{id: "people-joep-storm",
+          title: 'Joep Storm',
+          description: "",
+          section: "People",handler: () => {
+              window.location.href = "/people/joep-storm/";
+            },},{id: "people-leon-riccius",
+          title: 'Leon Riccius',
+          description: "",
+          section: "People",handler: () => {
+              window.location.href = "/people/leon-riccius/";
             },},{id: "people-marina-maia",
           title: 'Marina Maia',
           description: "",

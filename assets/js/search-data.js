@@ -51,6 +51,13 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/teaching/";
           },
+        },{id: "nav-people",
+          title: "people",
+          description: "members of the lab or group",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/people/";
+          },
         },{id: "books-the-godfather",
           title: 'The Godfather',
           description: "",
@@ -62,7 +69,12 @@ ninja.data = [{
           section: "News",},{id: "news-first-version-of-the-website-online",
           title: 'First version of the website online!',
           description: "",
-          section: "News",},{
+          section: "News",},{id: "people-iuri-rocha",
+          title: 'Iuri Rocha',
+          description: "",
+          section: "People",handler: () => {
+              window.location.href = "/people/iuri-rocha/";
+            },},{
         id: 'social-email',
         title: 'email',
         section: 'Socials',

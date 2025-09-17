@@ -1,4 +1,17 @@
-<div class="card h-50 hoverable">
+{% assign role = person.role | downcase %}
+{% if role contains "leader" %}
+  {% assign role_class = "role-1" %}
+{% elsif role contains "phd" %}
+  {% assign role_class = "role-2" %}
+{% elsif role contains "postdoc" %}
+  {% assign role_class = "role-3" %}
+{% elsif role contains "master" or role contains "msc" %}
+  {% assign role_class = "role-4" %}
+{% else %}
+  {% assign role_class = "role-8" %}
+{% endif %}
+
+<div class="card h-100 hoverable {{ role_class }}">
   {% if person.img %}
     <img class="card-img-top" src="{{ person.img | relative_url }}" alt="{{ person.title }}">
   {% endif %}

@@ -74,6 +74,11 @@ ninja.data = [{
           description: "",
           section: "People",handler: () => {
               window.location.href = "/people/anne-poot/";
+            },},{id: "people-christiaan-bakker",
+          title: 'Christiaan Bakker',
+          description: "",
+          section: "People",handler: () => {
+              window.location.href = "/people/christiaan-bakker/";
             },},{id: "people-iuri-rocha",
           title: 'Iuri Rocha',
           description: "",

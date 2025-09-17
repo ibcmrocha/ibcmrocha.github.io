@@ -1,4 +1,4 @@
-<div class="card h-100 shadow-sm">
+<div class="card h-100 hoverable">
   {% if person.img %}
     <img class="card-img-top" src="{{ person.img | relative_url }}" alt="{{ person.title }}">
   {% endif %}
@@ -17,7 +17,7 @@
     <!-- Project (one-liner) -->
     {% if person.project %}
       <div class="mb-2">
-        <div class="fw-semibold mb-1">Project</div>
+        <div class="d-block mb-1">Project</div>
         <p class="mb-3">{{ person.project }}</p>
       </div>
     {% endif %}
@@ -25,7 +25,7 @@
     <!-- Promotor -->
     {% if person.promotor %}
       <div>
-        <div class="fw-semibold mb-1">Promotor</div>
+        <div class="d-block mb-1">Promotor</div>
         <p class="mb-3">{{ person.promotor }}</p>
       </div>
     {% endif %}

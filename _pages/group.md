@@ -11,7 +11,7 @@ nav_order: 2
   {% assign members = site.people | sort: "order" %}
   {% for person in members %}
     <div class="col">
-      {% include people-card.html person=person %}
+      {% include people.liquid person=person %}
     </div>
   {% endfor %}
 </div>

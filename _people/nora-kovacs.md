@@ -1,5 +1,5 @@
 ---
-title: Anne Poot
+title: Nora Kovacs
 role: PhD candidate
 order: 5
 img: /assets/img/noraCropped.png

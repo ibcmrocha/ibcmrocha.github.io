@@ -27,25 +27,49 @@
       "name": "Delft University of Technology",
       "position": "Assistant Professor",
       "startDate": "2020-07",
-      "endDate": ""
+      "endDate": "",
+      "summary": "Faculty of Civil Engineering and Geosciences"
     },
     {
       "name": "ETH Zurich",
       "position": "Visiting Professor",
       "startDate": "2025-09",
-      "endDate": "2025-11"
-    }
-  ],
-  "volunteer": [
+      "endDate": "2025-11",
+      "summary": "Department of Materials"
+    },
     {
-      "organization": "People's Climate March",
-      "location": "Zurich, Switzerland",
-      "position": "Lead Organizer",
-      "url": "https://example.com",
-      "startDate": "2014-04-01",
-      "endDate": "2015-07-01",
-      "summary": "Lead organizer for the New York City branch of the People's Climate March, the largest climate march in history.",
-      "highlights": ["Awarded 'Climate Hero' award by Greenpeace for my efforts organizing the march.", "Men of the year 2014 by Time magazine"]
+      "name": "Chalmers University of Technology",
+      "position": "Visiting Professor",
+      "startDate": "2025-05",
+      "endDate": "2025-06",
+      "summary": "Division for Material and Computational Mechanics"
+    },
+    {
+      "name": "University of Porto",
+      "position": "Visiting Professor",
+      "startDate": "2023-09",
+      "endDate": "2023-10",
+      "summary": "Faculty of Mechanical Engineering"
+    },
+    {
+      "name": "Delft University of Technology",
+      "position": "Postdoc researcher",
+      "startDate": "2019-05",
+      "endDate": "2020-06",
+      "summary": "Faculty of Civil Engineering and Geosciences"
+    },
+    {
+      "name": "Delft University of Technology",
+      "position": "Guest researcher",
+      "startDate": "2018-06",
+      "endDate": "2019-04",
+      "summary": "Faculty of Civil Engineering and Geosciences"
+    },
+    {
+      "name": "Knowledge Centre WMC",
+      "position": "PhD candidate",
+      "startDate": "2014-05",
+      "endDate": "2018-05"
     }
   ],
   "education": [

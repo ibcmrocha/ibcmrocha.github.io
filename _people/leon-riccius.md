@@ -10,5 +10,6 @@ github:
 linkedin: 
 twitter: 
 promotor: F.P. van der Meer
+cosupervisors: Joris Bierkens, Hanne Kekkonen
 project: Piecewise Deterministic Markov Processes for solid mechanics
 ---

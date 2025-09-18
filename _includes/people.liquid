@@ -42,6 +42,12 @@
       </p>
     {% endif %}
     
+    {% if person.cosupervisors%}
+      <p class="mb-3">
+	<strong class="me-1">Co-supervisors: </strong>{{ person.cosupervisors }}
+      </p>
+    {% endif %}
+    
     <!-- Links at the very bottom -->
     <div class="mt-auto pt-3 border-top">
       <div class="d-flex flex-column gap-2 small">

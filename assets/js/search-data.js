@@ -144,8 +144,8 @@ ninja.data = [{
           description: "",
           section: "People",handler: () => {
               window.location.href = "/people/nora-kovacs-msc/";
-            },},{id: "people-anne-poot",
-          title: 'Anne Poot',
+            },},{id: "people-nora-kovacs",
+          title: 'Nora Kovacs',
           description: "",
           section: "People",handler: () => {
               window.location.href = "/people/nora-kovacs/";
@@ -189,6 +189,11 @@ ninja.data = [{
           description: "",
           section: "People",handler: () => {
               window.location.href = "/people/uri-peker/";
+            },},{id: "people-yunfan-zhang",
+          title: 'Yunfan Zhang',
+          description: "",
+          section: "People",handler: () => {
+              window.location.href = "/people/yunfan-zhang/";
             },},{
         id: 'social-email',
         title: 'email',

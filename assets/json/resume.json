@@ -24,13 +24,16 @@
   },
   "work": [
     {
-      "name": "Delft University of Technology, Faculty of Civil Engineering and Geosciences",
+      "name": "Delft University of Technology",
       "position": "Assistant Professor",
-      "url": "https://example.com",
       "startDate": "2020-07",
-      "endDate": "",
-      "summary": "",
-      "highlights": [""]
+      "endDate": ""
+    },
+    {
+      "name": "ETH Zurich",
+      "position": "Visiting Professor",
+      "startDate": "2025-09",
+      "endDate": "2025-11"
     }
   ],
   "volunteer": [

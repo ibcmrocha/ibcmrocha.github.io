@@ -9,6 +9,7 @@ scholar:
 github: 
 linkedin: 
 twitter: 
-promotor: Oswaldo Morales
+promotor: Oswaldo Morales Napoles
+cosupervisors: Maria Nogal Macho
 project: Probabilistic FEM with copula networks
 ---

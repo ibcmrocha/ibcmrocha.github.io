@@ -10,5 +10,6 @@ github:
 linkedin: 
 twitter: 
 promotor: Pedro Camanho (University of Porto)
+cosupervisors: Carolina Furtado, Frans van der Meer
 project: PRNNs for uncertainty quantification and design
 ---

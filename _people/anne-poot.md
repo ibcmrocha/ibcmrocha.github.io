@@ -10,5 +10,6 @@ github:
 linkedin: 
 twitter: 
 promotor: F.P. van der Meer
+cosupervisors: Pierre Kerfriden (Mines ParisTech)
 project: Bayesian Finite Element Method
 ---

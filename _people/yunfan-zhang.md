@@ -10,5 +10,6 @@ github:
 linkedin: 
 twitter: 
 promotor: Oswaldo Morales
+cosupervisors: Maria Nogal Macho
 project: UQ and optimization for 3D printing
 ---

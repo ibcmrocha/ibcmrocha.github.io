@@ -1,3 +1,23 @@
 "meer":
   - firstname: ["Frans", "F.P van der", "F. P."]
-    url: https://scholar.google.com/citations?user=prk0qKwAAAAJ&hl=en
+    url: https://scholar.google.com/citations?user=prk0qKwAAAA
+
+"maia":
+  - firstname: ["M.A.", "Marina", "Marina A."]
+    url: https://scholar.google.com/citations?user=A4n-vHQAAAAJ
+
+"riccius":
+  - firstname: ["Leon", "L.F.", "Leon F."]
+    url: https://scholar.google.com/citations?user=VPwF7poAAAAJ
+
+"storm":
+  - firstname: ["Joep", "J."]
+    url: https://scholar.google.com/citations?user=pa362uUAAAAJ
+
+"poot":
+  - firstname: ["Anne", "A."]
+    url: https://scholar.google.com/citations?user=yGmDJ8UAAAAJ
+
+"sluys":
+  - firstname: ["L.J.", "Lambertus J.", "Lambertus Johannes"]
+    url: https://scholar.google.com/citations?user=lViFsyMAAAAJ

@@ -74,8 +74,8 @@
   ],
   "education": [
     {
-      "institution": "Delft University of Technology, Netherlands",
-      "location": "",
+      "institution": "Delft University of Technology",
+      "location": "Delft, Netherlands",
       "url": "https://doi.org/10.4233/uuid:0eab23c7-9ba4-4d27-91ee-58f9f140dd34",
       "area": "Computational Mechanics",
       "studyType": "PhD",
@@ -85,8 +85,8 @@
       "courses": ["Numerical and Experimental Investigation of Hygrothermal Aging in Laminated Composites"]
     },
     {
-      "institution": "Federal University of Ceara, Brazil",
-      "location": "",
+      "institution": "Federal University of Ceara",
+      "location": "Fortaleza, Brazil",
       "url": "http://repositorio.ufc.br/handle/riufc/8007",
       "area": "Computational Mechanics",
       "studyType": "MSc",
@@ -96,8 +96,8 @@
       "courses": ["Analysis and Optimization of Laminated Shells Considering Geometric Non-linearity and Progressive Failure"]
     },
     {
-      "institution": "Federal University of Ceara, Brazil",
-      "location": "",
+      "institution": "Federal University of Ceara",
+      "location": "Fortaleza, Brazil",
       "url": "",
       "area": "Civil Engineering",
       "studyType": "BSc",

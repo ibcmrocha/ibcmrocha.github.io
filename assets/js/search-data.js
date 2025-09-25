@@ -49,7 +49,10 @@ ninja.data = [{
           description: "",
           section: "Books",handler: () => {
               window.location.href = "/books/the_godfather.html";
-            },},{id: "news-started-a-two-month-visit-to-the-complex-materials-group-at-eth-zurich",
+            },},{id: "news-gave-a-talk-to-the-complex-materials-group-at-ethz-with-an-overview-of-my-research-slides-can-be-found-here",
+          title: 'Gave a talk to the Complex Materials group at ETHZ with an overview...',
+          description: "",
+          section: "News",},{id: "news-started-a-two-month-visit-to-the-complex-materials-group-at-eth-zurich",
           title: 'Started a two-month visit to the Complex Materials group at ETH Zurich.',
           description: "",
           section: "News",},{id: "people-abhinanda-ravikumar",

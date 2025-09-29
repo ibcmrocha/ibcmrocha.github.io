@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
-Gave a talk to the Complex Materials group at ETHZ with an overview of my research. Slides can be found <a href="https://surfdrive.surf.nl/index.php/s/fJdb4SJK4C318V8/download">here</a>
+Gave a talk to the Complex Materials group at ETH Zurich <a href="https://surfdrive.surf.nl/index.php/s/fJdb4SJK4C318V8/download">[slides]</a>

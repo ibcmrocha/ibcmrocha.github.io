@@ -21,6 +21,13 @@ nav_order: 6
     {% endif %}
 
     <div class="talk-card">
+      {% assign kind = t.type | downcase | strip %}
+      {% if kind == "invited" %}
+        <span class="talk-badge talk-badge-invited" aria-label="Invited talk">invited</span>
+      {% elsif kind == "conference" %}
+        <span class="talk-badge talk-badge-conference" aria-label="Conference talk">conference</span>
+      {% endif %}
+
       <!-- LEFT: uniform-sized live preview from local lightweight PDF -->
       <div class="preview-fixed">
         <div class="pdf-preview" data-pdf-url="{{ t.pdf_preview | relative_url }}">
@@ -37,21 +44,18 @@ nav_order: 6
 
       <!-- RIGHT: details -->
       <div class="flex-grow-1">
-        <!-- Title on one line, DATE ALWAYS ON ITS OWN LINE -->
         <h5 class="mb-1">{{ t.title }}</h5>
         <div class="text-muted mb-2">{{ t.date | date: "%B %-d, %Y" }}</div>
 
         <div class="text-muted">
           {% if t.event %}{{ t.event }}{% endif %}
           {% if t.location %} · {{ t.location }}{% endif %}
-          {% if t.type %} · {{ t.type | capitalize }}{% endif %}
         </div>
 
         {% if t.abstract %}
           <p class="mb-2 mt-2">{{ t.abstract }}</p>
         {% endif %}
 
-        <!-- Buttons (same style family as Publications: small outline buttons) -->
         <div class="d-flex flex-wrap gap-2 mt-2">
           {% if t.pdf_full %}
             <a class="btn btn-sm btn-outline-primary" href="{{ t.pdf_full }}" target="_blank" rel="noopener">
@@ -112,8 +116,7 @@ nav_order: 6
     let pageNum = 1;
     const total = pdf.numPages;
 
-    function getStageSize(){
-      // stage has fixed aspect-ratio:16/9 via CSS; height follows width
+    function size(){
       const w = stage.clientWidth || 260;
       const h = stage.clientHeight || Math.round(w * 9 / 16);
       return { w, h };
@@ -123,15 +126,13 @@ nav_order: 6
       const page = await pdf.getPage(pageNum);
       const viewport = page.getViewport({ scale: 1 });
 
-      const { w: stageWidth, h: stageHeight } = getStageSize();
+      const { w: stageWidth, h: stageHeight } = size();
 
-      // Scale to CONTAIN inside the fixed stage box
       const scaleX = stageWidth / viewport.width;
       const scaleY = stageHeight / viewport.height;
       const scale = Math.min(scaleX, scaleY);
       const scaled = page.getViewport({ scale });
 
-      // Canvas sized to the fixed stage (uniform for all talks)
       const dpr = window.devicePixelRatio || 1;
       canvas.width = Math.floor(stageWidth * dpr);
       canvas.height = Math.floor(stageHeight * dpr);
@@ -142,7 +143,6 @@ nav_order: 6
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       ctx.clearRect(0, 0, stageWidth, stageHeight);
 
-      // Center the PDF page (letterbox/pillarbox as needed)
       const offsetX = (stageWidth - scaled.width) / 2;
       const offsetY = (stageHeight - scaled.height) / 2;
 
@@ -173,12 +173,28 @@ nav_order: 6
 /* -------- Layout & spacing -------- */
 .talks-year-group { display: block; }
 .talk-card {
+  position: relative; /* for badge placement */
   display: flex; align-items: flex-start; gap: 1rem;
-  padding: 1rem; border: 1px solid var(--bs-border-color, rgba(0,0,0,.125));
-  border-radius: .5rem; background: var(--bs-body-bg); margin-bottom: 1.25rem; /* explicit gap between talks */
+  padding: 1rem 1rem 1rem 1rem;
+  border: 1px solid var(--bs-border-color, rgba(0,0,0,.125));
+  border-radius: .5rem;
+  background: var(--bs-body-bg);
+  margin-bottom: 1.25rem; /* explicit gap between talks */
 }
 
-/* Force the preview to a fixed width for ALL talks, never growing */
+/* -------- Top-right badges -------- */
+.talk-badge {
+  position: absolute; top: .5rem; right: .5rem;
+  font-size: .75rem; line-height: 1;
+  padding: .25rem .5rem;
+  border-radius: .5rem;
+  color: #fff; text-transform: lowercase;
+  user-select: none;
+}
+.talk-badge-invited { background: rgb(27,158,119); }   /* #1b9e77 */
+.talk-badge-conference { background: rgb(217,95,2); }  /* #d95f02 */
+
+/* -------- Fixed preview width for all talks -------- */
 .preview-fixed {
   flex: 0 0 260px;   /* no grow, no shrink, fixed basis */
   width: 260px;

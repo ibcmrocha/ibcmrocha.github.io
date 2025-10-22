@@ -193,6 +193,11 @@ ninja.data = [{
           description: "",
           section: "People",handler: () => {
               window.location.href = "/people/yunfan-zhang/";
+            },},{id: "talks-hybrid-surrogate-modeling-for-multiscale-simulations-with-physically-recurrent-neural-networks",
+          title: 'Hybrid surrogate modeling for multiscale simulations with Physically Recurrent Neural Networks',
+          description: "",
+          section: "Talks",handler: () => {
+              window.location.href = "/talks/goteborg25/";
             },},{id: "talks-microscale-modeling-of-creep-and-fatigue-in-composites-viscoplasticity-cohesive-damage-and-time-homogenization",
           title: 'Microscale modeling of creep and fatigue in composites: viscoplasticity, cohesive damage and time...',
           description: "",

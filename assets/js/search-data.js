@@ -193,6 +193,11 @@ ninja.data = [{
           description: "",
           section: "People",handler: () => {
               window.location.href = "/people/yunfan-zhang/";
+            },},{id: "talks-simulating-material-behavior-across-the-scales",
+          title: 'Simulating material behavior across the scales',
+          description: "",
+          section: "Talks",handler: () => {
+              window.location.href = "/talks/zurich25/";
             },},{id: "talks-hybrid-surrogate-modeling-with-physically-recurrent-neural-networks",
           title: 'Hybrid surrogate modeling with Physically Recurrent Neural Networks',
           description: "",

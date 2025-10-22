@@ -1,10 +1,10 @@
 ---
 layout: page
-title: Talks
+title: talks
 permalink: /talks/
-description: Invited and conference talks.
+description: 
 nav: true
-nav_order: 7
+nav_order: 6
 ---
 
 <div class="vstack gap-4">

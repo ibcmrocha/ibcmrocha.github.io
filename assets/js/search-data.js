@@ -193,6 +193,21 @@ ninja.data = [{
           description: "",
           section: "People",handler: () => {
               window.location.href = "/people/yunfan-zhang/";
+            },},{id: "talks-bias-variance-tradeoff-in-accelerating-multiscale-solid-mechanics-model-order-reduction-and-machine-learning",
+          title: 'Bias-variance tradeoff in accelerating multiscale solid mechanics: Model Order Reduction and machine learning...',
+          description: "",
+          section: "Talks",handler: () => {
+              window.location.href = "/talks/porto23/";
+            },},{id: "talks-accelerating-multiscale-modeling-of-delamination",
+          title: 'Accelerating multiscale modeling of delamination',
+          description: "",
+          section: "Talks",handler: () => {
+              window.location.href = "/talks/eccomas24/";
+            },},{id: "talks-hybrid-surrogate-modeling-for-multiscale-simulations-with-physically-recurrent-neural-networks",
+          title: 'Hybrid surrogate modeling for multiscale simulations with Physically Recurrent Neural Networks',
+          description: "",
+          section: "Talks",handler: () => {
+              window.location.href = "/talks/iop24/";
             },},{id: "talks-hybrid-surrogate-modeling-for-multiscale-simulations-with-physically-recurrent-neural-networks",
           title: 'Hybrid surrogate modeling for multiscale simulations with Physically Recurrent Neural Networks',
           description: "",

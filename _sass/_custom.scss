@@ -37,17 +37,3 @@ html[data-theme='dark'] { --role-bg-alpha: 0.08; --role-br-alpha: 0.20; }
   background-color: rgba(var(--dark2-2), var(--role-bg-alpha-alumni));
   border: 1px solid rgba(var(--dark2-2), var(--role-br-alpha-alumni));
 }
-
-.pdf-stage { position: relative; width: 100%; overflow: hidden; border-radius: .5rem; background: #f8f9fa; }
-.pdf-stage canvas { width: 100%; height: auto; display: block; }
-.pdf-controls { position: absolute; left: 0; right: 0; bottom: .25rem;
-  display: flex; align-items: center; justify-content: center; gap: .5rem; pointer-events: none; }
-.pdf-controls button, .pdf-controls .pdf-page {
-  pointer-events: auto; border: 1px solid rgba(0,0,0,.1); background: rgba(255,255,255,.85);
-  padding: .15rem .5rem; border-radius: .375rem; line-height: 1; font-size: .85rem;
-}
-.pdf-controls .pdf-page { color: rgba(0,0,0,.65); }
-html[data-theme='dark'] .pdf-stage { background: #2a2a2a; }
-html[data-theme='dark'] .pdf-controls button, html[data-theme='dark'] .pdf-controls .pdf-page {
-  background: rgba(30,30,30,.85); color: rgba(255,255,255,.85); border-color: rgba(255,255,255,.12);
-}

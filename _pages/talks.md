@@ -10,37 +10,38 @@ nav_order: 6
 {% assign items = site.talks | sort: "date" | reverse %}
 {% assign current_year = "" %}
 
-<div class="vstack gap-5">  <!-- big gaps between year groups -->
+<div class="talks-list">
   {% for t in items %}
     {% assign y = t.date | date: "%Y" %}
     {% if y != current_year %}
       {% unless forloop.first %}</div>{% endunless %}
       <h3 class="mt-2 mb-3">{{ y }}</h3>
-      <div class="vstack gap-4"> <!-- gaps between talks -->
+      <div class="talks-year-group">
       {% assign current_year = y %}
     {% endif %}
 
-    <div class="d-flex align-items-start gap-3 hoverable p-3 rounded border">
+    <div class="talk-card">
       <!-- LEFT: uniform-sized live preview from local lightweight PDF -->
-      <div class="pdf-preview" data-pdf-url="{{ t.pdf_preview | relative_url }}" style="width:260px; min-width:220px;">
-        <div class="pdf-stage" style="aspect-ratio:16/9;">
-          <canvas class="pdf-canvas"></canvas>
-          <div class="pdf-controls">
-            <button class="pdf-prev" aria-label="Previous slide">‹</button>
-            <span class="pdf-page"></span>
-            <button class="pdf-next" aria-label="Next slide">›</button>
+      <div class="preview-fixed">
+        <div class="pdf-preview" data-pdf-url="{{ t.pdf_preview | relative_url }}">
+          <div class="pdf-stage">
+            <canvas class="pdf-canvas"></canvas>
+            <div class="pdf-controls">
+              <button class="pdf-prev" aria-label="Previous slide">‹</button>
+              <span class="pdf-page"></span>
+              <button class="pdf-next" aria-label="Next slide">›</button>
+            </div>
           </div>
         </div>
       </div>
 
       <!-- RIGHT: details -->
       <div class="flex-grow-1">
-        <div class="d-flex flex-wrap align-items-baseline gap-2">
-          <h5 class="mb-0">{{ t.title }}</h5>
-          <span class="text-muted">· {{ t.date | date: "%B %-d, %Y" }}</span>
-        </div>
+        <!-- Title on one line, DATE ALWAYS ON ITS OWN LINE -->
+        <h5 class="mb-1">{{ t.title }}</h5>
+        <div class="text-muted mb-2">{{ t.date | date: "%B %-d, %Y" }}</div>
 
-        <div class="text-muted mt-1">
+        <div class="text-muted">
           {% if t.event %}{{ t.event }}{% endif %}
           {% if t.location %} · {{ t.location }}{% endif %}
           {% if t.type %} · {{ t.type | capitalize }}{% endif %}
@@ -51,7 +52,7 @@ nav_order: 6
         {% endif %}
 
         <!-- Buttons (same style family as Publications: small outline buttons) -->
-        <div class="d-flex flex-wrap gap-2">
+        <div class="d-flex flex-wrap gap-2 mt-2">
           {% if t.pdf_full %}
             <a class="btn btn-sm btn-outline-primary" href="{{ t.pdf_full }}" target="_blank" rel="noopener">
               Download full PDF
@@ -80,7 +81,7 @@ nav_order: 6
     "https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.worker.min.js";
 </script>
 
-<!-- Uniform preview initializer (letterboxes to fit 16:9 box) -->
+<!-- Uniform preview initializer (letterboxes to fit 16:9 box; fixed width across talks) -->
 <script>
 (function(){
   const previews = document.querySelectorAll('.pdf-preview');
@@ -112,8 +113,8 @@ nav_order: 6
     const total = pdf.numPages;
 
     function getStageSize(){
-      // stage has fixed aspect-ratio:16/9 via CSS, so height follows width
-      const w = stage.clientWidth || 240;
+      // stage has fixed aspect-ratio:16/9 via CSS; height follows width
+      const w = stage.clientWidth || 260;
       const h = stage.clientHeight || Math.round(w * 9 / 16);
       return { w, h };
     }
@@ -124,13 +125,13 @@ nav_order: 6
 
       const { w: stageWidth, h: stageHeight } = getStageSize();
 
-      // Compute scale to CONTAIN the PDF page inside the fixed stage box
+      // Scale to CONTAIN inside the fixed stage box
       const scaleX = stageWidth / viewport.width;
       const scaleY = stageHeight / viewport.height;
       const scale = Math.min(scaleX, scaleY);
       const scaled = page.getViewport({ scale });
 
-      // Prepare canvas at the stage size for a uniform visual footprint
+      // Canvas sized to the fixed stage (uniform for all talks)
       const dpr = window.devicePixelRatio || 1;
       canvas.width = Math.floor(stageWidth * dpr);
       canvas.height = Math.floor(stageHeight * dpr);
@@ -138,17 +139,17 @@ nav_order: 6
       canvas.style.height = stageHeight + 'px';
 
       const ctx = canvas.getContext('2d');
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);   // HiDPI crispness
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       ctx.clearRect(0, 0, stageWidth, stageHeight);
 
-      // Center the PDF page within the 16:9 stage (letterbox/pillarbox)
+      // Center the PDF page (letterbox/pillarbox as needed)
       const offsetX = (stageWidth - scaled.width) / 2;
       const offsetY = (stageHeight - scaled.height) / 2;
 
       await page.render({
         canvasContext: ctx,
         viewport: scaled,
-        transform: [1, 0, 0, 1, offsetX, offsetY]  // translate
+        transform: [1, 0, 0, 1, offsetX, offsetY]
       }).promise;
 
       pageLabel.textContent = `${pageNum} / ${total}`;
@@ -161,7 +162,6 @@ nav_order: 6
 
     const onResize = debounce(render, 150);
     window.addEventListener('resize', onResize);
-    // Render first frame
     render();
   }
 
@@ -170,9 +170,29 @@ nav_order: 6
 </script>
 
 <style>
-/* Minimal scoped styles for consistent preview look & spacing */
-.pdf-stage { position: relative; width: 100%; overflow: hidden; border-radius: .5rem; background: #f8f9fa; }
+/* -------- Layout & spacing -------- */
+.talks-year-group { display: block; }
+.talk-card {
+  display: flex; align-items: flex-start; gap: 1rem;
+  padding: 1rem; border: 1px solid var(--bs-border-color, rgba(0,0,0,.125));
+  border-radius: .5rem; background: var(--bs-body-bg); margin-bottom: 1.25rem; /* explicit gap between talks */
+}
+
+/* Force the preview to a fixed width for ALL talks, never growing */
+.preview-fixed {
+  flex: 0 0 260px;   /* no grow, no shrink, fixed basis */
+  width: 260px;
+  min-width: 260px;
+}
+
+/* -------- Uniform preview box (16:9) -------- */
+.pdf-stage {
+  position: relative; width: 100%; aspect-ratio: 16/9;
+  overflow: hidden; border-radius: .5rem; background: #f8f9fa;
+}
 .pdf-stage canvas { display: block; width: 100%; height: 100%; }
+
+/* -------- Controls -------- */
 .pdf-controls {
   position: absolute; left: 0; right: 0; bottom: .25rem;
   display: flex; align-items: center; justify-content: center; gap: .5rem;
@@ -184,6 +204,8 @@ nav_order: 6
   padding: .15rem .5rem; border-radius: .375rem; line-height: 1; font-size: .85rem;
 }
 .pdf-controls .pdf-page { color: rgba(0,0,0,.65); }
+
+/* -------- Dark mode tweaks -------- */
 html[data-theme='dark'] .pdf-stage { background: #2a2a2a; }
 html[data-theme='dark'] .pdf-controls button, html[data-theme='dark'] .pdf-controls .pdf-page {
   background: rgba(30,30,30,.85); color: rgba(255,255,255,.85); border-color: rgba(255,255,255,.12);

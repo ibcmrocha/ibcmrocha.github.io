@@ -1,6 +1,6 @@
 ---
 title: "Hybrid surrogate modeling for multiscale simulations with Physically Recurrent Neural Networks"
-event: "Group meeting, Computational Mechanics division"
+event: "Group meeting, Division for Material and Computational Mechanics"
 location: "Chalmers University of Technology"
 date: 2025-05-15
 pdf_preview: /assets/talks/goteborg25/slides.pdf

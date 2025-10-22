@@ -7,22 +7,29 @@ nav: true
 nav_order: 6
 ---
 
-<div class="vstack gap-4">
-  {% assign items = site.talks | sort: "date" | reverse %}
+{% assign items = site.talks | sort: "date" | reverse %}
+{% assign current_year = "" %}
+
+<div class="vstack gap-5">  <!-- big gaps between year groups -->
   {% for t in items %}
-    <div class="d-flex align-items-start gap-3 hoverable p-2 rounded border talk-row">
-      <!-- LEFT: live PDF preview (from local light PDF) -->
-      <div class="pdf-preview" data-pdf-url="{{ t.pdf_preview | relative_url }}" style="max-width:240px; min-width:200px;">
-        <div class="pdf-stage ratio ratio-16x9">
+    {% assign y = t.date | date: "%Y" %}
+    {% if y != current_year %}
+      {% unless forloop.first %}</div>{% endunless %}
+      <h3 class="mt-2 mb-3">{{ y }}</h3>
+      <div class="vstack gap-4"> <!-- gaps between talks -->
+      {% assign current_year = y %}
+    {% endif %}
+
+    <div class="d-flex align-items-start gap-3 hoverable p-3 rounded border">
+      <!-- LEFT: uniform-sized live preview from local lightweight PDF -->
+      <div class="pdf-preview" data-pdf-url="{{ t.pdf_preview | relative_url }}" style="width:260px; min-width:220px;">
+        <div class="pdf-stage" style="aspect-ratio:16/9;">
           <canvas class="pdf-canvas"></canvas>
           <div class="pdf-controls">
             <button class="pdf-prev" aria-label="Previous slide">‹</button>
             <span class="pdf-page"></span>
             <button class="pdf-next" aria-label="Next slide">›</button>
           </div>
-        </div>
-        <div class="small mt-1">
-          <a href="{{ t.pdf_preview | relative_url }}" target="_blank" rel="noopener">Open preview ↗</a>
         </div>
       </div>
 
@@ -43,7 +50,7 @@ nav_order: 6
           <p class="mb-2 mt-2">{{ t.abstract }}</p>
         {% endif %}
 
-        <!-- Buttons (same vibe as Publications: small, outline) -->
+        <!-- Buttons (same style family as Publications: small outline buttons) -->
         <div class="d-flex flex-wrap gap-2">
           {% if t.pdf_full %}
             <a class="btn btn-sm btn-outline-primary" href="{{ t.pdf_full }}" target="_blank" rel="noopener">
@@ -66,12 +73,14 @@ nav_order: 6
   {% endfor %}
 </div>
 
-<!-- PDF.js (CDN) and initializer -->
+<!-- PDF.js (CDN) -->
 <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.min.js"></script>
 <script>
   pdfjsLib.GlobalWorkerOptions.workerSrc =
     "https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.worker.min.js";
 </script>
+
+<!-- Uniform preview initializer (letterboxes to fit 16:9 box) -->
 <script>
 (function(){
   const previews = document.querySelectorAll('.pdf-preview');
@@ -84,6 +93,7 @@ nav_order: 6
 
   async function initPreview(container){
     const url = container.getAttribute('data-pdf-url');
+    const stage = container.querySelector('.pdf-stage');
     const canvas = container.querySelector('.pdf-canvas');
     const pageLabel = container.querySelector('.pdf-page');
     const prevBtn = container.querySelector('.pdf-prev');
@@ -93,29 +103,53 @@ nav_order: 6
     try {
       pdf = await pdfjsLib.getDocument({ url }).promise;
     } catch (err) {
-      container.querySelector('.pdf-stage').innerHTML =
+      stage.innerHTML =
         '<div class="d-flex align-items-center justify-content-center w-100 h-100 bg-light rounded"><span class="small text-muted">Preview unavailable</span></div>';
       return;
     }
 
     let pageNum = 1;
     const total = pdf.numPages;
-    pageLabel.textContent = `1 / ${total}`;
+
+    function getStageSize(){
+      // stage has fixed aspect-ratio:16/9 via CSS, so height follows width
+      const w = stage.clientWidth || 240;
+      const h = stage.clientHeight || Math.round(w * 9 / 16);
+      return { w, h };
+    }
 
     async function render(){
       const page = await pdf.getPage(pageNum);
       const viewport = page.getViewport({ scale: 1 });
 
-      const stage = container.querySelector('.pdf-stage');
-      const stageWidth = stage.clientWidth || 240;
-      const scale = stageWidth / viewport.width;
-      const scaledViewport = page.getViewport({ scale });
+      const { w: stageWidth, h: stageHeight } = getStageSize();
+
+      // Compute scale to CONTAIN the PDF page inside the fixed stage box
+      const scaleX = stageWidth / viewport.width;
+      const scaleY = stageHeight / viewport.height;
+      const scale = Math.min(scaleX, scaleY);
+      const scaled = page.getViewport({ scale });
+
+      // Prepare canvas at the stage size for a uniform visual footprint
+      const dpr = window.devicePixelRatio || 1;
+      canvas.width = Math.floor(stageWidth * dpr);
+      canvas.height = Math.floor(stageHeight * dpr);
+      canvas.style.width = stageWidth + 'px';
+      canvas.style.height = stageHeight + 'px';
 
       const ctx = canvas.getContext('2d');
-      canvas.width = Math.floor(scaledViewport.width);
-      canvas.height = Math.floor(scaledViewport.height);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);   // HiDPI crispness
+      ctx.clearRect(0, 0, stageWidth, stageHeight);
 
-      await page.render({ canvasContext: ctx, viewport: scaledViewport }).promise;
+      // Center the PDF page within the 16:9 stage (letterbox/pillarbox)
+      const offsetX = (stageWidth - scaled.width) / 2;
+      const offsetY = (stageHeight - scaled.height) / 2;
+
+      await page.render({
+        canvasContext: ctx,
+        viewport: scaled,
+        transform: [1, 0, 0, 1, offsetX, offsetY]  // translate
+      }).promise;
 
       pageLabel.textContent = `${pageNum} / ${total}`;
       prevBtn.disabled = (pageNum === 1);
@@ -124,11 +158,34 @@ nav_order: 6
 
     prevBtn.addEventListener('click', () => { if (pageNum > 1) { pageNum--; render(); } });
     nextBtn.addEventListener('click', () => { if (pageNum < total) { pageNum++; render(); } });
-    window.addEventListener('resize', debounce(render, 150));
 
+    const onResize = debounce(render, 150);
+    window.addEventListener('resize', onResize);
+    // Render first frame
     render();
   }
 
   function debounce(fn, ms){ let t; return (...a)=>{ clearTimeout(t); t=setTimeout(()=>fn(...a), ms); }; }
 })();
 </script>
+
+<style>
+/* Minimal scoped styles for consistent preview look & spacing */
+.pdf-stage { position: relative; width: 100%; overflow: hidden; border-radius: .5rem; background: #f8f9fa; }
+.pdf-stage canvas { display: block; width: 100%; height: 100%; }
+.pdf-controls {
+  position: absolute; left: 0; right: 0; bottom: .25rem;
+  display: flex; align-items: center; justify-content: center; gap: .5rem;
+  pointer-events: none;
+}
+.pdf-controls button, .pdf-controls .pdf-page {
+  pointer-events: auto; border: 1px solid rgba(0,0,0,.1);
+  background: rgba(255,255,255,.85);
+  padding: .15rem .5rem; border-radius: .375rem; line-height: 1; font-size: .85rem;
+}
+.pdf-controls .pdf-page { color: rgba(0,0,0,.65); }
+html[data-theme='dark'] .pdf-stage { background: #2a2a2a; }
+html[data-theme='dark'] .pdf-controls button, html[data-theme='dark'] .pdf-controls .pdf-page {
+  background: rgba(30,30,30,.85); color: rgba(255,255,255,.85); border-color: rgba(255,255,255,.12);
+}
+</style>

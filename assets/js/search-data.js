@@ -44,6 +44,13 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/teaching/";
           },
+        },{id: "nav-talks",
+          title: "Talks",
+          description: "Invited and conference talks.",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/talks/";
+          },
         },{id: "books-the-godfather",
           title: 'The Godfather',
           description: "",
@@ -186,6 +193,11 @@ ninja.data = [{
           description: "",
           section: "People",handler: () => {
               window.location.href = "/people/yunfan-zhang/";
+            },},{id: "talks-hybrid-surrogate-modeling-with-physically-recurrent-neural-networks",
+          title: 'Hybrid surrogate modeling with Physically Recurrent Neural Networks',
+          description: "",
+          section: "Talks",handler: () => {
+              window.location.href = "/talks/eth_laura/";
             },},{
         id: 'social-email',
         title: 'email',

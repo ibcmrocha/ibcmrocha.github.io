@@ -193,6 +193,26 @@ ninja.data = [{
           description: "",
           section: "People",handler: () => {
               window.location.href = "/people/yunfan-zhang/";
+            },},{id: "talks-trends-and-challenges-in-machine-learning",
+          title: 'Trends and Challenges in Machine Learning',
+          description: "",
+          section: "Talks",handler: () => {
+              window.location.href = "/talks/emsymp22/";
+            },},{id: "talks-bias-variance-tradeoff-in-accelerating-multiscale-solid-mechanics-model-order-reduction-and-machine-learning",
+          title: 'Bias-variance tradeoff in accelerating multiscale solid mechanics: Model Order Reduction and machine learning...',
+          description: "",
+          section: "Talks",handler: () => {
+              window.location.href = "/talks/goteborg23/";
+            },},{id: "talks-machine-learning-of-evolving-material-models-for-concurrent-multiscale-modeling",
+          title: 'Machine learning of evolving material models for concurrent multiscale modeling',
+          description: "",
+          section: "Talks",handler: () => {
+              window.location.href = "/talks/cfrac23/";
+            },},{id: "talks-machine-learning-of-evolving-material-models-for-concurrent-multiscale-modeling",
+          title: 'Machine learning of evolving material models for concurrent multiscale modeling',
+          description: "",
+          section: "Talks",handler: () => {
+              window.location.href = "/talks/comp23/";
             },},{id: "talks-bias-variance-tradeoff-in-accelerating-multiscale-solid-mechanics-model-order-reduction-and-machine-learning",
           title: 'Bias-variance tradeoff in accelerating multiscale solid mechanics: Model Order Reduction and machine learning...',
           description: "",

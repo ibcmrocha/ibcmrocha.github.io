@@ -37,19 +37,19 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/cv/";
           },
+        },{id: "nav-talks",
+          title: "talks",
+          description: "",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/talks/";
+          },
         },{id: "nav-teaching",
           title: "teaching",
           description: "Coming soon!",
           section: "Navigation",
           handler: () => {
             window.location.href = "/teaching/";
-          },
-        },{id: "nav-talks",
-          title: "Talks",
-          description: "Invited and conference talks.",
-          section: "Navigation",
-          handler: () => {
-            window.location.href = "/talks/";
           },
         },{id: "books-the-godfather",
           title: 'The Godfather',
@@ -193,6 +193,11 @@ ninja.data = [{
           description: "",
           section: "People",handler: () => {
               window.location.href = "/people/yunfan-zhang/";
+            },},{id: "talks-microscale-modeling-of-creep-and-fatigue-in-composites-viscoplasticity-cohesive-damage-and-time-homogenization",
+          title: 'Microscale modeling of creep and fatigue in composites: viscoplasticity, cohesive damage and time...',
+          description: "",
+          section: "Talks",handler: () => {
+              window.location.href = "/talks/cfrac25/";
             },},{id: "talks-simulating-material-behavior-across-the-scales",
           title: 'Simulating material behavior across the scales',
           description: "",

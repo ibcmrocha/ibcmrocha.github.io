@@ -59,7 +59,7 @@ nav_order: 6
         <div class="d-flex flex-wrap gap-2 mt-2">
           {% if t.pdf_full %}
             <a class="btn btn-sm btn-outline-primary" href="{{ t.pdf_full }}" target="_blank" rel="noopener">
-              Download full PDF
+              Download full slides 
             </a>
           {% endif %}
           {% if t.video %}

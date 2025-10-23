@@ -1,6 +1,6 @@
 ---
 title: "Machine learning of evolving material models for concurrent multiscale modeling"
-event: "ECCOMAS Composites 2023 (keynote)"
+event: "ECCOMAS Composites 2023"
 location: "Trapani, Italy"
 date: 2023-09-13
 pdf_preview: /assets/talks/comp23/slides.pdf

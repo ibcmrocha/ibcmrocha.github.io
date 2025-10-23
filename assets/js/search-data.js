@@ -193,6 +193,16 @@ ninja.data = [{
           description: "",
           section: "People",handler: () => {
               window.location.href = "/people/yunfan-zhang/";
+            },},{id: "talks-surrogate-models-for-fe2-classic-mesoscale-modeling-pre-trained-data-driven-models-physics-informed-subspace-projection-and-probabilistic-active-learning",
+          title: 'Surrogate models for FE2: Classic mesoscale modeling, pre-trained data-driven models, physics-informed subspace projection...',
+          description: "",
+          section: "Talks",handler: () => {
+              window.location.href = "/talks/wccm20/";
+            },},{id: "talks-surrogate-models-for-fe2-classic-mesoscale-modeling-pre-trained-data-driven-models-physics-informed-subspace-projection-and-probabilistic-active-learning",
+          title: 'Surrogate models for FE2: Classic mesoscale modeling, pre-trained data-driven models, physics-informed subspace projection...',
+          description: "",
+          section: "Talks",handler: () => {
+              window.location.href = "/talks/comp21/";
             },},{id: "talks-learning-physics-based-material-models-for-multiscale-solid-mechanics",
           title: 'Learning physics-based material models for multiscale solid mechanics',
           description: "",

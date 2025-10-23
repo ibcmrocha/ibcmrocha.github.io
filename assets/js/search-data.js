@@ -193,6 +193,16 @@ ninja.data = [{
           description: "",
           section: "People",handler: () => {
               window.location.href = "/people/yunfan-zhang/";
+            },},{id: "talks-learning-physics-based-material-models-for-multiscale-solid-mechanics",
+          title: 'Learning physics-based material models for multiscale solid mechanics',
+          description: "",
+          section: "Talks",handler: () => {
+              window.location.href = "/talks/mmldt21/";
+            },},{id: "talks-learning-physics-based-material-models-for-multiscale-solid-mechanics",
+          title: 'Learning physics-based material models for multiscale solid mechanics',
+          description: "",
+          section: "Talks",handler: () => {
+              window.location.href = "/talks/eccomas22/";
             },},{id: "talks-trends-and-challenges-in-machine-learning",
           title: 'Trends and Challenges in Machine Learning',
           description: "",
@@ -208,6 +218,11 @@ ninja.data = [{
           description: "",
           section: "Talks",handler: () => {
               window.location.href = "/talks/cfrac23/";
+            },},{id: "talks-learning-evolving-physics-based-material-models-for-multiscale-solid-mechanics",
+          title: 'Learning evolving physics-based material models for multiscale solid mechanics',
+          description: "",
+          section: "Talks",handler: () => {
+              window.location.href = "/talks/esmc22/";
             },},{id: "talks-machine-learning-of-evolving-material-models-for-concurrent-multiscale-modeling",
           title: 'Machine learning of evolving material models for concurrent multiscale modeling',
           description: "",

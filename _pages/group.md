@@ -4,7 +4,7 @@ title: group
 permalink: /group/
 description: 
 nav: true
-nav_order: 2
+nav_order: 3
 ---
 
 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">

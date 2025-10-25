@@ -1,0 +1,541 @@
+<!-- PRNN Playground (D3) -->
+<div class="prnn-wrap">
+  <h2 class="text-center">PRNN Playground</h2>
+
+  <div class="text-center mb-2">
+    Material points:
+    <select id="hiddenSelector">
+      <option value="2" selected>2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+      <option value="6">6</option>
+      <option value="7">7</option>
+      <option value="8">8</option>
+    </select>
+    &nbsp;&nbsp;&nbsp;
+    Plastic strain:
+    <label class="ms-1"><input type="radio" name="epsp" value="epsp" checked> components</label>
+    <label class="ms-2"><input type="radio" name="epsp" value="epspeq"> equivalent</label>
+  </div>
+
+  <div class="text-center my-2">
+    Epoch:
+    <input type="range" id="epochSlider" min="0" step="1" value="0" style="width:200px;">
+    <button id="epochPlayBtn">Play</button>
+    &nbsp;&nbsp;&nbsp;
+    Time Step:
+    <input type="range" id="timeSlider" min="0" step="1" value="0" style="width:200px;">
+    <button id="timePlayBtn">Play</button>
+  </div>
+
+  <!-- Responsive SVG: width 100%, scales via viewBox -->
+  <div class="prnn-stage">
+    <svg viewBox="0 0 1200 1000" preserveAspectRatio="xMidYMid meet"></svg>
+  </div>
+
+  <div id="d3_svg"></div>
+  <div class="tooltip" style="display:none"></div>
+</div>
+
+<!-- D3 v7 -->
+<script src="https://d3js.org/d3.v7.min.js"></script>
+
+<style>
+  .prnn-wrap { font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; }
+  .prnn-stage { max-width: 100%; overflow-x: auto; border-radius: 12px; }
+  .tooltip {
+    position: absolute; background: #fff; padding: 4px 8px;
+    border: 1px solid #aaa; border-radius: 4px; font-size: 12px; pointer-events: none;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  }
+  .legend { font-size: 12px; }
+  .link   { fill: none; }
+</style>
+
+<script>
+(function(){
+  const svg           = d3.select(".prnn-wrap svg");
+  const tooltip       = d3.select(".prnn-wrap .tooltip");
+  const selector      = document.getElementById("hiddenSelector");
+  const epochSlider   = document.getElementById("epochSlider");
+  const epochPlayBtn  = document.getElementById("epochPlayBtn");
+  const timeSlider    = document.getElementById("timeSlider");
+  const timePlayBtn   = document.getElementById("timePlayBtn");
+
+  // Where the JSON files live (served by GitHub Pages)
+  const DATA_BASE = "{{ '/assets/research/prnn/' | relative_url }}";
+
+  // Layout (same as your original)
+  const inputCount  = 3, outputCount = 3;
+  const layerX      = [120,420,720];
+  const inGap       = 50, inR = 15;
+  const hidW        = 30, hidH = 80, hidGap = hidH + 20;
+  const topIn       = 100, topH = 100;
+  const timeSteps   = 60;
+
+  selector.onchange = () => loadViz(+selector.value);
+  loadViz(+selector.value);
+
+  function loadViz(hCount) {
+    svg.selectAll("*").remove();
+    clearInterval(window.epochTimer);
+    clearInterval(window.timeTimer);
+    epochPlayBtn.textContent = "Play";
+    timePlayBtn.textContent  = "Play";
+    epochSlider.value = 0;
+    timeSlider.value  = 0;
+
+    d3.select('input[name="epsp"]').property("checked", true);
+
+    const inputs  = d3.range(inputCount);
+    const hidden  = d3.range(inputCount, inputCount+hCount);
+    const outputs = d3.range(inputCount+hCount, inputCount+hCount+outputCount);
+    const allNodes= inputs.concat(hidden, outputs);
+    const pos = {};
+    inputs.forEach((d,i)=>  pos[d]={x:layerX[0],y:topIn  +i*inGap});
+    hidden.forEach((d,i)=>  pos[d]={x:layerX[1],y:topH   +i*hidGap});
+    outputs.forEach((d,i)=> pos[d]={x:layerX[2],y:topIn  +i*inGap});
+
+    const margin = hidH*0.2;
+    const span   = hidH-1*margin;
+    const step   = span/3;
+
+    // *** Load JSON from assets/ ***
+    d3.json(`${DATA_BASE}weights${hCount}.json?cb=${Date.now()}`).then(epochs => {
+        // 1) Build separate scales for first & last layer
+        const firstVals = epochs.flatMap(e =>
+          e.weights.filter(w=>w.source< inputCount).map(w=>w.weight)
+        );
+        const lastVals  = epochs.flatMap(e =>
+          e.weights.filter(w=>w.target>= inputCount+hCount).map(w=>w.weight)
+        );
+        const firstExt = d3.extent(firstVals),
+              lastExt  = d3.extent(lastVals);
+        const firstScale = d3.scaleLinear()
+          .domain([ firstExt[0], 0, firstExt[1] ])
+          .range([ "blue", "white", "red" ]);
+        const lastScale  = d3.scaleLinear()
+          .domain([ 0, lastExt[1] ])
+          .range([ "white", "steelblue" ]);
+
+        // 2) Other scales
+        const lossExt = d3.extent(epochs, e=>e.loss);
+        const lx=910, ly=20, lw=250, lh=200;
+        const xLoss = d3.scaleLinear().domain([0,epochs[epochs.length-1].epoch]).range([0,lw]);
+        const yLoss = d3.scaleLinear().domain(lossExt).range([lh,0]);
+
+        const strains = epochs.flatMap(e=>e.timeSeries.flatMap(ts=>ts.strain));
+        const stresses= epochs.flatMap(e=>e.timeSeries.flatMap(ts=>ts.stress));
+        const xsExt = d3.extent(strains), ysExt = d3.extent(stresses);
+        const sx=lx, sy=ly+lh+50, sw=lw, sh=lh;
+        const xSS = d3.scaleLinear().domain(xsExt).range([0,sw]);
+        const ySS = d3.scaleLinear().domain(ysExt).range([sh,0]);
+
+	const epspxxExt = d3.extent(epochs.flatMap(e=>e.timeSeries.flatMap(ts=>ts.epspxx)));
+	const epspxxScale = d3.scaleLinear()
+          .domain([ epspxxExt[0], 0, epspxxExt[1] ])
+          .range([ "blue", "white", "red" ]);
+
+	const epspyyExt = d3.extent(epochs.flatMap(e=>e.timeSeries.flatMap(ts=>ts.epspyy)));
+	const epspyyScale = d3.scaleLinear()
+          .domain([ epspyyExt[0], 0, epspyyExt[1] ])
+          .range([ "blue", "white", "red" ]);
+
+	const epspxyExt = d3.extent(epochs.flatMap(e=>e.timeSeries.flatMap(ts=>ts.epspxy)));
+	const epspxyScale = d3.scaleLinear()
+          .domain([ epspxyExt[0], 0, epspxyExt[1] ])
+          .range([ "blue", "white", "red" ]);
+
+        const epspeqExt = d3.extent(epochs.flatMap(e=>e.timeSeries.flatMap(ts=>ts.epspeq)));
+        const epspeqScale = d3.scaleLinear().domain(epspeqExt).range(["white","steelblue"]);
+
+        // 3) Colorbars
+        const defs=svg.append("defs");
+
+        // left: first-layer
+        const leftX = layerX[0]-60;
+	const leftY = topH + (hCount-1)*hidGap/2 - 100;
+        const g1=defs.append("linearGradient").attr("id","firstGrad")
+          .attr("x1","0%").attr("y1","100%").attr("x2","0%").attr("y2","0%");
+        [{o:"0%",c:firstScale(firstExt[0])},
+         {o:"50%",c:firstScale(0)},
+         {o:"100%",c:firstScale(firstExt[1])}]
+         .forEach(d=>g1.append("stop").attr("offset",d.o).attr("stop-color",d.c));
+        svg.append("rect").attr("x",leftX).attr("y",leftY).attr("width",12).attr("height",200)
+          .style("fill","url(#firstGrad)").style("stroke","#aaa");
+	svg.append("g").attr("transform",`translate(${leftX},${leftY})`)
+          .call(d3.axisLeft(d3.scaleLinear().domain([firstExt[0],0,firstExt[1]]).range([200,100,0])).ticks(5));
+
+	svg.append("text")
+	  .attr("text-anchor", "middle")
+	  .attr("font-size", "12px")
+	  .attr("fill", "#333")
+	  .attr("transform",`translate(${leftX-30},${leftY+100})rotate(270)`)
+	  .text("encoder weights");
+
+        // right: last-layer
+        const rightX = layerX[2]+40;
+	const rightY = topH + (hCount-1)*hidGap/2 - 100;
+        const g2=defs.append("linearGradient").attr("id","lastGrad")
+          .attr("x1","0%").attr("y1","100%").attr("x2","0%").attr("y2","0%");
+        [{o:"0%",c:lastScale(0)},
+         {o:"100%",c:lastScale(lastExt[1])}]
+         .forEach(d=>g2.append("stop").attr("offset",d.o).attr("stop-color",d.c));
+        svg.append("rect").attr("x",rightX).attr("y",rightY).attr("width",12).attr("height",200)
+          .style("fill","url(#lastGrad)").style("stroke","#aaa");
+	svg.append("g").attr("transform",`translate(${rightX+12},${rightY})`)
+          .call(d3.axisRight(d3.scaleLinear().domain(lastExt).range([200,0])).ticks(5));
+
+	svg.append("text")
+	  .attr("text-anchor", "middle")
+	  .attr("font-size", "12px")
+	  .attr("fill", "#333")
+	  .attr("transform",`translate(${rightX+50},${rightY+100})rotate(90)`)
+	  .text("decoder weights");
+
+        // epspeq bar 
+        const midX = (pos[hidden[0]].x + pos[hidden[hCount-1]].x)/2;
+        const cbW = 200, cbH = 12;
+        const cbX = midX - cbW/2; 
+	//const epeqcbY = pos[hidden[0]].y - hidH/2 - 40;
+	const epeqcbY = pos[hidden[hidden.length-1]].y + hidH/2 + 60;
+        const g3=defs.append("linearGradient").attr("id","epspeqGrad")
+          .attr("x1","0%").attr("y1","0%").attr("x2","100%").attr("y2","0%");
+        g3.append("stop").attr("offset","0%").attr("stop-color",epspeqScale(epspeqExt[0]));
+        g3.append("stop").attr("offset","100%").attr("stop-color",epspeqScale(epspeqExt[1]));
+
+        const epeqBar = svg.append("rect").attr("x",cbX).attr("y",epeqcbY).attr("width",cbW).attr("height",cbH)
+          .style("fill","url(#epspeqGrad)").style("stroke","#aaa").style("opacity",0);
+        
+	const epeqAxis = svg.append("g").attr("transform",`translate(0,${epeqcbY+cbH})`)
+          .call(d3.axisBottom(d3.scaleLinear().domain(epspeqExt).range([cbX,cbX+cbW])).ticks(5)).style("opacity",0);
+
+	const epeqLabel = svg.append("text")
+	  .attr("x", cbX + cbW/2)
+	  .attr("y", epeqcbY - 10)
+	  .attr("text-anchor", "middle")
+	  .attr("font-size", "12px")
+	  .attr("fill", "#333")
+	  .text("equiv. plastic strain")
+	  .style("opacity",0);
+
+	// epspxx bar
+	const epxxcbY = pos[hidden[hidden.length-1]].y + hidH/2 + 20;
+
+	const g4=defs.append("linearGradient").attr("id","epspxxGrad")
+          .attr("x1","0%").attr("y1","0%").attr("x2","100%").attr("y2","0%");
+        [{o:"0%",  c:epspxxScale(epspxxExt[0])},
+         {o:"50%", c:epspxxScale(0)},
+         {o:"100%",c:epspxxScale(epspxxExt[1])}]
+         .forEach(d=>g4.append("stop").attr("offset",d.o).attr("stop-color",d.c));
+
+        const epxxBar = svg.append("rect").attr("x",cbX).attr("y",epxxcbY).attr("width",cbW).attr("height",cbH)
+          .style("fill","url(#epspxxGrad)").style("stroke","#aaa");
+
+	const epxxAxis = svg.append("g").attr("transform",`translate(0,${epxxcbY+cbH})`)
+          .call(d3.axisBottom(d3.scaleLinear().domain([epspxxExt[0],0,epspxxExt[1]]).range([cbX,cbX+cbW/2,cbX+cbW])).ticks(5));
+
+	const epxxLabel = svg.append("text")
+	  .attr("x", cbX - 30)
+	  .attr("y", epxxcbY + cbH)
+	  .attr("text-anchor", "middle")
+	  .attr("font-size", "12px")
+	  .attr("fill", "#333")
+	  .text("epsp_xx");
+
+	// epspyy bar
+	const epyycbY = pos[hidden[hidden.length-1]].y + hidH/2 + 60;
+
+	const g5=defs.append("linearGradient").attr("id","epspyyGrad")
+          .attr("x1","0%").attr("y1","0%").attr("x2","100%").attr("y2","0%");
+        [{o:"0%",  c:epspyyScale(epspyyExt[0])},
+         {o:"50%", c:epspyyScale(0)},
+         {o:"100%",c:epspyyScale(epspyyExt[1])}]
+         .forEach(d=>g5.append("stop").attr("offset",d.o).attr("stop-color",d.c));
+	
+        const epyyBar = svg.append("rect").attr("x",cbX).attr("y",epyycbY).attr("width",cbW).attr("height",cbH)
+          .style("fill","url(#epspyyGrad)").style("stroke","#aaa");
+
+	const epyyAxis = svg.append("g").attr("transform",`translate(0,${epyycbY+cbH})`)
+          .call(d3.axisBottom(d3.scaleLinear().domain([epspyyExt[0],0,epspyyExt[1]]).range([cbX,cbX+cbW/2,cbX+cbW])).ticks(5));
+
+	const epyyLabel = svg.append("text")
+	  .attr("x", cbX - 30)
+	  .attr("y", epyycbY + cbH)
+	  .attr("text-anchor", "middle")
+	  .attr("font-size", "12px")
+	  .attr("fill", "#333")
+	  .text("epsp_yy");
+
+	// epspxy bar
+	const epxycbY = pos[hidden[hidden.length-1]].y + hidH/2 + 100;
+
+	const g6=defs.append("linearGradient").attr("id","epspxyGrad")
+          .attr("x1","0%").attr("y1","0%").attr("x2","100%").attr("y2","0%");
+        [{o:"0%",  c:epspxyScale(epspxyExt[0])},
+         {o:"50%", c:epspxyScale(0)},
+         {o:"100%",c:epspxyScale(epspxyExt[1])}]
+         .forEach(d=>g6.append("stop").attr("offset",d.o).attr("stop-color",d.c));
+
+        const epxyBar = svg.append("rect").attr("x",cbX).attr("y",epxycbY).attr("width",cbW).attr("height",cbH)
+          .style("fill","url(#epspxyGrad)").style("stroke","#aaa");
+
+	const epxyAxis = svg.append("g").attr("transform",`translate(0,${epxycbY+cbH})`)
+          .call(d3.axisBottom(d3.scaleLinear().domain([epspxyExt[0],0,epspxyExt[1]]).range([cbX,cbX+cbW/2,cbX+cbW])).ticks(5));
+
+	const epxyLabel = svg.append("text")
+	  .attr("x", cbX - 30)
+	  .attr("y", epxycbY + cbH)
+	  .attr("text-anchor", "middle")
+	  .attr("font-size", "12px")
+	  .attr("fill", "#333")
+	  .text("epsp_xy");
+
+        // loss plot
+        const gL=svg.append("g").attr("transform",`translate(${lx},${ly})`);
+        gL.append("g").call(d3.axisLeft(yLoss));
+        gL.append("text").attr("transform","rotate(-90)")
+          .attr("y",-60).attr("x",-lh/2).attr("dy","1em")
+          .attr("text-anchor","middle").text("Loss");
+        gL.append("g").attr("transform",`translate(0,${lh})`)
+          .call(d3.axisBottom(xLoss).ticks(5).tickFormat(d3.format("d")));
+        gL.append("path")
+          .datum(epochs)
+          .attr("fill","none").attr("stroke","black").attr("stroke-width",2)
+          .attr("d",d3.line().x(d=>xLoss(d.epoch)).y(d=>yLoss(d.loss)));
+        const lossDot=gL.append("circle").attr("r",5).attr("fill","orange");
+
+        // stress-strain plot
+        const gSS=svg.append("g").attr("transform",`translate(${sx},${sy})`);
+        gSS.append("g").call(d3.axisLeft(ySS));
+        gSS.append("text").attr("transform","rotate(-90)")
+          .attr("y",-50).attr("x",-sh/2).attr("dy","1em")
+          .attr("text-anchor","middle").text("macro stress");
+        gSS.append("g").attr("transform",`translate(0,${sh})`).call(d3.axisBottom(xSS));
+        gSS.append("text").attr("x",sw/2).attr("y",sh+40)
+          .attr("text-anchor","middle").text("macro strain");
+        ["x","y","xy"].forEach((lab,i)=>{
+          const lg=gSS.append("g").attr("class","legend")
+            .attr("transform",`translate(${sw-60},${i*20})`);
+          lg.append("rect").attr("width",12).attr("height",12)
+            .attr("fill",d3.schemeCategory10[i]);
+          lg.append("text").attr("x",18).attr("y",10).text(lab);
+        });
+        const ssLines=[0,1,2].map(j=>gSS.append("path")
+          .attr("fill","none")
+          .attr("stroke",d3.schemeCategory10[j])
+          .attr("stroke-width",2)
+        );
+        const ssDots=[0,1,2].map(j=>gSS.append("circle")
+          .attr("r",5)
+          .attr("fill",d3.schemeCategory10[j])
+        );
+
+        // 6) Network links & nodes
+        const links=svg.selectAll("line.link")
+          .data(epochs[0].weights).enter()
+          .append("line").attr("class","link")
+            .attr("x1",d=>pos[d.source].x + (d.source<inputCount?0:hidW/2))
+            .attr("y1",d=>pos[d.source].y - (d.source<inputCount?0:margin) + (d.source<inputCount?0:d.index*step))
+            .attr("x2",d=>pos[d.target].x + (d.target< inputCount+hCount? -hidW/2:0))
+            .attr("y2",d=>pos[d.target].y - (d.target< inputCount+hCount? margin:0) + (d.target< inputCount+hCount? d.index*step:0))
+            .attr("stroke-width",2)
+            .attr("stroke",d=> d.source<inputCount
+                                 ? firstScale(d.weight)
+                                 : lastScale(d.weight))
+            .on("mouseover",(e,d)=>{tooltip.style("display","block")
+              .html(`w=${d.weight.toFixed(3)}`)
+              .style("left",(e.pageX+10)+"px")
+              .style("top",(e.pageY-20)+"px");})
+            .on("mouseout",()=>tooltip.style("display","none"));
+
+        const segCount = 3;
+        const segH = hidH / segCount;
+        const hiddenSegs = hidden.flatMap(node =>
+          d3.range(segCount).map(seg => ({ node, seg }))
+        );
+
+        const iC=svg.selectAll("circle.in")
+          .data(inputs).enter()
+          .append("circle").attr("class","in")
+            .attr("r",inR).attr("fill","lightgray")
+            .attr("cx",d=>pos[d].x).attr("cy",d=>pos[d].y);
+
+        const hR=svg.selectAll("rect.hid")
+          .data(hidden).enter()
+          .append("rect").attr("class","hid")
+            .attr("width",hidW).attr("height",hidH)
+            .attr("x",d=>pos[d].x-hidW/2).attr("y",d=>pos[d].y-hidH/2)
+            .attr("stroke","#555").attr("stroke-width",1);
+
+	  hR.on("mouseover",(e,d)=>{
+	      tooltip.style("display","block")
+	      .html(`epspeq = ${d}`)
+	      .style("left",(e.pageX+10)+"px")
+	      .style("top",(e.pageY-20)+"px");})
+	    .on("mouseout",()=>tooltip.style("display","none"));
+
+        const hSegs = svg.selectAll("rect.hid-seg")
+          .data(hiddenSegs).enter()
+          .append("rect").attr("class","hid-seg")
+            .attr("x", d=> pos[d.node].x - hidW/2)
+            .attr("y", d=> pos[d.node].y - hidH/2 + d.seg * segH)
+            .attr("width",  hidW)
+            .attr("height", segH)
+            .attr("stroke","#555").attr("stroke-width",1);
+
+	hSegs.on("mouseover",(e,d)=>{tooltip.style("display","block")
+	  .html(function(){
+	    if      (d.seg === 0) { return `epsp_xx = ${epochs[+epochSlider.value].timeSeries[timeSlider.value].epspxx[d.node-3].toFixed(5)}` }
+	    else if (d.seg === 1) { return `epsp_yy = ${epochs[+epochSlider.value].timeSeries[timeSlider.value].epspyy[d.node-3].toFixed(5)}` }
+	    else                  { return `epsp_xy = ${epochs[+epochSlider.value].timeSeries[timeSlider.value].epspxy[d.node-3].toFixed(5)}` }
+	  })
+	  .style("left",(e.pageX+10)+"px")
+	  .style("top",(e.pageY-20)+"px");})
+	  .on("mouseout",()=>tooltip.style("display","none"));
+
+	d3.selectAll('input[name="epsp"]')
+	  .on('change', function() {
+	    const mode = this.value;
+	    if (mode === 'epsp') {
+	      hSegs.    transition().duration(300).style("visibility",'visible');
+	      epxxBar.  transition().duration(300).style("opacity",100);
+	      epxxAxis. transition().duration(300).style("opacity",100);
+	      epxxLabel.transition().duration(300).style("opacity",100);
+	      epyyBar.  transition().duration(300).style("opacity",100);
+	      epyyAxis. transition().duration(300).style("opacity",100);
+	      epyyLabel.transition().duration(300).style("opacity",100);
+	      epxyBar.  transition().duration(300).style("opacity",100);
+	      epxyAxis. transition().duration(300).style("opacity",100);
+	      epxyLabel.transition().duration(300).style("opacity",100);
+	      epeqBar.  transition().duration(300).style("opacity",0);
+	      epeqAxis. transition().duration(300).style("opacity",0);
+	      epeqLabel.transition().duration(300).style("opacity",0);
+	    }
+	    else { 
+	      hSegs.    transition().duration(300).style("visibility",'hidden');
+	      epeqBar.  transition().duration(300).style("opacity",100);
+	      epeqAxis. transition().duration(300).style("opacity",100);
+	      epeqLabel.transition().duration(300).style("opacity",100);
+	      epxxBar.  transition().duration(300).style("opacity",0);
+	      epxxAxis. transition().duration(300).style("opacity",0);
+	      epxxLabel.transition().duration(300).style("opacity",0);
+	      epyyBar.  transition().duration(300).style("opacity",0);
+	      epyyAxis. transition().duration(300).style("opacity",0);
+	      epyyLabel.transition().duration(300).style("opacity",0);
+	      epxyBar.  transition().duration(300).style("opacity",0);
+	      epxyAxis. transition().duration(300).style("opacity",0);
+	      epxyLabel.transition().duration(300).style("opacity",0);
+	    }
+	  });
+
+        const oC=svg.selectAll("circle.out")
+          .data(outputs).enter()
+          .append("circle").attr("class","out")
+            .attr("r",inR).attr("fill","lightgray")
+            .attr("cx",d=>pos[d].x).attr("cy",d=>pos[d].y);
+
+        const inLabels=svg.selectAll("text.ilbl")
+          .data(inputs).enter()
+          .append("text").attr("class","lbl")
+	  .attr("font-size","12px").attr("text-anchor","middle")
+	  .attr("x",d=>pos[d].x).attr("y",d=>pos[d].y+5)
+	  .text(d=>{if (d===0) { return 'xx'; } else if (d===1) { return 'yy'; } else { return 'xy'; }});
+
+        const outLabels=svg.selectAll("text.olbl")
+          .data(outputs).enter()
+          .append("text").attr("class","lbl")
+	  .attr("font-size","12px").attr("text-anchor","middle")
+	  .attr("x",d=>pos[d].x).attr("y",d=>pos[d].y+5)
+	  .text(d=>{if (d-hCount-inputCount===0) { return 'xx'; } else if (d-hCount-inputCount===1) { return 'yy'; } else { return 'xy'; }});
+
+        const epochLbl=svg.append("text")
+          .attr("x",layerX[1]).attr("y",30)
+	  .attr("text-anchor","middle")
+          .attr("font-size","18px").attr("fill","#444");
+
+	// function for updating epsp shading of hidden nodes
+	function updateShading(ep){
+	  const ts = ep.timeSeries[timeSlider.value]
+	  hR.data(ts.epspeq)
+	    .transition().duration(200)
+	    .attr("fill",d=>{return epspeqScale(d);});
+
+	  hSegs.data(hiddenSegs)
+	    .transition().duration(200)
+	    .attr("fill", d => {
+	      if      (d.seg === 0){ return epspxxScale(ts.epspxx[d.node-3]); }
+	      else if (d.seg === 1){ return epspyyScale(ts.epspyy[d.node-3]); }
+	      else                 { return epspxyScale(ts.epspxy[d.node-3]); }
+	    });
+	}
+
+        // 7) Update logic
+        function updateEpoch(ep,i){
+          links.data(ep.weights)
+            .transition().duration(200)
+            .attr("stroke",d=> d.source<inputCount
+                                 ? firstScale(d.weight)
+                                 : lastScale(d.weight));
+          epochLbl.text(`Epoch: ${ep.epoch}`);
+          lossDot.transition().duration(200)
+            .attr("cx", xLoss(ep.epoch))
+            .attr("cy", yLoss(ep.loss));
+          const ts=ep.timeSeries;
+	  updateShading(ep);
+          updateDots(ts);
+          ssLines.forEach((p,j)=>{
+            p.datum(ts.map(t=>[t.strain[j],t.stress[j]]))
+             .transition().duration(200)
+             .attr("d",d3.line().x(pt=>xSS(pt[0])).y(pt=>ySS(pt[1])));
+          });
+        }
+        function updateDots(ts){
+          const t=ts[timeSlider.value];
+          ssDots.forEach((d,j)=>d.attr("cx",xSS(t.strain[j])).attr("cy",ySS(t.stress[j])));
+        }
+
+        epochSlider.max=epochs.length-1;
+        epochSlider.oninput = ()=> updateEpoch(epochs[+epochSlider.value], +epochSlider.value);
+
+        timeSlider.max=timeSteps-1;
+        timeSlider.oninput = ()=>{
+          const ei=+epochSlider.value;
+          const ts=epochs[ei].timeSeries;
+	  updateShading(epochs[ei]);
+          updateDots(ts);
+        };
+
+        epochPlayBtn.onclick=()=>{
+          if(epochPlayBtn.textContent==="Play"){
+            epochPlayBtn.textContent="Pause";
+            window.epochTimer=setInterval(()=>{
+              let n=(+epochSlider.value+1)%epochs.length;
+              epochSlider.value=n; updateEpoch(epochs[n],n);
+            },200);
+          } else {
+            epochPlayBtn.textContent="Play"; clearInterval(window.epochTimer);
+          }
+        };
+        timePlayBtn.onclick=()=>{
+          if(timePlayBtn.textContent==="Play"){
+            timePlayBtn.textContent="Pause";
+            window.timeTimer=setInterval(()=>{
+              let t=(+timeSlider.value+1)%timeSteps;
+              timeSlider.value=t;
+              const ei=+epochSlider.value, ts=epochs[ei].timeSeries;
+	      updateShading(epochs[ei]);
+              updateDots(ts);
+            },500);
+          } else {
+            timePlayBtn.textContent="Play"; clearInterval(window.timeTimer);
+          }
+        };
+
+        // Initial
+        updateEpoch(epochs[0],0);
+    });
+  }
+})();
+</script>

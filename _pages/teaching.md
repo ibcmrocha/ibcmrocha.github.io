@@ -4,5 +4,5 @@ permalink: /teaching/
 title: teaching
 description: Coming soon!
 nav: true
-nav_order: 7
+nav_order: 8
 ---

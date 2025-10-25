@@ -4,7 +4,7 @@ title: talks
 permalink: /talks/
 description: 
 nav: true
-nav_order: 6
+nav_order: 7
 ---
 
 {% assign items = site.talks | sort: "date" | reverse %}

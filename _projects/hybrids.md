@@ -2,7 +2,7 @@
 layout: page
 title: hybrid machine learning
 description: 
-img: assets/img/12.jpg
+img: assets/img/project_covers/hybrids.png
 importance: 1
 category: tools
 related_publications: false

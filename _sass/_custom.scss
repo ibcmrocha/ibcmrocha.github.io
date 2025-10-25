@@ -37,3 +37,73 @@ html[data-theme='dark'] { --role-bg-alpha: 0.08; --role-br-alpha: 0.20; }
   background-color: rgba(var(--dark2-2), var(--role-bg-alpha-alumni));
   border: 1px solid rgba(var(--dark2-2), var(--role-br-alpha-alumni));
 }
+
+/* --- PRNN controls theming (scoped) --- */
+.prnn-wrap {
+  --dark2-1: 27,158,119;  /* invited green */
+  --dark2-2: 217,95,2;    /* conference orange */
+  --prnn-accent: rgb(var(--dark2-1));
+  --prnn-accent-20: rgba(var(--dark2-1), .20);
+}
+
+.prnn-wrap .prnn-controls.card {
+  border: 1px solid var(--bs-border-color, rgba(0,0,0,.125));
+  border-radius: .75rem;
+  box-shadow: 0 4px 16px rgba(0,0,0,.04);
+  background: var(--bs-body-bg);
+}
+
+/* Buttons: primary = Dark2-1; outline-primary matches */
+.prnn-wrap .btn-primary {
+  background-color: var(--prnn-accent);
+  border-color: var(--prnn-accent);
+}
+.prnn-wrap .btn-primary:hover {
+  filter: brightness(0.95);
+}
+.prnn-wrap .btn-outline-primary {
+  color: var(--prnn-accent);
+  border-color: var(--prnn-accent);
+  background-color: transparent;
+}
+.prnn-wrap .btn-outline-primary:hover,
+.prnn-wrap .btn-outline-primary:focus {
+  color: #fff;
+  background-color: var(--prnn-accent);
+  border-color: var(--prnn-accent);
+}
+
+/* Select: subtle focus ring in accent color */
+.prnn-wrap .form-select.form-select-sm:focus {
+  border-color: var(--prnn-accent);
+  box-shadow: 0 0 0 .2rem var(--prnn-accent-20);
+}
+
+/* Sliders: custom track & thumb themed with accent */
+.prnn-wrap .form-range { height: 1.25rem; }
+.prnn-wrap .form-range::-webkit-slider-runnable-track {
+  height: .35rem; border-radius: 2rem; background: linear-gradient(90deg, var(--prnn-accent) 0%, var(--prnn-accent) 50%, var(--bs-border-color) 50%);
+  background: var(--bs-border-color, rgba(0,0,0,.15));
+}
+.prnn-wrap .form-range::-webkit-slider-thumb {
+  -webkit-appearance: none; appearance: none;
+  width: 16px; height: 16px; border-radius: 50%;
+  background: var(--prnn-accent); border: none; margin-top: -6px;
+  box-shadow: 0 0 0 3px rgba(0,0,0,.08);
+}
+.prnn-wrap .form-range::-moz-range-track {
+  height: .35rem; border-radius: 2rem; background: var(--bs-border-color, rgba(0,0,0,.15));
+}
+.prnn-wrap .form-range::-moz-range-thumb {
+  width: 16px; height: 16px; border-radius: 50%;
+  background: var(--prnn-accent); border: none;
+  box-shadow: 0 0 0 3px rgba(0,0,0,.08);
+}
+
+/* Dark mode fine-tunes */
+html[data-theme='dark'] .prnn-wrap {
+  --prnn-accent-20: rgba(var(--dark2-1), .35);
+}
+html[data-theme='dark'] .prnn-wrap .prnn-controls.card {
+  box-shadow: 0 4px 16px rgba(0,0,0,.25);
+}

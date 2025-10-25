@@ -1,9 +1,9 @@
 ---
 layout: page
 title: research 
-permalink: /research/
+permalink: /asdf/
 description: 
-nav: true
+nav: false
 nav_order: 2
 ---
 

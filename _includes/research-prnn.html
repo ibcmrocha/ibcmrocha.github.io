@@ -1,70 +1,44 @@
 <!-- PRNN Playground (D3) -->
 <div class="prnn-wrap">
-  <!-- <div class="text-center mb-2"> -->
-  <!--   Material points: -->
-  <!--   <select id="hiddenSelector"> -->
-  <!--     <option value="2" selected>2</option> -->
-  <!--     <option value="3">3</option> -->
-  <!--     <option value="4">4</option> -->
-  <!--     <option value="5">5</option> -->
-  <!--     <option value="6">6</option> -->
-  <!--     <option value="7">7</option> -->
-  <!--     <option value="8">8</option> -->
-  <!--   </select> -->
-  <!--   &nbsp;&nbsp;&nbsp; -->
-  <!--   Plastic strain: -->
-  <!--   <label class="ms-1"><input type="radio" name="epsp" value="epsp" checked> components</label> -->
-  <!--   <label class="ms-2"><input type="radio" name="epsp" value="epspeq"> equivalent</label> -->
-  <!-- </div> -->
-  <!---->
-  <!-- <div class="text-center my-2"> -->
-  <!--   Epoch: -->
-  <!--   <input type="range" id="epochSlider" min="0" step="1" value="0" style="width:200px;"> -->
-  <!--   <button id="epochPlayBtn">Play</button> -->
-  <!--   &nbsp;&nbsp;&nbsp; -->
-  <!--   Time Step: -->
-  <!--   <input type="range" id="timeSlider" min="0" step="1" value="0" style="width:200px;"> -->
-  <!--   <button id="timePlayBtn">Play</button> -->
-  <!-- </div> -->
-
   <div class="prnn-controls border rounded-3 p-3 mb-3 mx-auto">
     <div class="d-flex flex-wrap justify-content-center align-items-center gap-3 text-center">
 
       <!-- Material points (slider) -->
       <div class="prnn-ctrl">
-	<label for="hiddenSlider" class="form-label small text-muted mb-1">Material points: <span id="hiddenValue">8</span></label>
-	<input type="range" id="hiddenSlider" class="form-range prnn-range" min="2" max="8" step="1" value="8" style="width:240px;">
+        <label for="hiddenSlider" class="form-label small text-muted mb-1">Material points: <span id="hiddenValue">8</span></label>
+        <input type="range" id="hiddenSlider" class="form-range prnn-range" min="2" max="8" step="1" value="8" style="width:240px;">
       </div>
 
       <!-- Plastic strain: pill toggles (no radios shown) -->
       <div class="prnn-ctrl">
-	<div class="small text-muted mb-1">Plastic strain</div>
-	<div class="toggle-group d-inline-flex">
-	  <button type="button" class="btn btn-sm prnn-toggle active" data-mode="epsp">Components</button>
-	  <button type="button" class="btn btn-sm prnn-toggle" data-mode="epspeq">Equivalent</button>
-	</div>
-	<!-- Hidden radios kept for compatibility with any existing code that reads name="epsp" -->
-	<input type="radio" name="epsp" id="epspComp" value="epsp" checked hidden>
-	<input type="radio" name="epsp" id="epspEq"   value="epspeq" hidden>
+        <div class="small text-muted mb-1">Plastic strain</div>
+        <div class="toggle-group d-inline-flex">
+          <button type="button" class="btn btn-sm prnn-toggle active" data-mode="epsp">Components</button>
+          <button type="button" class="btn btn-sm prnn-toggle" data-mode="epspeq">Equivalent</button>
+        </div>
+        <!-- Hidden radios kept for compatibility with any existing code that reads name="epsp" -->
+        <input type="radio" name="epsp" id="epspComp" value="epsp" checked hidden>
+        <input type="radio" name="epsp" id="epspEq"   value="epspeq" hidden>
       </div>
 
       <!-- Epoch -->
       <div class="prnn-ctrl">
-	<label for="epochSlider" class="form-label small text-muted mb-1">Epoch</label>
-	<div class="d-flex align-items-center gap-2 justify-content-center">
-	  <input type="range" id="epochSlider" class="form-range prnn-range" min="0" step="1" value="0" style="width:240px;">
-	  <button id="epochPlayBtn" class="btn btn-sm btn-primary prnn-play" type="button" aria-pressed="false" title="Play/Pause epoch">►</button>
-	</div>
+        <label for="epochSlider" class="form-label small text-muted mb-1">Epoch</label>
+        <div class="d-flex align-items-center gap-2 justify-content-center">
+          <input type="range" id="epochSlider" class="form-range prnn-range" min="0" step="1" value="0" style="width:240px;">
+          <button id="epochPlayBtn" class="btn btn-sm btn-primary prnn-play" type="button" title="Play/Pause epoch">Play</button>
+        </div>
       </div>
 
       <!-- Time step -->
       <div class="prnn-ctrl">
-	<label for="timeSlider" class="form-label small text-muted mb-1">Time step</label>
-	<div class="d-flex align-items-center gap-2 justify-content-center">
-	  <input type="range" id="timeSlider" class="form-range prnn-range" min="0" step="1" value="0" style="width:240px;">
-	  <button id="timePlayBtn" class="btn btn-sm btn-primary prnn-play" type="button" aria-pressed="false" title="Play/Pause time">►</button>
-	</div>
+        <label for="timeSlider" class="form-label small text-muted mb-1">Time step</label>
+        <div class="d-flex align-items-center gap-2 justify-content-center">
+          <input type="range" id="timeSlider" class="form-range prnn-range" min="0" step="1" value="0" style="width:240px;">
+          <button id="timePlayBtn" class="btn btn-sm btn-primary prnn-play" type="button" title="Play/Pause time">Play</button>
+        </div>
       </div>
+
     </div>
   </div>
 
@@ -96,6 +70,7 @@
 (function(){
   const svg           = d3.select(".prnn-wrap svg");
   const stageEl       = d3.select(".prnn-wrap .prnn-stage").node();
+  const tooltip       = d3.select(".prnn-wrap .tooltip"); // <-- restored
 
   // NEW references
   const hiddenSlider  = document.getElementById("hiddenSlider");
@@ -118,6 +93,9 @@
   const topIn       = 100, topH = 100;
   const timeSteps   = 60;
 
+  // helper to dispatch a real change event (so your d3 'change' handler runs)
+  const dispatchChange = (el) => el.dispatchEvent(new Event('change', { bubbles: true }));
+
   // INITIALIZATION
   hiddenValue.textContent = hiddenSlider.value;
   loadViz(+hiddenSlider.value);
@@ -136,19 +114,21 @@
     btn.addEventListener('click', ()=>{
       toggleBtns.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-      // sync hidden radios for compatibility with existing code
+      // sync hidden radios + fire change so your original d3 handler runs
       const mode = btn.getAttribute('data-mode');
-      if (mode === 'epsp')   { epspCompRadio.checked = true; }
-      if (mode === 'epspeq') { epspEqRadio.checked   = true; }
-      // If your drawing logic reacts immediately to epsp mode,
-      // you can trigger any update function here as needed.
+      if (mode === 'epsp') {
+        epspCompRadio.checked = true;
+        dispatchChange(epspCompRadio);
+      } else {
+        epspEqRadio.checked = true;
+        dispatchChange(epspEqRadio);
+      }
     });
   });
 
-  // Utility for play buttons (optional)
+  // Utility for play buttons (visual only; your onclick logic below controls behavior)
   function setPlayVisual(btn, playing) {
-    btn.textContent = playing ? '▌▌' : '►';
-    btn.setAttribute('aria-pressed', playing ? 'true' : 'false');
+    btn.textContent = playing ? 'Pause' : 'Play';
   }
 
   // === Your existing viz loader ===
@@ -219,18 +199,18 @@
         const xSS = d3.scaleLinear().domain(xsExt).range([0,sw]);
         const ySS = d3.scaleLinear().domain(ysExt).range([sh,0]);
 
-	const epspxxExt = d3.extent(epochs.flatMap(e=>e.timeSeries.flatMap(ts=>ts.epspxx)));
-	const epspxxScale = d3.scaleLinear()
+        const epspxxExt = d3.extent(epochs.flatMap(e=>e.timeSeries.flatMap(ts=>ts.epspxx)));
+        const epspxxScale = d3.scaleLinear()
           .domain([ epspxxExt[0], 0, epspxxExt[1] ])
           .range([ "blue", "white", "red" ]);
 
-	const epspyyExt = d3.extent(epochs.flatMap(e=>e.timeSeries.flatMap(ts=>ts.epspyy)));
-	const epspyyScale = d3.scaleLinear()
+        const epspyyExt = d3.extent(epochs.flatMap(e=>e.timeSeries.flatMap(ts=>ts.epspyy)));
+        const epspyyScale = d3.scaleLinear()
           .domain([ epspyyExt[0], 0, epspyyExt[1] ])
           .range([ "blue", "white", "red" ]);
 
-	const epspxyExt = d3.extent(epochs.flatMap(e=>e.timeSeries.flatMap(ts=>ts.epspxy)));
-	const epspxyScale = d3.scaleLinear()
+        const epspxyExt = d3.extent(epochs.flatMap(e=>e.timeSeries.flatMap(ts=>ts.epspxy)));
+        const epspxyScale = d3.scaleLinear()
           .domain([ epspxyExt[0], 0, epspxyExt[1] ])
           .range([ "blue", "white", "red" ]);
 
@@ -242,7 +222,7 @@
 
         // left: first-layer
         const leftX = layerX[0]-60;
-	const leftY = topH + (hCount-1)*hidGap/2 - 100;
+        const leftY = topH + (hCount-1)*hidGap/2 - 100;
         const g1=defs.append("linearGradient").attr("id","firstGrad")
           .attr("x1","0%").attr("y1","100%").attr("x2","0%").attr("y2","0%");
         [{o:"0%",c:firstScale(firstExt[0])},
@@ -251,19 +231,19 @@
          .forEach(d=>g1.append("stop").attr("offset",d.o).attr("stop-color",d.c));
         svg.append("rect").attr("x",leftX).attr("y",leftY).attr("width",12).attr("height",200)
           .style("fill","url(#firstGrad)").style("stroke","#aaa");
-	svg.append("g").attr("transform",`translate(${leftX},${leftY})`)
+        svg.append("g").attr("transform",`translate(${leftX},${leftY})`)
           .call(d3.axisLeft(d3.scaleLinear().domain([firstExt[0],0,firstExt[1]]).range([200,100,0])).ticks(5));
 
-	svg.append("text")
-	  .attr("text-anchor", "middle")
-	  .attr("font-size", "12px")
-	  .attr("fill", "#333")
-	  .attr("transform",`translate(${leftX-30},${leftY+100})rotate(270)`)
-	  .text("encoder weights");
+        svg.append("text")
+          .attr("text-anchor", "middle")
+          .attr("font-size", "12px")
+          .attr("fill", "#333")
+          .attr("transform",`translate(${leftX-30},${leftY+100})rotate(270)`)
+          .text("encoder weights");
 
         // right: last-layer
         const rightX = layerX[2]+40;
-	const rightY = topH + (hCount-1)*hidGap/2 - 100;
+        const rightY = topH + (hCount-1)*hidGap/2 - 100;
         const g2=defs.append("linearGradient").attr("id","lastGrad")
           .attr("x1","0%").attr("y1","100%").attr("x2","0%").attr("y2","0%");
         [{o:"0%",c:lastScale(0)},
@@ -271,22 +251,21 @@
          .forEach(d=>g2.append("stop").attr("offset",d.o).attr("stop-color",d.c));
         svg.append("rect").attr("x",rightX).attr("y",rightY).attr("width",12).attr("height",200)
           .style("fill","url(#lastGrad)").style("stroke","#aaa");
-	svg.append("g").attr("transform",`translate(${rightX+12},${rightY})`)
+        svg.append("g").attr("transform",`translate(${rightX+12},${rightY})`)
           .call(d3.axisRight(d3.scaleLinear().domain(lastExt).range([200,0])).ticks(5));
 
-	svg.append("text")
-	  .attr("text-anchor", "middle")
-	  .attr("font-size", "12px")
-	  .attr("fill", "#333")
-	  .attr("transform",`translate(${rightX+50},${rightY+100})rotate(90)`)
-	  .text("decoder weights");
+        svg.append("text")
+          .attr("text-anchor", "middle")
+          .attr("font-size", "12px")
+          .attr("fill", "#333")
+          .attr("transform",`translate(${rightX+50},${rightY+100})rotate(90)`)
+          .text("decoder weights");
 
         // epspeq bar 
         const midX = (pos[hidden[0]].x + pos[hidden[hCount-1]].x)/2;
         const cbW = 200, cbH = 12;
         const cbX = midX - cbW/2; 
-	//const epeqcbY = pos[hidden[0]].y - hidH/2 - 40;
-	const epeqcbY = pos[hidden[hidden.length-1]].y + hidH/2 + 60;
+        const epeqcbY = pos[hidden[hidden.length-1]].y + hidH/2 + 60;
         const g3=defs.append("linearGradient").attr("id","epspeqGrad")
           .attr("x1","0%").attr("y1","0%").attr("x2","100%").attr("y2","0%");
         g3.append("stop").attr("offset","0%").attr("stop-color",epspeqScale(epspeqExt[0]));
@@ -295,22 +274,22 @@
         const epeqBar = svg.append("rect").attr("x",cbX).attr("y",epeqcbY).attr("width",cbW).attr("height",cbH)
           .style("fill","url(#epspeqGrad)").style("stroke","#aaa").style("opacity",0);
         
-	const epeqAxis = svg.append("g").attr("transform",`translate(0,${epeqcbY+cbH})`)
+        const epeqAxis = svg.append("g").attr("transform",`translate(0,${epeqcbY+cbH})`)
           .call(d3.axisBottom(d3.scaleLinear().domain(epspeqExt).range([cbX,cbX+cbW])).ticks(5)).style("opacity",0);
 
-	const epeqLabel = svg.append("text")
-	  .attr("x", cbX + cbW/2)
-	  .attr("y", epeqcbY - 10)
-	  .attr("text-anchor", "middle")
-	  .attr("font-size", "12px")
-	  .attr("fill", "#333")
-	  .text("equiv. plastic strain")
-	  .style("opacity",0);
+        const epeqLabel = svg.append("text")
+          .attr("x", cbX + cbW/2)
+          .attr("y", epeqcbY - 10)
+          .attr("text-anchor", "middle")
+          .attr("font-size", "12px")
+          .attr("fill", "#333")
+          .text("equiv. plastic strain")
+          .style("opacity",0);
 
-	// epspxx bar
-	const epxxcbY = pos[hidden[hidden.length-1]].y + hidH/2 + 20;
+        // epspxx bar
+        const epxxcbY = pos[hidden[hidden.length-1]].y + hidH/2 + 20;
 
-	const g4=defs.append("linearGradient").attr("id","epspxxGrad")
+        const g4=defs.append("linearGradient").attr("id","epspxxGrad")
           .attr("x1","0%").attr("y1","0%").attr("x2","100%").attr("y2","0%");
         [{o:"0%",  c:epspxxScale(epspxxExt[0])},
          {o:"50%", c:epspxxScale(0)},
@@ -320,45 +299,45 @@
         const epxxBar = svg.append("rect").attr("x",cbX).attr("y",epxxcbY).attr("width",cbW).attr("height",cbH)
           .style("fill","url(#epspxxGrad)").style("stroke","#aaa");
 
-	const epxxAxis = svg.append("g").attr("transform",`translate(0,${epxxcbY+cbH})`)
+        const epxxAxis = svg.append("g").attr("transform",`translate(0,${epxxcbY+cbH})`)
           .call(d3.axisBottom(d3.scaleLinear().domain([epspxxExt[0],0,epspxxExt[1]]).range([cbX,cbX+cbW/2,cbX+cbW])).ticks(5));
 
-	const epxxLabel = svg.append("text")
-	  .attr("x", cbX - 30)
-	  .attr("y", epxxcbY + cbH)
-	  .attr("text-anchor", "middle")
-	  .attr("font-size", "12px")
-	  .attr("fill", "#333")
-	  .text("epsp_xx");
+        const epxxLabel = svg.append("text")
+          .attr("x", cbX - 30)
+          .attr("y", epxxxcbY + cbH)
+          .attr("text-anchor", "middle")
+          .attr("font-size", "12px")
+          .attr("fill", "#333")
+          .text("epsp_xx");
 
-	// epspyy bar
-	const epyycbY = pos[hidden[hidden.length-1]].y + hidH/2 + 60;
+        // epspyy bar
+        const epyycbY = pos[hidden[hidden.length-1]].y + hidH/2 + 60;
 
-	const g5=defs.append("linearGradient").attr("id","epspyyGrad")
+        const g5=defs.append("linearGradient").attr("id","epspyyGrad")
           .attr("x1","0%").attr("y1","0%").attr("x2","100%").attr("y2","0%");
         [{o:"0%",  c:epspyyScale(epspyyExt[0])},
          {o:"50%", c:epspyyScale(0)},
          {o:"100%",c:epspyyScale(epspyyExt[1])}]
          .forEach(d=>g5.append("stop").attr("offset",d.o).attr("stop-color",d.c));
-	
+        
         const epyyBar = svg.append("rect").attr("x",cbX).attr("y",epyycbY).attr("width",cbW).attr("height",cbH)
           .style("fill","url(#epspyyGrad)").style("stroke","#aaa");
 
-	const epyyAxis = svg.append("g").attr("transform",`translate(0,${epyycbY+cbH})`)
+        const epyyAxis = svg.append("g").attr("transform",`translate(0,${epyycbY+cbH})`)
           .call(d3.axisBottom(d3.scaleLinear().domain([epspyyExt[0],0,epspyyExt[1]]).range([cbX,cbX+cbW/2,cbX+cbW])).ticks(5));
 
-	const epyyLabel = svg.append("text")
-	  .attr("x", cbX - 30)
-	  .attr("y", epyycbY + cbH)
-	  .attr("text-anchor", "middle")
-	  .attr("font-size", "12px")
-	  .attr("fill", "#333")
-	  .text("epsp_yy");
+        const epyyLabel = svg.append("text")
+          .attr("x", cbX - 30)
+          .attr("y", epyycbY + cbH)
+          .attr("text-anchor", "middle")
+          .attr("font-size", "12px")
+          .attr("fill", "#333")
+          .text("epsp_yy");
 
-	// epspxy bar
-	const epxycbY = pos[hidden[hidden.length-1]].y + hidH/2 + 100;
+        // epspxy bar
+        const epxycbY = pos[hidden[hidden.length-1]].y + hidH/2 + 100;
 
-	const g6=defs.append("linearGradient").attr("id","epspxyGrad")
+        const g6=defs.append("linearGradient").attr("id","epspxyGrad")
           .attr("x1","0%").attr("y1","0%").attr("x2","100%").attr("y2","0%");
         [{o:"0%",  c:epspxyScale(epspxyExt[0])},
          {o:"50%", c:epspxyScale(0)},
@@ -368,16 +347,16 @@
         const epxyBar = svg.append("rect").attr("x",cbX).attr("y",epxycbY).attr("width",cbW).attr("height",cbH)
           .style("fill","url(#epspxyGrad)").style("stroke","#aaa");
 
-	const epxyAxis = svg.append("g").attr("transform",`translate(0,${epxycbY+cbH})`)
+        const epxyAxis = svg.append("g").attr("transform",`translate(0,${epxycbY+cbH})`)
           .call(d3.axisBottom(d3.scaleLinear().domain([epspxyExt[0],0,epspxyExt[1]]).range([cbX,cbX+cbW/2,cbX+cbW])).ticks(5));
 
-	const epxyLabel = svg.append("text")
-	  .attr("x", cbX - 30)
-	  .attr("y", epxycbY + cbH)
-	  .attr("text-anchor", "middle")
-	  .attr("font-size", "12px")
-	  .attr("fill", "#333")
-	  .text("epsp_xy");
+        const epxyLabel = svg.append("text")
+          .attr("x", cbX - 30)
+          .attr("y", epxycbY + cbH)
+          .attr("text-anchor", "middle")
+          .attr("font-size", "12px")
+          .attr("fill", "#333")
+          .text("epsp_xy");
 
         // loss plot
         const gL=svg.append("g").attr("transform",`translate(${lx},${ly})`);
@@ -456,12 +435,12 @@
             .attr("x",d=>pos[d].x-hidW/2).attr("y",d=>pos[d].y-hidH/2)
             .attr("stroke","#555").attr("stroke-width",1);
 
-	  hR.on("mouseover",(e,d)=>{
-	      tooltip.style("display","block")
-	      .html(`epspeq = ${d}`)
-	      .style("left",(e.pageX+10)+"px")
-	      .style("top",(e.pageY-20)+"px");})
-	    .on("mouseout",()=>tooltip.style("display","none"));
+        hR.on("mouseover",(e,d)=>{
+            tooltip.style("display","block")
+            .html(`epspeq = ${d}`)
+            .style("left",(e.pageX+10)+"px")
+            .style("top",(e.pageY-20)+"px");})
+          .on("mouseout",()=>tooltip.style("display","none"));
 
         const hSegs = svg.selectAll("rect.hid-seg")
           .data(hiddenSegs).enter()
@@ -472,50 +451,50 @@
             .attr("height", segH)
             .attr("stroke","#555").attr("stroke-width",1);
 
-	hSegs.on("mouseover",(e,d)=>{tooltip.style("display","block")
-	  .html(function(){
-	    if      (d.seg === 0) { return `epsp_xx = ${epochs[+epochSlider.value].timeSeries[timeSlider.value].epspxx[d.node-3].toFixed(5)}` }
-	    else if (d.seg === 1) { return `epsp_yy = ${epochs[+epochSlider.value].timeSeries[timeSlider.value].epspyy[d.node-3].toFixed(5)}` }
-	    else                  { return `epsp_xy = ${epochs[+epochSlider.value].timeSeries[timeSlider.value].epspxy[d.node-3].toFixed(5)}` }
-	  })
-	  .style("left",(e.pageX+10)+"px")
-	  .style("top",(e.pageY-20)+"px");})
-	  .on("mouseout",()=>tooltip.style("display","none"));
+        hSegs.on("mouseover",(e,d)=>{tooltip.style("display","block")
+          .html(function(){
+            if      (d.seg === 0) { return `epsp_xx = ${epochs[+epochSlider.value].timeSeries[timeSlider.value].epspxx[d.node-3].toFixed(5)}` }
+            else if (d.seg === 1) { return `epsp_yy = ${epochs[+epochSlider.value].timeSeries[timeSlider.value].epspyy[d.node-3].toFixed(5)}` }
+            else                  { return `epsp_xy = ${epochs[+epochSlider.value].timeSeries[timeSlider.value].epspxy[d.node-3].toFixed(5)}` }
+          })
+          .style("left",(e.pageX+10)+"px")
+          .style("top",(e.pageY-20)+"px");})
+          .on("mouseout",()=>tooltip.style("display","none"));
 
-	d3.selectAll('input[name="epsp"]')
-	  .on('change', function() {
-	    const mode = this.value;
-	    if (mode === 'epsp') {
-	      hSegs.    transition().duration(300).style("visibility",'visible');
-	      epxxBar.  transition().duration(300).style("opacity",100);
-	      epxxAxis. transition().duration(300).style("opacity",100);
-	      epxxLabel.transition().duration(300).style("opacity",100);
-	      epyyBar.  transition().duration(300).style("opacity",100);
-	      epyyAxis. transition().duration(300).style("opacity",100);
-	      epyyLabel.transition().duration(300).style("opacity",100);
-	      epxyBar.  transition().duration(300).style("opacity",100);
-	      epxyAxis. transition().duration(300).style("opacity",100);
-	      epxyLabel.transition().duration(300).style("opacity",100);
-	      epeqBar.  transition().duration(300).style("opacity",0);
-	      epeqAxis. transition().duration(300).style("opacity",0);
-	      epeqLabel.transition().duration(300).style("opacity",0);
-	    }
-	    else { 
-	      hSegs.    transition().duration(300).style("visibility",'hidden');
-	      epeqBar.  transition().duration(300).style("opacity",100);
-	      epeqAxis. transition().duration(300).style("opacity",100);
-	      epeqLabel.transition().duration(300).style("opacity",100);
-	      epxxBar.  transition().duration(300).style("opacity",0);
-	      epxxAxis. transition().duration(300).style("opacity",0);
-	      epxxLabel.transition().duration(300).style("opacity",0);
-	      epyyBar.  transition().duration(300).style("opacity",0);
-	      epyyAxis. transition().duration(300).style("opacity",0);
-	      epyyLabel.transition().duration(300).style("opacity",0);
-	      epxyBar.  transition().duration(300).style("opacity",0);
-	      epxyAxis. transition().duration(300).style("opacity",0);
-	      epxyLabel.transition().duration(300).style("opacity",0);
-	    }
-	  });
+        d3.selectAll('input[name="epsp"]')
+          .on('change', function() {
+            const mode = this.value;
+            if (mode === 'epsp') {
+              hSegs.    transition().duration(300).style("visibility",'visible');
+              epxxBar.  transition().duration(300).style("opacity",100);
+              epxxAxis. transition().duration(300).style("opacity",100);
+              epxxLabel.transition().duration(300).style("opacity",100);
+              epyyBar.  transition().duration(300).style("opacity",100);
+              epyyAxis. transition().duration(300).style("opacity",100);
+              epyyLabel.transition().duration(300).style("opacity",100);
+              epxyBar.  transition().duration(300).style("opacity",100);
+              epxyAxis. transition().duration(300).style("opacity",100);
+              epxyLabel.transition().duration(300).style("opacity",100);
+              epeqBar.  transition().duration(300).style("opacity",0);
+              epeqAxis. transition().duration(300).style("opacity",0);
+              epeqLabel.transition().duration(300).style("opacity",0);
+            }
+            else { 
+              hSegs.    transition().duration(300).style("visibility",'hidden');
+              epeqBar.  transition().duration(300).style("opacity",100);
+              epeqAxis. transition().duration(300).style("opacity",100);
+              epeqLabel.transition().duration(300).style("opacity",100);
+              epxxBar.  transition().duration(300).style("opacity",0);
+              epxxAxis. transition().duration(300).style("opacity",0);
+              epxxLabel.transition().duration(300).style("opacity",0);
+              epyyBar.  transition().duration(300).style("opacity",0);
+              epyyAxis. transition().duration(300).style("opacity",0);
+              epyyLabel.transition().duration(300).style("opacity",0);
+              epxyBar.  transition().duration(300).style("opacity",0);
+              epxyAxis. transition().duration(300).style("opacity",0);
+              epxyLabel.transition().duration(300).style("opacity",0);
+            }
+          });
 
         const oC=svg.selectAll("circle.out")
           .data(outputs).enter()
@@ -526,37 +505,37 @@
         const inLabels=svg.selectAll("text.ilbl")
           .data(inputs).enter()
           .append("text").attr("class","lbl")
-	  .attr("font-size","12px").attr("text-anchor","middle")
-	  .attr("x",d=>pos[d].x).attr("y",d=>pos[d].y+5)
-	  .text(d=>{if (d===0) { return 'xx'; } else if (d===1) { return 'yy'; } else { return 'xy'; }});
+          .attr("font-size","12px").attr("text-anchor","middle")
+          .attr("x",d=>pos[d].x).attr("y",d=>pos[d].y+5)
+          .text(d=>{if (d===0) { return 'xx'; } else if (d===1) { return 'yy'; } else { return 'xy'; }});
 
         const outLabels=svg.selectAll("text.olbl")
           .data(outputs).enter()
           .append("text").attr("class","lbl")
-	  .attr("font-size","12px").attr("text-anchor","middle")
-	  .attr("x",d=>pos[d].x).attr("y",d=>pos[d].y+5)
-	  .text(d=>{if (d-hCount-inputCount===0) { return 'xx'; } else if (d-hCount-inputCount===1) { return 'yy'; } else { return 'xy'; }});
+          .attr("font-size","12px").attr("text-anchor","middle")
+          .attr("x",d=>pos[d].x).attr("y",d=>pos[d].y+5)
+          .text(d=>{if (d-hCount-inputCount===0) { return 'xx'; } else if (d-hCount-inputCount===1) { return 'yy'; } else { return 'xy'; }});
 
         const epochLbl=svg.append("text")
           .attr("x",layerX[1]).attr("y",30)
-	  .attr("text-anchor","middle")
+          .attr("text-anchor","middle")
           .attr("font-size","18px").attr("fill","#444");
 
-	// function for updating epsp shading of hidden nodes
-	function updateShading(ep){
-	  const ts = ep.timeSeries[timeSlider.value]
-	  hR.data(ts.epspeq)
-	    .transition().duration(200)
-	    .attr("fill",d=>{return epspeqScale(d);});
+        // function for updating epsp shading of hidden nodes
+        function updateShading(ep){
+          const ts = ep.timeSeries[timeSlider.value]
+          hR.data(ts.epspeq)
+            .transition().duration(200)
+            .attr("fill",d=>{return epspeqScale(d);});
 
-	  hSegs.data(hiddenSegs)
-	    .transition().duration(200)
-	    .attr("fill", d => {
-	      if      (d.seg === 0){ return epspxxScale(ts.epspxx[d.node-3]); }
-	      else if (d.seg === 1){ return epspyyScale(ts.epspyy[d.node-3]); }
-	      else                 { return epspxyScale(ts.epspxy[d.node-3]); }
-	    });
-	}
+          hSegs.data(hiddenSegs)
+            .transition().duration(200)
+            .attr("fill", d => {
+              if      (d.seg === 0){ return epspxxScale(ts.epspxx[d.node-3]); }
+              else if (d.seg === 1){ return epspyyScale(ts.epspyy[d.node-3]); }
+              else                 { return epspxyScale(ts.epspxy[d.node-3]); }
+            });
+        }
 
         // 7) Update logic
         function updateEpoch(ep,i){
@@ -570,7 +549,7 @@
             .attr("cx", xLoss(ep.epoch))
             .attr("cy", yLoss(ep.loss));
           const ts=ep.timeSeries;
-	  updateShading(ep);
+          updateShading(ep);
           updateDots(ts);
           ssLines.forEach((p,j)=>{
             p.datum(ts.map(t=>[t.strain[j],t.stress[j]]))
@@ -590,38 +569,42 @@
         timeSlider.oninput = ()=>{
           const ei=+epochSlider.value;
           const ts=epochs[ei].timeSeries;
-	  updateShading(epochs[ei]);
+          updateShading(epochs[ei]);
           updateDots(ts);
         };
 
         epochPlayBtn.onclick=()=>{
           if(epochPlayBtn.textContent==="Play"){
-            epochPlayBtn.textContent="Pause";
+            setPlayVisual(epochPlayBtn, true);
             window.epochTimer=setInterval(()=>{
               let n=(+epochSlider.value+1)%epochs.length;
               epochSlider.value=n; updateEpoch(epochs[n],n);
             },200);
           } else {
-            epochPlayBtn.textContent="Play"; clearInterval(window.epochTimer);
+            setPlayVisual(epochPlayBtn, false);
+            clearInterval(window.epochTimer);
           }
         };
         timePlayBtn.onclick=()=>{
           if(timePlayBtn.textContent==="Play"){
-            timePlayBtn.textContent="Pause";
+            setPlayVisual(timePlayBtn, true);
             window.timeTimer=setInterval(()=>{
               let t=(+timeSlider.value+1)%timeSteps;
               timeSlider.value=t;
               const ei=+epochSlider.value, ts=epochs[ei].timeSeries;
-	      updateShading(epochs[ei]);
+              updateShading(epochs[ei]);
               updateDots(ts);
             },500);
           } else {
-            timePlayBtn.textContent="Play"; clearInterval(window.timeTimer);
+            setPlayVisual(timePlayBtn, false);
+            clearInterval(window.timeTimer);
           }
         };
 
         // Initial
         updateEpoch(epochs[0],0);
+        // Ensure default EPSP (components) visuals are applied
+        dispatchChange(epspCompRadio);
     });
   }
 })();

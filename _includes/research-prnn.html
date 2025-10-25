@@ -31,7 +31,7 @@
 
   <!-- Responsive SVG: width 100%, scales via viewBox -->
   <div class="prnn-stage">
-    <svg viewBox="0 0 1200 1000" preserveAspectRatio="xMidYMid meet"></svg>
+    <svg preserveAspectRatio="xMidYMid meet"></svg>
   </div>
 
   <div id="d3_svg"></div>
@@ -535,6 +535,29 @@
 
         // Initial
         updateEpoch(epochs[0],0);
+
+	// ---- Dynamic height based on hCount (material points) ----
+	// Horizontal span is fixed by your layerX, keep 1200 width for consistency
+	const VB_WIDTH = 1200;
+
+	// Estimate vertical extent:
+	// - inputs are spaced by inGap
+	// - hidden nodes by hidGap and have height hidH
+	// - outputs like inputs
+	const inputsHeight  = (inputCount - 1)  * inGap  + 2 * topIn;
+	const hiddenHeight  = (hCount    - 1)  * hidGap + 2 * topH + hidH; // include node height
+	const outputsHeight = (outputCount - 1) * inGap  + 2 * topIn;
+
+	// Take the tallest column and add a little breathing room
+	const VB_HEIGHT = Math.max(inputsHeight, hiddenHeight, outputsHeight) + 80;
+
+	// Apply to SVG + wrapper so the block scales with width
+	svg.attr("viewBox", `0 0 ${VB_WIDTH} ${VB_HEIGHT}`);
+
+	// If you want the outer card to keep the same *visual* width and scale height,
+	// set the wrapper’s CSS aspect-ratio to match:
+	const stageEl = d3.select(".prnn-wrap .prnn-stage").node();
+	stageEl.style.aspectRatio = `${VB_WIDTH} / ${VB_HEIGHT}`;
     });
   }
 })();

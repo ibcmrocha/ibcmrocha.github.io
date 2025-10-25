@@ -27,45 +27,41 @@
   <!--   <button id="timePlayBtn">Play</button> -->
   <!-- </div> -->
 
-  <!-- Polished control bar -->
-  <div class="prnn-controls card p-3 mb-3">
-    <div class="row g-2 align-items-center">
-      <!-- Material points -->
-      <div class="col-auto d-flex align-items-center">
-	<label for="hiddenSelector" class="form-label mb-0 me-2 fw-semibold">Material points</label>
-	<select id="hiddenSelector" class="form-select form-select-sm">
-	  <option value="2">2</option><option value="3">3</option><option value="4">4</option>
-	  <option value="5">5</option><option value="6">6</option><option value="7">7</option>
-	  <option value="8" selected>8</option>
-	</select>
+  <div class="prnn-controls border rounded-3 p-3 mb-3 mx-auto">
+    <div class="d-flex flex-wrap justify-content-center align-items-center gap-3 text-center">
+
+      <!-- Material points (slider) -->
+      <div class="prnn-ctrl">
+	<label for="hiddenSlider" class="form-label small text-muted mb-1">Material points: <span id="hiddenValue">8</span></label>
+	<input type="range" id="hiddenSlider" class="form-range prnn-range" min="2" max="8" step="1" value="8" style="width:240px;">
       </div>
 
-      <!-- Plastic strain toggle -->
-      <div class="col-auto">
-	<div class="btn-group btn-group-sm" role="group" aria-label="Plastic strain">
-	  <input type="radio" class="btn-check" name="epsp" id="epspComp" value="epsp" checked>
-	  <label class="btn btn-outline-primary" for="epspComp">components</label>
-	  <input type="radio" class="btn-check" name="epsp" id="epspEq" value="epspeq">
-	  <label class="btn btn-outline-primary" for="epspEq">equivalent</label>
+      <!-- Plastic strain: pill toggles (no radios shown) -->
+      <div class="prnn-ctrl">
+	<div class="small text-muted mb-1">Plastic strain</div>
+	<div class="toggle-group d-inline-flex">
+	  <button type="button" class="btn btn-sm prnn-toggle active" data-mode="epsp">Components</button>
+	  <button type="button" class="btn btn-sm prnn-toggle" data-mode="epspeq">Equivalent</button>
 	</div>
+	<!-- Hidden radios kept for compatibility with any existing code that reads name="epsp" -->
+	<input type="radio" name="epsp" id="epspComp" value="epsp" checked hidden>
+	<input type="radio" name="epsp" id="epspEq"   value="epspeq" hidden>
       </div>
-
-      <div class="w-100 d-none d-md-block"></div> <!-- break to new row on md+ -->
 
       <!-- Epoch -->
-      <div class="col-md">
+      <div class="prnn-ctrl">
 	<label for="epochSlider" class="form-label small text-muted mb-1">Epoch</label>
-	<div class="d-flex align-items-center gap-2">
-	  <input type="range" id="epochSlider" class="form-range prnn-range" min="0" step="1" value="0">
+	<div class="d-flex align-items-center gap-2 justify-content-center">
+	  <input type="range" id="epochSlider" class="form-range prnn-range" min="0" step="1" value="0" style="width:240px;">
 	  <button id="epochPlayBtn" class="btn btn-sm btn-primary prnn-play" type="button" aria-pressed="false" title="Play/Pause epoch">►</button>
 	</div>
       </div>
 
       <!-- Time step -->
-      <div class="col-md">
+      <div class="prnn-ctrl">
 	<label for="timeSlider" class="form-label small text-muted mb-1">Time step</label>
-	<div class="d-flex align-items-center gap-2">
-	  <input type="range" id="timeSlider" class="form-range prnn-range" min="0" step="1" value="0">
+	<div class="d-flex align-items-center gap-2 justify-content-center">
+	  <input type="range" id="timeSlider" class="form-range prnn-range" min="0" step="1" value="0" style="width:240px;">
 	  <button id="timePlayBtn" class="btn btn-sm btn-primary prnn-play" type="button" aria-pressed="false" title="Play/Pause time">►</button>
 	</div>
       </div>
@@ -99,17 +95,22 @@
 <script>
 (function(){
   const svg           = d3.select(".prnn-wrap svg");
-  const tooltip       = d3.select(".prnn-wrap .tooltip");
-  const selector      = document.getElementById("hiddenSelector");
+  const stageEl       = d3.select(".prnn-wrap .prnn-stage").node();
+
+  // NEW references
+  const hiddenSlider  = document.getElementById("hiddenSlider");
+  const hiddenValue   = document.getElementById("hiddenValue");
+  const toggleBtns    = Array.from(document.querySelectorAll(".prnn-wrap .prnn-toggle"));
+  const epspCompRadio = document.getElementById("epspComp"); // hidden
+  const epspEqRadio   = document.getElementById("epspEq");   // hidden
+
   const epochSlider   = document.getElementById("epochSlider");
   const epochPlayBtn  = document.getElementById("epochPlayBtn");
   const timeSlider    = document.getElementById("timeSlider");
   const timePlayBtn   = document.getElementById("timePlayBtn");
 
-  // Where the JSON files live (served by GitHub Pages)
   const DATA_BASE = "{{ '/assets/research/prnn/' | relative_url }}";
 
-  // Layout (same as your original)
   const inputCount  = 3, outputCount = 3;
   const layerX      = [120,420,720];
   const inGap       = 50, inR = 15;
@@ -117,28 +118,71 @@
   const topIn       = 100, topH = 100;
   const timeSteps   = 60;
 
-  selector.onchange = () => loadViz(+selector.value);
-  loadViz(+selector.value);
+  // INITIALIZATION
+  hiddenValue.textContent = hiddenSlider.value;
+  loadViz(+hiddenSlider.value);
 
+  // === Events ===
+  hiddenSlider.addEventListener('input', (e)=>{
+    const n = +e.target.value;
+    hiddenValue.textContent = n;
+  });
+  hiddenSlider.addEventListener('change', (e)=>{
+    const n = +e.target.value;
+    loadViz(n);
+  });
+
+  toggleBtns.forEach(btn => {
+    btn.addEventListener('click', ()=>{
+      toggleBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      // sync hidden radios for compatibility with existing code
+      const mode = btn.getAttribute('data-mode');
+      if (mode === 'epsp')   { epspCompRadio.checked = true; }
+      if (mode === 'epspeq') { epspEqRadio.checked   = true; }
+      // If your drawing logic reacts immediately to epsp mode,
+      // you can trigger any update function here as needed.
+    });
+  });
+
+  // Utility for play buttons (optional)
+  function setPlayVisual(btn, playing) {
+    btn.textContent = playing ? '▌▌' : '►';
+    btn.setAttribute('aria-pressed', playing ? 'true' : 'false');
+  }
+
+  // === Your existing viz loader ===
   function loadViz(hCount) {
     svg.selectAll("*").remove();
     clearInterval(window.epochTimer);
     clearInterval(window.timeTimer);
-    epochPlayBtn.textContent = "Play";
-    timePlayBtn.textContent  = "Play";
+    setPlayVisual(epochPlayBtn, false);
+    setPlayVisual(timePlayBtn,  false);
     epochSlider.value = 0;
     timeSlider.value  = 0;
 
-    d3.select('input[name="epsp"]').property("checked", true);
+    // Keep 'epsp' default to components when reloading viz
+    epspCompRadio.checked = true;
+    toggleBtns.forEach(b => b.classList.toggle('active', b.getAttribute('data-mode') === 'epsp'));
 
+    // compute positions (unchanged)
     const inputs  = d3.range(inputCount);
     const hidden  = d3.range(inputCount, inputCount+hCount);
     const outputs = d3.range(inputCount+hCount, inputCount+hCount+outputCount);
-    const allNodes= inputs.concat(hidden, outputs);
     const pos = {};
     inputs.forEach((d,i)=>  pos[d]={x:layerX[0],y:topIn  +i*inGap});
     hidden.forEach((d,i)=>  pos[d]={x:layerX[1],y:topH   +i*hidGap});
     outputs.forEach((d,i)=> pos[d]={x:layerX[2],y:topIn  +i*inGap});
+
+    // ---- Dynamic viewBox height so the block scales with hCount ----
+    const VB_WIDTH  = 1200;
+    const inputsH   = (inputCount  - 1) * inGap  + 2 * topIn;
+    const hiddenH   = (hCount      - 1) * hidGap + 2 * topH + hidH;
+    const outputsH  = (outputCount - 1) * inGap  + 2 * topIn;
+    const VB_HEIGHT = Math.max(inputsH, hiddenH, outputsH) + 80;
+
+    svg.attr("viewBox", `0 0 ${VB_WIDTH} ${VB_HEIGHT}`);
+    stageEl.style.aspectRatio = `${VB_WIDTH} / ${VB_HEIGHT}`;
 
     const margin = hidH*0.2;
     const span   = hidH-1*margin;
@@ -578,29 +622,6 @@
 
         // Initial
         updateEpoch(epochs[0],0);
-
-	// ---- Dynamic height based on hCount (material points) ----
-	// Horizontal span is fixed by your layerX, keep 1200 width for consistency
-	const VB_WIDTH = 1200;
-
-	// Estimate vertical extent:
-	// - inputs are spaced by inGap
-	// - hidden nodes by hidGap and have height hidH
-	// - outputs like inputs
-	const inputsHeight  = (inputCount - 1)  * inGap  + 2 * topIn;
-	const hiddenHeight  = (hCount    - 1)  * hidGap + 2 * topH + hidH; // include node height
-	const outputsHeight = (outputCount - 1) * inGap  + 2 * topIn;
-
-	// Take the tallest column and add a little breathing room
-	const VB_HEIGHT = Math.max(inputsHeight, hiddenHeight, outputsHeight) + 130;
-
-	// Apply to SVG + wrapper so the block scales with width
-	svg.attr("viewBox", `0 0 ${VB_WIDTH} ${VB_HEIGHT}`);
-
-	// If you want the outer card to keep the same *visual* width and scale height,
-	// set the wrapper’s CSS aspect-ratio to match:
-	const stageEl = d3.select(".prnn-wrap .prnn-stage").node();
-	stageEl.style.aspectRatio = `${VB_WIDTH} / ${VB_HEIGHT}`;
     });
   }
 })();

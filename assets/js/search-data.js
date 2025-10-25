@@ -245,11 +245,21 @@ ninja.data = [{
           description: "another project with an image 🎉",
           section: "Projects",handler: () => {
               window.location.href = "/projects/9_project.html";
+            },},{id: "projects-bayesian-ml",
+          title: 'bayesian ML',
+          description: "",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/bayes.html";
             },},{id: "projects-hybrid-machine-learning",
           title: 'hybrid machine learning',
           description: "",
           section: "Projects",handler: () => {
               window.location.href = "/projects/hybrids.html";
+            },},{id: "projects-surrogate-modeling",
+          title: 'surrogate modeling',
+          description: "",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/surrogates.html";
             },},{id: "talks-surrogate-models-for-fe2-classic-mesoscale-modeling-pre-trained-data-driven-models-physics-informed-subspace-projection-and-probabilistic-active-learning",
           title: 'Surrogate models for FE2: Classic mesoscale modeling, pre-trained data-driven models, physics-informed subspace projection...',
           description: "",

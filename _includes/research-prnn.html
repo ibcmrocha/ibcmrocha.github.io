@@ -1,30 +1,75 @@
 <!-- PRNN Playground (D3) -->
 <div class="prnn-wrap">
-  <div class="text-center mb-2">
-    Material points:
-    <select id="hiddenSelector">
-      <option value="2" selected>2</option>
-      <option value="3">3</option>
-      <option value="4">4</option>
-      <option value="5">5</option>
-      <option value="6">6</option>
-      <option value="7">7</option>
-      <option value="8">8</option>
-    </select>
-    &nbsp;&nbsp;&nbsp;
-    Plastic strain:
-    <label class="ms-1"><input type="radio" name="epsp" value="epsp" checked> components</label>
-    <label class="ms-2"><input type="radio" name="epsp" value="epspeq"> equivalent</label>
-  </div>
+  <!-- <div class="text-center mb-2"> -->
+  <!--   Material points: -->
+  <!--   <select id="hiddenSelector"> -->
+  <!--     <option value="2" selected>2</option> -->
+  <!--     <option value="3">3</option> -->
+  <!--     <option value="4">4</option> -->
+  <!--     <option value="5">5</option> -->
+  <!--     <option value="6">6</option> -->
+  <!--     <option value="7">7</option> -->
+  <!--     <option value="8">8</option> -->
+  <!--   </select> -->
+  <!--   &nbsp;&nbsp;&nbsp; -->
+  <!--   Plastic strain: -->
+  <!--   <label class="ms-1"><input type="radio" name="epsp" value="epsp" checked> components</label> -->
+  <!--   <label class="ms-2"><input type="radio" name="epsp" value="epspeq"> equivalent</label> -->
+  <!-- </div> -->
+  <!---->
+  <!-- <div class="text-center my-2"> -->
+  <!--   Epoch: -->
+  <!--   <input type="range" id="epochSlider" min="0" step="1" value="0" style="width:200px;"> -->
+  <!--   <button id="epochPlayBtn">Play</button> -->
+  <!--   &nbsp;&nbsp;&nbsp; -->
+  <!--   Time Step: -->
+  <!--   <input type="range" id="timeSlider" min="0" step="1" value="0" style="width:200px;"> -->
+  <!--   <button id="timePlayBtn">Play</button> -->
+  <!-- </div> -->
 
-  <div class="text-center my-2">
-    Epoch:
-    <input type="range" id="epochSlider" min="0" step="1" value="0" style="width:200px;">
-    <button id="epochPlayBtn">Play</button>
-    &nbsp;&nbsp;&nbsp;
-    Time Step:
-    <input type="range" id="timeSlider" min="0" step="1" value="0" style="width:200px;">
-    <button id="timePlayBtn">Play</button>
+  <!-- Polished control bar -->
+  <div class="prnn-controls card p-3 mb-3">
+    <div class="row g-2 align-items-center">
+      <!-- Material points -->
+      <div class="col-auto d-flex align-items-center">
+	<label for="hiddenSelector" class="form-label mb-0 me-2 fw-semibold">Material points</label>
+	<select id="hiddenSelector" class="form-select form-select-sm">
+	  <option value="2">2</option><option value="3">3</option><option value="4">4</option>
+	  <option value="5">5</option><option value="6">6</option><option value="7">7</option>
+	  <option value="8" selected>8</option>
+	</select>
+      </div>
+
+      <!-- Plastic strain toggle -->
+      <div class="col-auto">
+	<div class="btn-group btn-group-sm" role="group" aria-label="Plastic strain">
+	  <input type="radio" class="btn-check" name="epsp" id="epspComp" value="epsp" checked>
+	  <label class="btn btn-outline-primary" for="epspComp">components</label>
+	  <input type="radio" class="btn-check" name="epsp" id="epspEq" value="epspeq">
+	  <label class="btn btn-outline-primary" for="epspEq">equivalent</label>
+	</div>
+      </div>
+
+      <div class="w-100 d-none d-md-block"></div> <!-- break to new row on md+ -->
+
+      <!-- Epoch -->
+      <div class="col-md">
+	<label for="epochSlider" class="form-label small text-muted mb-1">Epoch</label>
+	<div class="d-flex align-items-center gap-2">
+	  <input type="range" id="epochSlider" class="form-range prnn-range" min="0" step="1" value="0">
+	  <button id="epochPlayBtn" class="btn btn-sm btn-primary prnn-play" type="button" aria-pressed="false" title="Play/Pause epoch">►</button>
+	</div>
+      </div>
+
+      <!-- Time step -->
+      <div class="col-md">
+	<label for="timeSlider" class="form-label small text-muted mb-1">Time step</label>
+	<div class="d-flex align-items-center gap-2">
+	  <input type="range" id="timeSlider" class="form-range prnn-range" min="0" step="1" value="0">
+	  <button id="timePlayBtn" class="btn btn-sm btn-primary prnn-play" type="button" aria-pressed="false" title="Play/Pause time">►</button>
+	</div>
+      </div>
+    </div>
   </div>
 
   <!-- Responsive SVG: width 100%, scales via viewBox -->

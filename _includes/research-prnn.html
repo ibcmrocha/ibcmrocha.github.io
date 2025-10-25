@@ -549,7 +549,7 @@
 	const outputsHeight = (outputCount - 1) * inGap  + 2 * topIn;
 
 	// Take the tallest column and add a little breathing room
-	const VB_HEIGHT = Math.max(inputsHeight, hiddenHeight, outputsHeight) + 80;
+	const VB_HEIGHT = Math.max(inputsHeight, hiddenHeight, outputsHeight) + 100;
 
 	// Apply to SVG + wrapper so the block scales with width
 	svg.attr("viewBox", `0 0 ${VB_WIDTH} ${VB_HEIGHT}`);

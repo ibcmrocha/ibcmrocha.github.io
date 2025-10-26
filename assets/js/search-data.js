@@ -250,8 +250,8 @@ ninja.data = [{
           description: "",
           section: "Projects",handler: () => {
               window.location.href = "/projects/bayes.html";
-            },},{id: "projects-hybrid-machine-learning",
-          title: 'hybrid machine learning',
+            },},{id: "projects-hybrid-physics-data-modeling",
+          title: 'hybrid physics-data modeling',
           description: "",
           section: "Projects",handler: () => {
               window.location.href = "/projects/hybrids.html";

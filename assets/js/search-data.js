@@ -245,8 +245,8 @@ ninja.data = [{
           description: "another project with an image 🎉",
           section: "Projects",handler: () => {
               window.location.href = "/projects/9_project.html";
-            },},{id: "projects-bayesian-ml",
-          title: 'bayesian ML',
+            },},{id: "projects-bayesian-machine-learning",
+          title: 'bayesian machine learning',
           description: "",
           section: "Projects",handler: () => {
               window.location.href = "/projects/bayes.html";

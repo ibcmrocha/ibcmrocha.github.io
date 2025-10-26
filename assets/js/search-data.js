@@ -275,8 +275,8 @@ ninja.data = [{
           description: "",
           section: "Projects",handler: () => {
               window.location.href = "/projects/hybrids.html";
-            },},{id: "projects-uncertainty-quantification-and-inference",
-          title: 'uncertainty quantification and inference',
+            },},{id: "projects-uq-in-materials-and-structures",
+          title: 'UQ in materials and structures',
           description: "",
           section: "Projects",handler: () => {
               window.location.href = "/projects/inference_uq.html";

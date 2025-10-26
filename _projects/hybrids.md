@@ -18,7 +18,7 @@ By embedding intact models we mean that inside the latent layer we use a complet
 
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/research/prnn/j2model.png" title="J2 model in a PRNN" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid loading="eager" path="/assets/research/prnn/j2model.png" title="J2 model in a PRNN" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
 <div class="caption">
@@ -39,11 +39,11 @@ You can play with a few PRNNs in the following widget. Here the PRNN is trained 
   {% include research-prnn.html %}
 </div>
 
-We have extended this model to finite-strain viscoplasticity {% cite MAMAIA2024105145 %} and a combination of plasticity and distributed damage { % cite KOVACS2025105668 %}. More recently we also experimented with different levels of decoder sparsity and managed to train highly-accurate models with as few as five short GP paths:
+We have extended this model to finite-strain viscoplasticity {% cite MAMAIA2024105145 %} and a combination of plasticity and distributed damage {% cite KOVACS2025105668 %}. More recently we also experimented with different levels of decoder sparsity and managed to train highly-accurate models with as few as five short GP paths:
 
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/research/prnn/decoders.png" title="Different PRNN decoders" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid loading="eager" path="/assets/research/prnn/decoders.png" title="Different PRNN decoders" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
 <div class="caption">
@@ -51,3 +51,25 @@ We have extended this model to finite-strain viscoplasticity {% cite MAMAIA20241
 </div>
 
 ## Evolving material models
+
+I have also recently explored an alternative to PRNNs by having an encoder that learns how **material properties** evolve in time and having a fixed physics-based model as the decoder {% cite ROCHA2023104707 %}:
+
+<div class="row">
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.liquid loading="eager" path="/assets/img/publication_preview/rocha2023104707.png" title="Evolving material models" class="img-fluid rounded z-depth-1" %}
+    </div>
+</div>
+<div class="caption">
+    Hybrid architecture with evolving material models
+</div>
+
+with which we can also capture unloading without training for it. The hybrid architecture also allows for **semi-supervised online interventions**, in this example we retrained the model on the fly to avoid negative tangents and ensure convergence in a multiscale setting:
+
+<div class="row">
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.liquid loading="eager" path="/assets/research/prnn/stabilization.png" title="Online stabilization" class="img-fluid rounded z-depth-1" %}
+    </div>
+</div>
+<div class="caption">
+    Stabilizing the model on the fly during a multiscale simulation through semi-supervised corrections.
+</div>

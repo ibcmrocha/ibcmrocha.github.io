@@ -1,12 +1,14 @@
 ---
 layout: page
-title: hybrid machine learning
+title: hybrid physics-data modeling
 description: 
 img: assets/img/project_covers/hybrids.png
 importance: 1
 category: tools
-related_publications: false
+related_publications: true
 ---
+
+Test a related publication: {% cite MAIA2023115934 %}
 
 <div class="card p-3 mb-4">
   <h3 class="mb-2">A tiny PRNN sandbox</h3>

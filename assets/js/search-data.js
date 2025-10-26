@@ -245,16 +245,41 @@ ninja.data = [{
           description: "another project with an image 🎉",
           section: "Projects",handler: () => {
               window.location.href = "/projects/9_project.html";
+            },},{id: "projects-aging-of-composites",
+          title: 'aging of composites',
+          description: "",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/aging_composites.html";
             },},{id: "projects-bayesian-machine-learning",
           title: 'bayesian machine learning',
           description: "",
           section: "Projects",handler: () => {
               window.location.href = "/projects/bayes.html";
+            },},{id: "projects-biofabricated-materials",
+          title: 'biofabricated materials',
+          description: "",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/biofabricated.html";
+            },},{id: "projects-mechanical-behavior-of-composites",
+          title: 'mechanical behavior of composites',
+          description: "",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/composites_experiments.html";
+            },},{id: "projects-mechanical-behavior-of-concrete",
+          title: 'mechanical behavior of concrete',
+          description: "",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/concrete.html";
             },},{id: "projects-hybrid-physics-data-modeling",
           title: 'hybrid physics-data modeling',
           description: "",
           section: "Projects",handler: () => {
               window.location.href = "/projects/hybrids.html";
+            },},{id: "projects-uncertainty-quantification-and-inference",
+          title: 'uncertainty quantification and inference',
+          description: "",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/inference_uq.html";
             },},{id: "projects-surrogate-modeling",
           title: 'surrogate modeling',
           description: "",

@@ -18,19 +18,36 @@ By embedding intact models we mean that inside the latent layer we use a complet
 
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/research/prnn/j2model.jpg" title="J2 model in a PRNN" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid loading="eager" path="assets/research/prnn/j2model.png" title="J2 model in a PRNN" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
 <div class="caption">
     A Von Mises plasticity model embedded in a PRNN.
 </div>
 
-asdf
+which can therefore also be seen as a custom activation function. But as you can see above the complete model is in there, including the Newton-based return mapping and proper management of internal variables. This has clear advantages compared to conventional architectures (e.g. an RNN):
+
+- Latent values inside the network gain clear physical interpratation: strains and stresses
+- The "memory" of the layer is managed exclusively by the physical models and does not need to be relearned. This means we can capture unloading without training for it
+- Material properties go directly into the embedded models and skip the encoder altogether. This opens the possibility of transferring to different material properties without retraining, altogether avoiding the curse of dimensionality
+
+You can play with a few PRNNs in the following widget. Here the PRNN is trained with a few monotonic strain paths and can complex non-proportional and non-monotonic strain paths with high accuracy. Change the time step slider to see how internal variables inside the latent layer are evolving, change the epoch slider to see how encoder/decoder weights change during training:
 
 <div class="card p-3 mb-4">
   <h3 class="mb-2">A tiny PRNN sandbox</h3>
   <p class="text-muted mb-3">Interactive visualization showing weights, stress–strain plots, and plastic strain components across epochs.</p>
   {% include research-prnn.html %}
+</div>
+
+We have extended this model to finite-strain viscoplasticity {% cite MAMAIA2024105145 %} and a combination of plasticity and distributed damage { % cite KOVACS2025105668 %}. More recently we also experimented with different levels of decoder sparsity and managed to train highly-accurate models with as few as five short GP paths:
+
+<div class="row">
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.liquid loading="eager" path="assets/research/prnn/decoders.png" title="Different PRNN decoders" class="img-fluid rounded z-depth-1" %}
+    </div>
+</div>
+<div class="caption">
+    PRNNs with special decoder architectures can learn with extremely small datasets.
 </div>
 
 ## Evolving material models

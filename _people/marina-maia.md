@@ -3,7 +3,7 @@ title: Marina Maia
 role: PhD candidate
 order: 1
 img: /assets/img/marinaCropped.png
-email: m.a.maia@tudelft.nl
+email: m.alvesmaia@tudelft.nl
 website: 
 scholar: https://scholar.google.com/citations?user=A4n-vHQAAAAJ
 github: 

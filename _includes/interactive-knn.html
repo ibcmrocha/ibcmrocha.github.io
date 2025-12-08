@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -9,21 +8,24 @@
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
     .knn-container {
-      margin-bottom: 40px;
+      margin: 0 auto 40px;
       max-width: 900px;
       position: relative; /* for overlay positioning */
     }
     .knn-title {
       font-weight: 600;
       margin-bottom: 6px;
+      text-align: center;
     }
     .knn-subtitle {
       font-size: 0.9rem;
       color: #555;
       margin-bottom: 6px;
+      text-align: center;
     }
     .knn-controls {
-      margin: 6px 0 10px;
+      margin: 6px auto 10px;
+      max-width: 550px;          /* match main plot width */
       display: flex;
       align-items: center;
       gap: 8px;
@@ -35,9 +37,10 @@
     .knn-wrapper {
       display: flex;
       flex-direction: row;
-      flex-wrap: nowrap;         /* keep sidebar to the right */
+      flex-wrap: nowrap;         /* keep sidebar to the right on desktop */
       gap: 20px;
       align-items: flex-start;
+      justify-content: center;
     }
     .knn-main-svg {
       border: 1px solid #ddd;
@@ -69,6 +72,19 @@
       color: #333;
       text-align: center;
       padding: 10px;
+    }
+
+    /* Mobile: stack sidebar under main plot and make them full-width */
+    @media (max-width: 768px) {
+      .knn-wrapper {
+        flex-direction: column;
+        align-items: center;
+      }
+      .knn-main-svg,
+      .knn-mse-svg {
+        width: 100% !important;
+        max-width: 100%;
+      }
     }
   </style>
 </head>
@@ -404,13 +420,29 @@ class KnnInteractivePlot {
       .attr("fill", "#A50034")
       .attr("stroke", "none");
 
-    // Legend
+    // Legend (top-left now) with dots for data, lines for functions
     const legend = this.mainG.append("g")
       .attr("class", "legend")
-      .attr("transform", `translate(10, 10)`);
+      .attr("transform", "translate(10, 10)");
 
     let offset = 0;
-    const addLegendItem = (color, label, dash) => {
+
+    const addLegendDot = (color, label) => {
+      const g = legend.append("g")
+        .attr("transform", `translate(0,${offset})`);
+      g.append("circle")
+        .attr("cx", 5)
+        .attr("cy", 6)
+        .attr("r", 4)
+        .attr("fill", color);
+      g.append("text")
+        .attr("x", 15)
+        .attr("y", 9)
+        .text(label);
+      offset += 16;
+    };
+
+    const addLegendLine = (color, label, dash) => {
       const g = legend.append("g")
         .attr("transform", `translate(0,${offset})`);
       g.append("line")
@@ -428,13 +460,13 @@ class KnnInteractivePlot {
       offset += 16;
     };
 
-    addLegendItem("#EC6842", "Training data");
+    addLegendDot("#EC6842", "Training data");
     if (this.xVal.length > 0) {
-      addLegendItem("#A50034", "Validation data");
+      addLegendDot("#A50034", "Validation data");
     }
-    addLegendItem("#0076C2", "kNN prediction");
+    addLegendLine("#0076C2", "kNN prediction");
     if (this.options.showTruth) {
-      addLegendItem("#333", "Ground truth", "4,4");
+      addLegendLine("#333", "Ground truth", "4,4");
     }
   }
 
@@ -603,5 +635,3 @@ addRevealOverlay("#knn-plot3", "Click to reveal Plot 3");
 </script>
 </body>
 </html>
-
-

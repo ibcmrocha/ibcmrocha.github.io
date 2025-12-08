@@ -503,7 +503,7 @@ const DATA_SEED = 1234;
 // Plot 1: Data + kNN prediction, *no* ground truth
 new KnnInteractivePlot("#knn-plot1", {
   title: "Training a first model",
-  subtitle: "Adjust k to see underfitting/overfitting based only on the data.",
+  subtitle: "Adjust k based only on the patterns you can discern by looking at the data.",
   showTruth: false,
   showSidebar: false,
   kInit: 50,
@@ -525,7 +525,7 @@ new KnnInteractivePlot("#knn-plot2", {
 // Plot 3: Data + kNN prediction, validation split + MSE panel (sidebar right)
 new KnnInteractivePlot("#knn-plot3", {
   title: "Training a good model under limited knowledge",
-  subtitle: "The model is trained on part of the data and validated on the rest.",
+  subtitle: "Now a more realistic situation, no ground truth but a validation set can guide you.",
   showTruth: false,
   showSidebar: true,
   kInit: 1,

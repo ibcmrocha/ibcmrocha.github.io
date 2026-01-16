@@ -1,7 +1,7 @@
 ---
 title: Jesse Metz
 role: Alumnus (MSc)
-order: 1014
+order: 1017
 img: /assets/img/no_portrait.png
 email: 
 website: 

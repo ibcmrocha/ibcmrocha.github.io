@@ -1,7 +1,7 @@
 ---
 title: Paul van IJzendoorn
 role: Alumnus (MSc)
-order: 1011
+order: 1006
 img: /assets/img/no_portrait.png
 email: 
 website: 

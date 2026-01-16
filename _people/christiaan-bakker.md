@@ -1,7 +1,7 @@
 ---
 title: Christiaan Bakker
-role: MSc student
-order: 1000
+role: Alumnus (MSc)
+order: 1001
 img: /assets/img/no_portrait.png
 email: 
 website: 

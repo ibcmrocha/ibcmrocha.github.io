@@ -1,7 +1,7 @@
 ---
 title: Marina Maia
-role: PhD candidate
-order: 1
+role: Alumnus (PhD)
+order: 8
 img: /assets/img/marinaCropped.png
 email: m.alvesmaia@tudelft.nl
 website: 

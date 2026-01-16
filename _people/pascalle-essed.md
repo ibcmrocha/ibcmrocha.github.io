@@ -1,7 +1,7 @@
 ---
 title: Pascalle Essed
 role: Alumnus (MSc)
-order: 1013
+order: 1011
 img: /assets/img/no_portrait.png
 email: 
 website: 

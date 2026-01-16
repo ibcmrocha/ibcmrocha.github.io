@@ -1,7 +1,7 @@
 ---
 title: Rik Hendriks
 role: Alumnus (MSc)
-order: 1008
+order: 1012
 img: /assets/img/no_portrait.png
 email: 
 website: 

@@ -1,7 +1,7 @@
 ---
 title: Jasmijn van Riggelen
 role: Alumnus (MSc)
-order: 1000
+order: 1004
 img: /assets/img/no_portrait.png
 email: 
 website: 

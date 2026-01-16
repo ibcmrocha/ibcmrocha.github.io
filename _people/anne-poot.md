@@ -1,7 +1,7 @@
 ---
 title: Anne Poot
 role: PhD candidate
-order: 4
+order: 1
 img: /assets/img/anneCropped.png
 email: a.poot-1@tudelft.nl
 website: 

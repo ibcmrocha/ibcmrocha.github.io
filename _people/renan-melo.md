@@ -1,7 +1,7 @@
 ---
 title: Renan Melo
 role: PhD candidate
-order: 6
+order: 4
 img: /assets/img/renanCropped.png
 email: r.m.barros@tudelft.nl
 website: 

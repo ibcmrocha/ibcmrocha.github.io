@@ -1,7 +1,7 @@
 ---
 title: Georgi Nikolov
 role: Alumnus (MSc)
-order: 1006
+order: 1002
 img: /assets/img/no_portrait.png
 email: 
 website: 

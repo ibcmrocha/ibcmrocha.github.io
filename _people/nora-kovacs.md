@@ -1,7 +1,7 @@
 ---
 title: Nora Kovacs
-role: PhD candidate
-order: 5
+role: Alumnus (PhD)
+order: 9
 img: /assets/img/noraCropped.png
 email: n.kovacs-1@tudelft.nl
 website: 

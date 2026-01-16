@@ -100,11 +100,21 @@ ninja.data = [{
           description: "",
           section: "People",handler: () => {
               window.location.href = "/people/daan-smolders/";
+            },},{id: "people-freerk-wieringa",
+          title: 'Freerk Wieringa',
+          description: "",
+          section: "People",handler: () => {
+              window.location.href = "/people/freerk-wieringa/";
             },},{id: "people-georgi-nikolov",
           title: 'Georgi Nikolov',
           description: "",
           section: "People",handler: () => {
               window.location.href = "/people/georgi-nikolov/";
+            },},{id: "people-isabel-slingerland",
+          title: 'Isabel Slingerland',
+          description: "",
+          section: "People",handler: () => {
+              window.location.href = "/people/isabel-slingerland/";
             },},{id: "people-iuri-rocha",
           title: 'Iuri Rocha',
           description: "",
@@ -120,6 +130,11 @@ ninja.data = [{
           description: "",
           section: "People",handler: () => {
               window.location.href = "/people/jesse-metz/";
+            },},{id: "people-jimmy-van-der-wereld",
+          title: 'Jimmy van der Wereld',
+          description: "",
+          section: "People",handler: () => {
+              window.location.href = "/people/jimmy-vanderwereld/";
             },},{id: "people-joep-storm",
           title: 'Joep Storm',
           description: "",
@@ -130,6 +145,16 @@ ninja.data = [{
           description: "",
           section: "People",handler: () => {
               window.location.href = "/people/joep-storm/";
+            },},{id: "people-jos-te-hennepe",
+          title: 'Jos te Hennepe',
+          description: "",
+          section: "People",handler: () => {
+              window.location.href = "/people/jos-tehennepe/";
+            },},{id: "people-justus-van-der-wulp",
+          title: 'Justus van der Wulp',
+          description: "",
+          section: "People",handler: () => {
+              window.location.href = "/people/justus-vanderwulp/";
             },},{id: "people-knut-tjensvoll",
           title: 'Knut Tjensvoll',
           description: "",
@@ -140,6 +165,11 @@ ninja.data = [{
           description: "",
           section: "People",handler: () => {
               window.location.href = "/people/leon-riccius/";
+            },},{id: "people-mariana-fuente-zazueta",
+          title: 'Mariana Fuente Zazueta',
+          description: "",
+          section: "People",handler: () => {
+              window.location.href = "/people/mariana-fuente/";
             },},{id: "people-marina-maia",
           title: 'Marina Maia',
           description: "",
@@ -175,6 +205,11 @@ ninja.data = [{
           description: "",
           section: "People",handler: () => {
               window.location.href = "/people/rik-hendriks/";
+            },},{id: "people-rithu-maria",
+          title: 'Rithu Maria',
+          description: "",
+          section: "People",handler: () => {
+              window.location.href = "/people/rithu-maria/";
             },},{id: "people-robbie-van-leeuwen",
           title: 'Robbie van Leeuwen',
           description: "",

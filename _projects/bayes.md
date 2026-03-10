@@ -37,3 +37,14 @@ When the likelihood function requires solving a PDE, standard MCMC can become im
 <div class="caption">
     Inferring two PDE parameters with conventional Random Walk MCMC (left), the Zig-zag sampler (middle), and the Bouncy Particle sampler (right) 
 </div>
+
+I collaborate with Joris Bierkens and Hanne Kekkonen, the statistical learning experts who develop these samplers, in applying PDMPs for real-world problems. In a recent publication { % cite riccius2026piecewisedeterministicmarkovprocesses } we develop an approach for using PDMPs to infer PDE parameters (e.g material properties with a FEM model and experimental measurements). Since FEM is much more messy than the usual well-behaved distributions Joris and Hanne use to develop the samplers, we came up with a way to still make it work by combining Poisson Thinning with a GP-based surrogate model that approximates the gradient of the log posterior being learned. Our approach extends the applicability of PDMPs to a much wider range of problems, and for PDE parameters in computational mechanics we actually find our PDMPs outperform state-of-the-art NUTS (*No U-Turn Sampler*) implementations:
+
+<div class="row">
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.liquid loading="eager" path="/assets/research/pdmp/ess_comparison.png" title="PDMP ESS comparison" class="img-fluid rounded z-depth-1" %}
+    </div>
+</div>
+<div class="caption">
+    Effective sample size per likelihood evaluation (higher is better). Comparison between a simple Random Walk Metropolis (RMW), the No U-Turn Sampler (NUTS) and our Zig-Zag sampler (ZZ) and Bouncy Particle sampler (BPS). We consistently outperform NUTS for a wide range of dimensionalities, which means we require much fewer expensive FEM model evaluations but still obtain accurate inference results.
+</div>

@@ -38,7 +38,7 @@ When the likelihood function requires solving a PDE, standard MCMC can become im
     Inferring two PDE parameters with conventional Random Walk MCMC (left), the Zig-zag sampler (middle), and the Bouncy Particle sampler (right) 
 </div>
 
-I collaborate with Joris Bierkens and Hanne Kekkonen, the statistical learning experts who develop these samplers, in applying PDMPs for real-world problems. In a recent publication by our PhD candidate Leon Riccius {% cite riccius2026piecewisedeterministicmarkovprocesses %} we develop an approach for using PDMPs to infer PDE parameters (e.g material properties with a FEM model and experimental measurements). Since FEM is much more messy than the usual well-behaved distributions Joris and Hanne use to develop the samplers, we came up with a way to still make it work by combining Poisson Thinning with a GP-based surrogate model that approximates the gradient of the log posterior being learned. Our approach extends the applicability of PDMPs to a much wider range of problems, and for PDE parameters in computational mechanics we actually find our PDMPs outperform state-of-the-art NUTS (*No U-Turn Sampler*) implementations:
+I collaborate with [Joris Bierkens](https://scholar.google.nl/citations?hl=nl&user=JlAi6VAAAAAJ) and [Hanne Kekkonen](https://scholar.google.nl/citations?user=wxsxtq4AAAAJ&hl=nl), the statistical learning experts who develop these samplers, in applying PDMPs for real-world problems. In a recent publication by our PhD candidate Leon Riccius {% cite riccius2026piecewisedeterministicmarkovprocesses %} we develop an approach for using PDMPs to infer PDE parameters (e.g material properties with a FEM model and experimental measurements). Since FEM is much more messy than the usual well-behaved distributions Joris and Hanne use to develop the samplers, we came up with a way to still make it work by combining Poisson Thinning with a GP-based surrogate model that approximates the gradient of the log posterior being learned. Our approach extends the applicability of PDMPs to a much wider range of problems, and for PDE parameters in computational mechanics we actually find our PDMPs outperform state-of-the-art NUTS (*No U-Turn Sampler*) implementations:
 
 <div class="row">
     <div class="col-12 col-md-8 col-lg-6 mx-auto mt-3 mt-md-0">
@@ -55,10 +55,10 @@ Even when likelihood computations are computationally cheap, posterior distribut
 
 <div class="row align-items-center">
     <div class="col-sm mt-3 mt-md-0 d-flex align-items-center justify-content-center">
-        {% include figure.liquid loading="eager" path="assets/research/bfem/bar.png" title="Conventional MCMC" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid loading="eager" path="assets/research/bfem/bar.png" title="Bar problem" class="img-fluid rounded z-depth-1" %}
     </div>
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/research/bfem/bar_fem.png" title="Zig-zag sampler" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid loading="eager" path="assets/research/bfem/bar_fem.png" title="FEM inference" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
 <div class="caption">
@@ -66,4 +66,36 @@ Even when likelihood computations are computationally cheap, posterior distribut
 </div>
 
 
-Together with Pierre Kerfriden and our PhD Anne Poot, we develop a new approach for representing FEM discretization error as a Bayesian epistemic uncertainty {% cite pootBayesianApproachModeling2024 %}
+Together with [Pierre Kerfriden](https://scholar.google.nl/citations?user=EV2wmsgAAAAJ&hl=nl) and our PhD Anne Poot, we develop a new approach for representing FEM discretization error as a Bayesian epistemic uncertainty {% cite pootBayesianApproachModeling2024 %}. The key idea is to introduce **two meshes with different levels of discretization**: we set up a prior distribution over a fine mesh and condition the solution on the shape functions of a coarse mesh. The result is a mean response that is exactly the coarse FEM solution and a variance orthogonal to the coarse function solution space. 
+
+By properly propagating the uncertainty over the discretization error, our inference results look much more sane than conventional FEM and we also outperform other recent methods for propagating FEM uncertainty {% cite poot2025bayesianfiniteelementmethod %}:
+
+<div class="row align-items-center">
+    <div class="col-sm mt-3 mt-md-0 d-flex align-items-center justify-content-center">
+        {% include figure.liquid loading="eager" path="assets/research/bfem/bar_bfem.png" title="BFEM inference" class="img-fluid rounded z-depth-1" %}
+    </div>
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.liquid loading="eager" path="assets/research/bfem/bar_rmfem.png" title="RM-FEM inference" class="img-fluid rounded z-depth-1" %}
+    </div>
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.liquid loading="eager" path="assets/research/bfem/bar_statfem.png" title="StatFEM inference" class="img-fluid rounded z-depth-1" %}
+    </div>
+</div>
+<div class="caption">
+   The same 1D inference problem as above, but now with our Bayesian FEM method (left) and also including a comparison with Random mesh FEM (middle) and the Statistical Finite Element Method (right).
+</div>
+
+And of course we can also treat 2D/3D problems in more complicated settings, like inferring the location of a defect:
+
+<div class="row align-items-center">
+    <div class="col-sm mt-3 mt-md-0 d-flex align-items-center justify-content-center">
+        {% include figure.liquid loading="eager" path="assets/research/bfem/beam_fem.gif" title="Beam with a hole (FEM)" class="img-fluid rounded z-depth-1" %}
+    </div>
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.liquid loading="eager" path="assets/research/bfem/beam_bfem.gif" title="Beam with a hole (BFEM)" class="img-fluid rounded z-depth-1" %}
+    </div>
+</div>
+<div class="caption">
+   Inferring the location of a void in a three-point bending test by observing only the displacements at the boundaries. FEM (left) and BFEM (right) results side by side, showing the samples from the posterior distribution obtained with MCMC. The true location of the defect is shown with a dashed line.
+</div>
+

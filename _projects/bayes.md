@@ -53,7 +53,7 @@ You can play with our approach by using the following interactive plot. You can 
 
 <div style="max-width: 900px; margin: 0 auto;">
     <div style="position: relative; width: 100%; padding-top: 74%;">     
-        <iframe       src="{{ '/assets/html/research-pdmp.html' | relative_url }}"       style="position: absolute; inset: 0; width: 50%; height: 100%; border: none;"       loading="lazy">     
+        <iframe       src="{{ '/assets/html/research-pdmp.html' | relative_url }}"       style="position: absolute; inset: 0; width: 100%; height: 100%; border: none;"       loading="lazy">     
         </iframe>
     </div>
 </div>

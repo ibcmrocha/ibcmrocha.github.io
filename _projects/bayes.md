@@ -51,7 +51,12 @@ I collaborate with [Joris Bierkens](https://scholar.google.nl/citations?hl=nl&us
 
 You can play with our approach by using the following interactive plot. You can move the means of the Gaussian mixture that makes up the ground truth posterior to generate more challenging multi-modal problems:
 
-<div style="max-width: 900px; margin: 0 auto;">   <div style="position: relative; width: 100%; padding-top: 74%;">     <iframe       src="{{ '/assets/html/research-pdmp.html' | relative_url }}"       style="position: absolute; inset: 0; width: 100%; height: 100%; border: none;"       loading="lazy">     </iframe>   </div> </div>
+<div style="max-width: 900px; margin: 0 auto;">
+    <div style="position: relative; width: 50%; padding-top: 74%;">     
+        <iframe       src="{{ '/assets/html/research-pdmp.html' | relative_url }}"       style="position: absolute; inset: 0; width: 100%; height: 100%; border: none;"       loading="lazy">     
+        </iframe>
+    </div>
+</div>
 
 ## The Bayesian Finite Element Method
 

@@ -57,7 +57,9 @@ You can play with our approach by using the following interactive plot. You can 
 <!--   {% include research-pdmp.html %} -->
 <!-- </div> -->
 
-<div style="width: 100%; max-width: 900px; margin: 0 auto;">   <iframe     src="{{ '/assets/html/research-pdmp.html' | relative_url }}"     width="100%"     height="760"     style="border: none; display: block;"     loading="lazy">   </iframe> </div>
+<!-- <div style="width: 100%; max-width: 900px; margin: 0 auto;">   <iframe     src="{{ '/assets/html/research-pdmp.html' | relative_url }}"     width="100%"     height="760"     style="border: none; display: block;"     loading="lazy">   </iframe> </div> -->
+
+<div style="max-width: 900px; margin: 0 auto;">   <div style="position: relative; width: 100%; padding-top: 74%;">     <iframe       src="{{ '/assets/html/research-pdmp.html' | relative_url }}"       style="position: absolute; inset: 0; width: 100%; height: 100%; border: none;"       loading="lazy">     </iframe>   </div> </div>
 
 ## The Bayesian Finite Element Method
 

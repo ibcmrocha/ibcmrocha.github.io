@@ -49,6 +49,14 @@ I collaborate with [Joris Bierkens](https://scholar.google.nl/citations?hl=nl&us
     Effective sample size per likelihood evaluation (higher is better). Comparison between a simple Random Walk Metropolis (RMW), the No U-Turn Sampler (NUTS) and our Zig-Zag sampler (ZZ) and Bouncy Particle sampler (BPS). We consistently outperform NUTS for a wide range of dimensionalities, which means we require much fewer expensive FEM model evaluations but still obtain accurate inference results.
 </div>
 
+You can play with our approach by using the following interactive plot. You can move the means of the Gaussian mixture that makes up the ground truth posterior to generate more challenging multi-modal problems:
+
+<div class="card p-3 mb-4">
+  <h3 class="mb-2">A tiny PDMP sandbox</h3>
+  <p class="text-muted mb-3">Try out our surrogate-enhanced Zig-zag sampler implementation in a non-Gaussian problem:</p>
+  {% include research-pdmp.html %}
+</div>
+
 ## The Bayesian Finite Element Method
 
 Even when likelihood computations are computationally cheap, posterior distributions can still be misleading if we ignore the fact that our PDE solution is only available through a discretization, and therefore carries an error with it. In practice for FEM, this translates into biased and overconfident posteriors. A simple example can be seen below for a 1D pullout bar model:
@@ -96,6 +104,6 @@ And of course we can also treat 2D/3D problems in more complicated settings, lik
     </div>
 </div>
 <div class="caption">
-   Inferring the location of a void in a three-point bending test by observing only the displacements at the boundaries. FEM (left) and BFEM (right) results side by side, showing the samples from the posterior distribution obtained with MCMC. The true location of the defect is shown with a dashed line.
+   Inferring the location of a void in a three-point bending test by observing only the displacements at the boundaries. FEM (left) and BFEM (right) results side by side, showing the samples from the posterior distribution obtained with MCMC. The true location of the defect is shown with a dashed line. FEM with a coarse mesh gets stuck in a non-existing posterior mode and gets the location of the hole completely wrong.
 </div>
 

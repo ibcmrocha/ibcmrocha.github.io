@@ -44,7 +44,7 @@
 <div class="wrap">
   <div class="layout">
     <div class="panel viz-panel">
-      <svg id="viz" viewBox="0 0 640 640" aria-label="Interactive posterior and sampler visualization"></svg>
+      <svg id="viz" viewBox="0 0 860 640" aria-label="Interactive posterior and sampler visualization"></svg>
       <div class="legend">
         <div class="legend-item"><span class="swatch" style="background:#3b82f6;"></span> ground-truth contours</div>
         <div class="legend-item"><span class="swatch" style="background:#ef4444;"></span> surrogate contours</div>
@@ -102,7 +102,7 @@
 <script>
 (() => {
   const svg = d3.select("#viz");
-  const W = 640, H = 640;
+  const W = 860, H = 640;
   const margin = {top:24, right:28, bottom:44, left:58};
   const plotW = W - margin.left - margin.right;
   const plotH = H - margin.top - margin.bottom;

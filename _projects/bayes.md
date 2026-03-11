@@ -51,11 +51,12 @@ I collaborate with [Joris Bierkens](https://scholar.google.nl/citations?hl=nl&us
 
 You can play with our approach by using the following interactive plot. You can move the means of the Gaussian mixture that makes up the ground truth posterior to generate more challenging multi-modal problems:
 
-<div style="max-width: 900px; margin: 0 auto;">
-    <div style="position: relative; width: 100%; padding-top: 74%;">     
-        <iframe       src="{{ '/assets/html/research-pdmp.html' | relative_url }}"       style="position: absolute; inset: 0; width: 100%; height: 100%; border: none;"       loading="lazy">     
-        </iframe>
-    </div>
+<div class="card p-3 mb-4">
+    <h3 class="mb-2">A tiny PDMP sandbox</h3>
+    <p class="text-muted mb-3">
+        Try out our surrogate-enhanced Zig-zag sampler implementation in a non-Gaussian problem: 
+    </p> 
+    {% include research-pdmp.html %}
 </div>
 
 ## The Bayesian Finite Element Method

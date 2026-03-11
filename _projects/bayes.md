@@ -41,7 +41,7 @@ When the likelihood function requires solving a PDE, standard MCMC can become im
 I collaborate with Joris Bierkens and Hanne Kekkonen, the statistical learning experts who develop these samplers, in applying PDMPs for real-world problems. In a recent publication by our PhD candidate Leon Riccius {% cite riccius2026piecewisedeterministicmarkovprocesses %} we develop an approach for using PDMPs to infer PDE parameters (e.g material properties with a FEM model and experimental measurements). Since FEM is much more messy than the usual well-behaved distributions Joris and Hanne use to develop the samplers, we came up with a way to still make it work by combining Poisson Thinning with a GP-based surrogate model that approximates the gradient of the log posterior being learned. Our approach extends the applicability of PDMPs to a much wider range of problems, and for PDE parameters in computational mechanics we actually find our PDMPs outperform state-of-the-art NUTS (*No U-Turn Sampler*) implementations:
 
 <div class="row">
-    <div class="col-sm mt-3 mt-md-0">
+    <div class="col-12 col-md-8 col-lg-6 mx-auto mt-3 mt-md-0">
         {% include figure.liquid loading="eager" path="/assets/research/pdmp/ess_comparison.png" title="PDMP ESS comparison" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
@@ -53,8 +53,8 @@ I collaborate with Joris Bierkens and Hanne Kekkonen, the statistical learning e
 
 Even when likelihood computations are computationally cheap, posterior distributions can still be misleading if we ignore the fact that our PDE solution is only available through a discretization, and therefore carries an error with it. In practice for FEM, this translates into biased and overconfident posteriors. A simple example can be seen below for a 1D pullout bar model:
 
-<div class="row">
-    <div class="col-sm mt-3 mt-md-0">
+<div class="row align-items-center">
+    <div class="col-sm mt-3 mt-md-0 d-flex align-items-center justify-content-center">
         {% include figure.liquid loading="eager" path="assets/research/bfem/bar.png" title="Conventional MCMC" class="img-fluid rounded z-depth-1" %}
     </div>
     <div class="col-sm mt-3 mt-md-0">

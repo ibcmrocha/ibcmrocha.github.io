@@ -54,9 +54,7 @@ You can play with our approach by using the following interactive plot. You can 
 <div class="card p-3 mb-4">
   <h3 class="mb-2">A tiny PDMP sandbox</h3>
   <p class="text-muted mb-3">Try out our surrogate-enhanced Zig-zag sampler implementation in a non-Gaussian problem:</p>
-  <div class="mx-auto" style="max-width: 900px;">
-      {% include research-pdmp.html %}
-  </div>
+  {% include research-pdmp.html %}
 </div>
 
 ## The Bayesian Finite Element Method

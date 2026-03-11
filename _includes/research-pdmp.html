@@ -47,15 +47,6 @@
 </head>
 <body>
 <div class="wrap">
-  <div class="title">
-    <h1>Surrogate-enhanced Zig-Zag sampler demo</h1>
-    <p>
-      Drag the orange Gaussian means to create a smooth unimodal or multimodal posterior in 2D.
-      Adjust the shared variance, choose the number of initial surrogate samples, and run a lightweight browser demo
-      of a surrogate-assisted Zig-Zag sampler with offset-corrected thinning.
-    </p>
-  </div>
-
   <div class="layout">
     <div class="panel viz-panel">
       <svg id="viz" viewBox="0 0 860 640" aria-label="Interactive posterior and sampler visualization"></svg>
@@ -65,10 +56,6 @@
         <div class="legend-item"><span class="swatch" style="background:#111827;"></span> zig-zag trajectory</div>
         <div class="legend-item"><span class="swatch-dot" style="background:#f59e0b;"></span> draggable Gaussian means</div>
         <div class="legend-item"><span class="swatch-dot" style="background:#16a34a;"></span> initial GP samples</div>
-      </div>
-      <div class="caption">
-        The sampler uses a GP surrogate for the log posterior mean only. It does <em>not</em> use derivative observations.
-        Event proposals are based on surrogate rates and an adaptive additive offset, in the same spirit as the surrogate logic in the PDMP codebase.
       </div>
     </div>
 

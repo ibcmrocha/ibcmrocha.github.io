@@ -33,7 +33,7 @@ We also used all techniques in an FE$^2$ example to showcase their runtimes:
 | Runtime [s] | 726500     | 2.2       | 10.8       | 2692              |
 | Speed-up [-]|            | 329478    | 67393      | 270               |
 
-The promising machine learning speed-ups motivated me to look for ways to solve the extrapolation problem. You can see one of them below (active learning) and another in the [hybrid models page]({{'/projects/hybrids/' | relative_url }})
+The promising machine learning speed-ups motivated me to look for ways to solve the extrapolation problem. You can see one of them below (active learning) and another in the [hybrid models page]({% link _projects/hybrids.md %})
 
 ## Building surrogate models on the fly
 

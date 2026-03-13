@@ -38,7 +38,7 @@ The promising machine learning speed-ups motivated me to look for ways to solve 
 
 ## Building surrogate models on the fly
 
-One way to guarantee accurate predictions in extrapolation is to build ML surrogates that **provide uncertainty metrics** together with their predictions. In {% rochaOntheflyConstructionSurrogate2021 %} we use Gaussian Processes (GPs) for that. We start our simulations with a completely untrained model and the constitutive behavior is learned from just a few micromodels as the macroscale structure is loaded. Accuracy is guaranteed by rejecting the surrogate prediction if its epistemic uncertainty is too high.
+One way to guarantee accurate predictions in extrapolation is to build ML surrogates that **provide uncertainty metrics** together with their predictions. In {% cite rochaOntheflyConstructionSurrogate2021 %} we use Gaussian Processes (GPs) for that. We start our simulations with a completely untrained model and the constitutive behavior is learned from just a few micromodels as the macroscale structure is loaded. Accuracy is guaranteed by rejecting the surrogate prediction if its epistemic uncertainty is too high.
 
 <div class="row align-items-center">
     <div class="col-sm mt-3 mt-md-0 d-flex align-items-center justify-content-center">
@@ -62,7 +62,7 @@ In {% rochaAdaptiveDomainbasedPOD2020 %} we also present an adaptive acceleratio
 
 ## Combining different surrogates on the same model
 
-More recently, I developed together with my PhD Joep Storm and [Waiching Sun](https://scholar.google.com/citations?user=_0SbGQcAAAAJ&hl=en) a phase-field-based approach for combining surrogate models on the same mesh. The key idea is a synthesis from the previous two approaches: the material behavior in some parts of the domain are computed with an uncertainty-aware surrogate (a GP in our case) while the remaining parts are fully solved. We then use a phase field to help us define how these regions evolve during the simulation and what happens at a smooth interface between them where the models are mixed
+More recently, I developed together with my PhD Joep Storm and [Waiching Sun](https://scholar.google.com/citations?user=_0SbGQcAAAAJ&hl=en) a phase-field-based approach for combining surrogate models on the same mesh. The key idea is a synthesis from the previous two approaches: the material behavior in some parts of the domain are computed with an uncertainty-aware surrogate (a GP in our case) while the remaining parts are fully solved. We then use a phase field to help us define how these regions evolve during the simulation and what happens at a smooth interface between them where the models are mixed {% cite storm2025mixingdatadrivenphysicsbasedconstitutive %}
 
 <div class="row align-items-center">
     <div class="col-sm mt-3 mt-md-0 d-flex align-items-center justify-content-center">

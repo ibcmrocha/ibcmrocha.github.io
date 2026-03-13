@@ -49,7 +49,7 @@ One way to guarantee accurate predictions in extrapolation is to build ML surrog
     My active learning approach for multiscale simulations: a GP model learns consitutive behavior on the fly and just a few micromodels are executed during the simulation.
 </div>
 
-In {% rochaAdaptiveDomainbasedPOD2020 %} we also present an adaptive acceleration scheme but this time relying on projection-based ROMs and their hyper-reduced versions (in this case ECM). The simulation domain is adaptively decomposed into fully-solved parts, POD domains and hyper-reduced domains, with the reduced basis being updated on the fly with a few fully-solved steps:
+In {% cite rochaAdaptiveDomainbasedPOD2020 %} we also present an adaptive acceleration scheme but this time relying on projection-based ROMs and their hyper-reduced versions (in this case ECM). The simulation domain is adaptively decomposed into fully-solved parts, POD domains and hyper-reduced domains, with the reduced basis being updated on the fly with a few fully-solved steps:
 
 <div class="row align-items-center">
     <div class="col-sm mt-3 mt-md-0 d-flex align-items-center justify-content-center">

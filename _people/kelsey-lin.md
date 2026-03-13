@@ -2,7 +2,7 @@
 title: Kelsey Lin
 role: PhD candidate
 order: 6
-img: /assets/img/no_portrait.png
+img: /assets/img/kelsey.webp
 email: Y.C.Lin@tudelft.nl
 website:
 scholar:

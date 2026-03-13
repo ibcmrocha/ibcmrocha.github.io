@@ -12,7 +12,7 @@ I work on many flavors of surrogate modeling for solid mechanics, especially in 
 
 ## Comparing surrogate model approaches
 
-I worked together with [Pierre Kerfriden](https://scholar.google.nl/citations?user=EV2wmsgAAAAJ&hl=nl) during my postdoc to compare several surrogate modeling alternatives for multiscale simulations of composite materials { % cite ROCHA2020103995 % }. At the time there was no clear winner: classical physics-based mesomodels are the quickest alternative but their intrinsic assumptions are quite limiting; neural networks are also very fast but cannot extrapolate to unseen scenarios; hyper-reduced ROMs can extrapolate quite well but have limited speed-ups:
+I worked together with [Pierre Kerfriden](https://scholar.google.nl/citations?user=EV2wmsgAAAAJ&hl=nl) during my postdoc to compare several surrogate modeling alternatives for multiscale simulations of composite materials {% cite ROCHA2020103995 %}. At the time there was no clear winner: classical physics-based mesomodels are the quickest alternative but their intrinsic assumptions are quite limiting; neural networks are also very fast but cannot extrapolate to unseen scenarios; hyper-reduced ROMs can extrapolate quite well but have limited speed-ups:
 
 <div class="row align-items-center">
     <div class="col-sm mt-3 mt-md-0 d-flex align-items-center justify-content-center">
@@ -32,3 +32,11 @@ We also used all techniques in an FE$^2$ example to showcase their runtimes:
 | ------------|------------|-----------|------------|-------------------|
 | Runtime [s] | 726500     | 2.2       | 10.8       | 2692              |
 | Speed-up [-]|            | 329478    | 67393      | 270               |
+
+The promising machine learning speed-ups motivated me to look for ways to solve the extrapolation problem. You can see one of them below (active learning) and another in the [hybrid models page]({{'/projects/hybrids/' | relative_url }})
+
+## Building surrogate models on the fly
+
+## Combining different surrogates on the same model
+
+## Graph neural networks as surrogates

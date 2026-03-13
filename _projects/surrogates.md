@@ -23,7 +23,7 @@ I worked together with [Pierre Kerfriden](https://scholar.google.nl/citations?us
     </div>
 </div>
 <div class="caption">
-    Predictions of the biaxial (normal/shear) behavior of fiber-reinforced composites coming from expensive micromechanics (*Micromodel*), hyper-reduced ROMs untrained for this specific case (*Untrained hyper-reduced*) and feedforward neural nets untrained for this case (*Untrained network*). Results from a classical physics-based *Mesomodel* that cannot capture biaxiality also included.
+    Predictions of the biaxial (normal/shear) behavior of fiber-reinforced composites coming from expensive micromechanics (<i>Micromodel</i>), hyper-reduced ROMs untrained for this specific case (<i>Untrained hyper-reduced</i>) and feedforward neural nets untrained for this case (<i>Untrained network</i>). Results from a classical physics-based <i>Mesomodel</i> that cannot capture biaxiality also included.
 </div>
 
 We also used all techniques in an FE$^2$ example to showcase their runtimes:
@@ -36,6 +36,8 @@ We also used all techniques in an FE$^2$ example to showcase their runtimes:
 The promising machine learning speed-ups motivated me to look for ways to solve the extrapolation problem. You can see one of them below (active learning) and another in the [hybrid models page]({% link _projects/hybrids.md %})
 
 ## Building surrogate models on the fly
+
+One way to guarantee accurate predictions in extrapolation is to build ML surrogates that give
 
 ## Combining different surrogates on the same model
 

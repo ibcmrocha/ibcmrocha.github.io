@@ -71,10 +71,6 @@
         <div class="legend-item"><span class="swatch-dot" style="background:#f59e0b;"></span> draggable Gaussian means</div>
         <div class="legend-item"><span class="swatch-dot" style="background:#16a34a;"></span> initial GP samples</div>
       </div>
-      <div class="caption">
-        The sampler uses a GP surrogate for the log posterior mean only. It does <em>not</em> use derivative observations.
-        Event proposals are based on surrogate rates and an adaptive additive offset, in the same spirit as the surrogate logic in the PDMP codebase.
-      </div>
     </div>
 
     <div class="panel controls">
@@ -92,7 +88,7 @@
 
       <div class="control">
         <label for="events">Number of proposed events: <span class="value" id="eventsValue">900</span></label>
-        <input id="events" type="range" min="100" max="5000" step="50" value="900" />
+        <input id="events" type="range" min="100" max="10000" step="50" value="900" />
       </div>
 
       <div class="control">
@@ -108,10 +104,7 @@
       <div class="stats" id="stats">
         <div class="row"><div class="k">Status</div><div id="stat-status">ready</div></div>
         <div class="row"><div class="k">Accepted events</div><div id="stat-accepted">0</div></div>
-        <div class="row"><div class="k">Rejected events</div><div id="stat-rejected">0</div></div>
         <div class="row"><div class="k">Offset violations</div><div id="stat-violations">0</div></div>
-        <div class="row"><div class="k">Final offset</div><div id="stat-offset" class="mono">[0.00, 0.00]</div></div>
-        <div class="row"><div class="k">True evals</div><div id="stat-evals">0</div></div>
       </div>
 
       <div class="footer-note">
@@ -154,7 +147,6 @@
   gAxes.append("g").attr("class","axis").attr("transform",`translate(${margin.left},0)`).call(d3.axisLeft(y).ticks(8));
   gAxes.append("text").attr("x", margin.left + plotW/2).attr("y", H - 8).attr("text-anchor","middle").attr("fill","#6b7280").attr("font-size",13).text("θ₁");
   gAxes.append("text").attr("transform",`translate(18,${margin.top + plotH/2}) rotate(-90)`).attr("text-anchor","middle").attr("fill","#6b7280").attr("font-size",13).text("θ₂");
-  gAxes.append("text").attr("x", margin.left).attr("y", 16).attr("fill","#374151").attr("font-size",15).attr("font-weight",700).text("Ground-truth posterior and surrogate-enhanced Zig-Zag path");
 
   const varianceSlider = document.getElementById("varianceSlider");
   const varianceValue = document.getElementById("varianceValue");
@@ -169,10 +161,7 @@
 
   const statStatus = document.getElementById("stat-status");
   const statAccepted = document.getElementById("stat-accepted");
-  const statRejected = document.getElementById("stat-rejected");
   const statViolations = document.getElementById("stat-violations");
-  const statOffset = document.getElementById("stat-offset");
-  const statEvals = document.getElementById("stat-evals");
 
   const means0 = [
     {id:0, x:-1.6, y: 1.25, w:1.00},
@@ -390,10 +379,7 @@
     lastResult = null;
     statStatus.textContent = "ready";
     statAccepted.textContent = "0";
-    statRejected.textContent = "0";
     statViolations.textContent = "0";
-    statOffset.textContent = "[0.00, 0.00]";
-    statEvals.textContent = "0";
   }
 
   function calibrateOffset(gp, trainX){
@@ -502,10 +488,7 @@
     await animateResult(result);
     statStatus.textContent = "done";
     statAccepted.textContent = String(result.accepted);
-    statRejected.textContent = String(result.rejected);
     statViolations.textContent = String(result.violations);
-    statOffset.textContent = `[${result.offset[0].toFixed(2)}, ${result.offset[1].toFixed(2)}]`;
-    statEvals.textContent = String(result.evals);
     setBusy(false);
   }
 

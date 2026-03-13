@@ -158,6 +158,11 @@ ninja.data = [{
           description: "",
           section: "People",handler: () => {
               window.location.href = "/people/justus-vanderwulp/";
+            },},{id: "people-kelsey-lin",
+          title: 'Kelsey Lin',
+          description: "",
+          section: "People",handler: () => {
+              window.location.href = "/people/kelsey-lin/";
             },},{id: "people-knut-tjensvoll",
           title: 'Knut Tjensvoll',
           description: "",

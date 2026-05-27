@@ -495,3 +495,19 @@ abstract = {This work presents a genetic algorithm combining two types of comput
 bibtex_show={true},
 preview={rocha2014288.png}
 }
+
+@article{JAKOBSEN2026105733,
+title = {Predicting plastic strain localization in porous solids using graph neural networks}, 
+journal = {Mechanics of Materials}, 
+volume = {219}, 
+pages = {105733}, 
+year = {2026}, 
+issn = {0167-6636}, 
+doi = {https://doi.org/10.1016/j.mechmat.2026.105733}, 
+url = {https://www.sciencedirect.com/science/article/pii/S0167663626001377}, 
+author = {R.B. Jakobsen and T.S. Kristensen and J. Storm and I.B.C.M. Rocha and T. Andriollo}, 
+keywords = {Surrogate modeling, Graph neural network, Plasticity, Heterogeneous material, Porous solid, Strain localization}, 
+abstract = {We develop graph-based surrogate models to predict strain localization and collapse load in 2D elastic-perfectly plastic porous solids. Plastic deformation is represented using a Delaunay graph, where nodes correspond to void centers, edges represent potential shear bands, and edge values encode the local integral of the plastic work rate (PWR). Two edge-regression graph neural network (GNN) models are built. The first is a purely data-driven model (DDM) that maps local geometric features to PWR. The second is a hybrid model (HM) that augments the GNN with a mechanistic prior from a limit load analysis model (LLAM) and learns a correction to its upper-bound bias. The models are trained on a dataset of 1200 representative volume elements with 20% porosity. The DDM can reliably reconstruct shear band patterns, but its accuracy deteriorates when applied to porosity values different from that seen in training. The HM, like the LLAM, does not fully capture the spatial pattern, but it removes the LLAM systematic bias and achieves uniformly low errors in total work rate for porosities ranging from 10% to 30%. Moreover, the HM requires less training data than the DDM and is more robust across random seeds. These results show that coupling a GNN with a physics-based prior yields a fast and data-efficient surrogate that preserves accuracy in macroscopic quantities while retaining meaningful spatial information, thereby offering a practical route to predict the collapse of porous solids while accounting for the exact locations of a very large number of voids.},
+bibtex_show={true},
+preview={jakobsen2026105733.png}
+}

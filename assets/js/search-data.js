@@ -244,6 +244,11 @@ ninja.data = [{
           description: "",
           section: "People",handler: () => {
               window.location.href = "/people/uri-peker/";
+            },},{id: "people-winston-lindqwister",
+          title: 'Winston Lindqwister',
+          description: "",
+          section: "People",handler: () => {
+              window.location.href = "/people/winston-lindqwister/";
             },},{id: "people-yunfan-zhang",
           title: 'Yunfan Zhang',
           description: "",

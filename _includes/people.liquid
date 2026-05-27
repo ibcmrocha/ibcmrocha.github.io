@@ -9,6 +9,10 @@
   {% assign role_class = "phd" %}
 {% elsif role contains "msc" %}
   {% assign role_class = "msc" %}
+{% elsif role contains "postdoc" %}
+  {% assign role_class = "pd" %}
+{% elsif role contains "alumnus" and role contains "pd" %}
+  {% assign role_class = "alumnus_pd" %}
 {% else %}
   {% assign role_class = "" %}
 {% endif %}

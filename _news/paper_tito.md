@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
-New paper on graph neural networks for plastic localization in porous media now out in Mechanics of Materials! <a href="https://www.sciencedirect.com/science/article/pii/S0167663626001377">[link]</a>
+New paper out on GNNs for plastic localization in collaboration with Aarhus University <a href="https://www.sciencedirect.com/science/article/pii/S0167663626001377">[link]</a>

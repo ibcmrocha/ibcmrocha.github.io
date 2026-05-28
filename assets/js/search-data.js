@@ -174,6 +174,11 @@ ninja.data = [{
           description: "",
           section: "People",handler: () => {
               window.location.href = "/people/knut-tjensvoll/";
+            },},{id: "people-koen-de-rooij",
+          title: 'Koen de Rooij',
+          description: "",
+          section: "People",handler: () => {
+              window.location.href = "/people/koen-derooij/";
             },},{id: "people-leon-riccius",
           title: 'Leon Riccius',
           description: "",
@@ -189,6 +194,16 @@ ninja.data = [{
           description: "",
           section: "People",handler: () => {
               window.location.href = "/people/marina-maia/";
+            },},{id: "people-menno-marissen",
+          title: 'Menno Marissen',
+          description: "",
+          section: "People",handler: () => {
+              window.location.href = "/people/menno-marissen/";
+            },},{id: "people-mike-intveld",
+          title: 'Mike Intveld',
+          description: "",
+          section: "People",handler: () => {
+              window.location.href = "/people/mike-intveld/";
             },},{id: "people-nora-kovacs",
           title: 'Nora Kovacs',
           description: "",

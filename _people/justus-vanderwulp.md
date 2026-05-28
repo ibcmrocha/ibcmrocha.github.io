@@ -1,6 +1,6 @@
 ---
 title: Justus van der Wulp
-role: MSc student
+role: Alumnus (MSc)
 order: 1000
 img: /assets/img/no_portrait.png
 email: 

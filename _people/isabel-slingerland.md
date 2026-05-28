@@ -1,7 +1,7 @@
 ---
 title: Isabel Slingerland
-role: MSc student
-order: 998
+role: Alumnus (MSc)
+order: 999
 img: /assets/img/no_portrait.png
 email: 
 website: 

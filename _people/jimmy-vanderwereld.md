@@ -1,7 +1,7 @@
 ---
 title: Jimmy van der Wereld
 role: MSc student
-order: 999
+order: 998
 img: /assets/img/no_portrait.png
 email: 
 website: 

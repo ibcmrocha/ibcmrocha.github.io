@@ -10,5 +10,5 @@ github:
 linkedin: 
 twitter: 
 promotor: 
-project: Variational Autoencoders for SAR imaging data
+project: <a href="https://repository.tudelft.nl/record/uuid:efb04f8c-140d-4c0e-9068-b2ea7c79fa36">Encoding SAR ocean signatures into latent space</a> 
 ---

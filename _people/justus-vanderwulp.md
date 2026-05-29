@@ -10,5 +10,7 @@ github:
 linkedin: 
 twitter: 
 promotor: 
-project: Fire resistance prediction of Glulam timber columns using Gaussian Process surrogate modeling (with BAM)
+project: <a href="https://repository.tudelft.nl/record/uuid:c28b27f3-746c-44c5-a5fd-8711e5c589ec">Improving fire resistance prediction of glulam timber columns using gaussian process surrogate modelling (with BAM)</a> 
 ---
+
+

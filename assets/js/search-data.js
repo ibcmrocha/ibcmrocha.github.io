@@ -84,6 +84,9 @@ ninja.data = [{
           section: "News",},{id: "news-new-paper-out-on-gnns-for-plastic-localization-in-collaboration-with-aarhus-university-link",
           title: 'New paper out on GNNs for plastic localization in collaboration with Aarhus University...',
           description: "",
+          section: "News",},{id: "news-gave-a-talk-on-hybrid-ml-at-the-graphs-amp-amp-data-tudelft-seminar-series-link",
+          title: 'Gave a talk on hybrid ML at the Graphs&amp;amp;amp;Data@TUDelft seminar series [link]',
+          description: "",
           section: "News",},{id: "people-abhinanda-ravikumar",
           title: 'Abhinanda Ravikumar',
           description: "",
@@ -434,6 +437,11 @@ ninja.data = [{
           description: "",
           section: "Talks",handler: () => {
               window.location.href = "/talks/eth_laura/";
+            },},{id: "talks-simulating-material-behavior-across-the-scales-with-hybrid-machine-learning",
+          title: 'Simulating material behavior across the scales with hybrid machine learning',
+          description: "",
+          section: "Talks",handler: () => {
+              window.location.href = "/talks/graphs_data/";
             },},{
         id: 'social-email',
         title: 'email',

@@ -448,6 +448,11 @@ ninja.data = [{
           description: "",
           section: "Talks",handler: () => {
               window.location.href = "/talks/graphs_data/";
+            },},{id: "talks-machine-learning-for-multiscale-mechanics",
+          title: 'Machine learning for multiscale mechanics',
+          description: "",
+          section: "Talks",handler: () => {
+              window.location.href = "/talks/ufc26/";
             },},{
         id: 'social-email',
         title: 'email',

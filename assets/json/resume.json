@@ -29,7 +29,15 @@
       "startDate": "2020-07",
       "endDate": "",
       "summary": "Faculty of Civil Engineering and Geosciences"
+    }, 
+    {
+      "name": "Federal University of Ceara",
+      "position": "Visiting Professor",
+      "startDate": "2026-10",
+      "endDate": "2026-10",
+      "summary": "Laboratorio de Mecanica Computacional e Visualizacao"
     },
+
     {
       "name": "ETH Zurich",
       "position": "Visiting Professor",
@@ -64,6 +72,13 @@
       "startDate": "2018-08",
       "endDate": "2019-04",
       "summary": "Faculty of Civil Engineering and Geosciences"
+    },
+    {
+      "name": "Technical University of Denmark",
+      "position": "Visiting researcher",
+      "startDate": "2017-05",
+      "endDate": "2017-05",
+      "summary": "Department of Wind and Energy Systems"
     },
     {
       "name": "Knowledge Centre WMC",
